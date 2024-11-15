@@ -6,7 +6,7 @@ package com.mycompany.proyectoestructuras;
 
 /**
  *
- * @author aldaz
+ * @author Steven Mirabá
  */
 public class CircularDoubleNode<T> {
     T data;                        // Dato almacenado en el nodo
