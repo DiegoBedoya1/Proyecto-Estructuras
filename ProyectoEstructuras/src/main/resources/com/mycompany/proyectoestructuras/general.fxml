@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<VBox id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyectoestructuras.controller.GeneralController">
+    <!-- Barra superior con el buscador y botón para agregar contactos -->
+    <HBox id="buscador" alignment="CENTER" spacing="10" style="-fx-padding: 10; -fx-background-color: #f0f0f0;">
+        <TextField fx:id="searchField" focusTraversable="false" prefHeight="27.0" prefWidth="236.0" promptText="Buscar contacto..." style="-fx-border-color: Blue; -fx-background-radius: 10; -fx-border-radius: 10;" />
+      <Circle id="buscar" fx:id="buscar" fill="DODGERBLUE" radius="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+      <Circle id="añadir" fx:id="añadir" fill="DODGERBLUE" radius="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" />
+    </HBox>
+    
+    <!-- Área de lista de contactos con scroll -->
+    <ScrollPane fx:id="contactScrollPane" fitToWidth="true" prefHeight="487.0" prefWidth="351.0" style="-fx-background: #ffffff;">
+        <VBox fx:id="contactList" spacing="15" style="-fx-padding: 10;" />
+    </ScrollPane>
+</VBox>
