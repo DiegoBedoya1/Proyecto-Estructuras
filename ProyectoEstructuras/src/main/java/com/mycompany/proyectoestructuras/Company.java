@@ -6,8 +6,12 @@ package com.mycompany.proyectoestructuras;
 
 /**
  *
- * @author Steven Mirabá
+ * @author diego
  */
-public class Company {
-    String name;
+public class Company extends Contact {
+
+    public Company(String name, String phoneNumber, Address address, String email, String country) {
+        super(name, phoneNumber, address, email, country);
+    }
+    
 }

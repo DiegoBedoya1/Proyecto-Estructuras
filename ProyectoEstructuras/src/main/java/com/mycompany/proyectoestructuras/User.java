@@ -6,11 +6,8 @@ package com.mycompany.proyectoestructuras;
 
 /**
  *
- * @author Steven Mirabá
+ * @author diego
  */
-public class NaturalPerson {
-   String firstName; 
-   String lastName; 
-   String birthday;
-  
+public class User {
+    
 }
