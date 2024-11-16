@@ -17,20 +17,12 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("general"));
+        FXMLLoader fxmlLoader= new FXMLLoader(App.class .getResource("general.fxml"));
+        Parent root = fxmlLoader.load();
+        scene = new Scene(root);
         stage.setScene(scene);
-        stage.show();
+        stage.show();        
     }
-
-   public static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
-    }
-
-    private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        return fxmlLoader.load();
-    }
-
     public static void main(String[] args) {
         launch();
     }
