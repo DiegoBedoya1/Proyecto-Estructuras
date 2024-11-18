@@ -4,7 +4,7 @@
  */
 package com.mycompany.proyectoestructuras.controller;
 
-import com.mycompany.proyectoestructuras.ArchivoContactos;
+
 import com.mycompany.proyectoestructuras.Contact;
 import com.mycompany.proyectoestructuras.ListaContactos;
 import com.mycompany.proyectoestructuras.Person;
@@ -54,8 +54,7 @@ public class GeneralController implements Initializable {
     @FXML
     private VBox contactList;
     
-    private ListaContactos listaContactos;
-    private ArchivoContactos archivoController;
+
     /**
      * Initializes the controller class.
      * @param url
