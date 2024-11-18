@@ -4,6 +4,9 @@
  */
 package com.mycompany.proyectoestructuras.controller;
 
+import com.mycompany.proyectoestructuras.ArchivoContactos;
+import com.mycompany.proyectoestructuras.Contact;
+import com.mycompany.proyectoestructuras.ListaContactos;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -12,8 +15,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -25,7 +32,8 @@ import javafx.stage.Stage;
  */
 public class GeneralController implements Initializable {
     
-    
+    @FXML
+    private VBox contactListContainer;
     @FXML
     private Circle buscar;
     @FXML
@@ -33,7 +41,8 @@ public class GeneralController implements Initializable {
     @FXML
     private TextField buscador;
     
-
+    private ListaContactos listaContactos;
+    private ArchivoContactos archivoController;
     /**
      * Initializes the controller class.
      * @param url
@@ -49,6 +58,49 @@ public class GeneralController implements Initializable {
         añadir.setOnMouseClicked(event -> {
                 cambiarVentana();
             });
+    }
+    
+    private void agregarContactoAVista(Contact contacto) {
+        // Crear un HBox para cada contacto con su nombre y foto
+        HBox contactBox = new HBox();
+        contactBox.setSpacing(10);
+
+        // Agregar foto
+        ImageView imageView = new ImageView();
+        Image image = new Image(getClass().getResource("/com/mycompany/proyectoestructuras/images/default_contact.png").toExternalForm());
+        imageView.setImage(image);
+        imageView.setFitHeight(50);
+        imageView.setFitWidth(50);
+
+        // Nombre del contacto
+        Label nameLabel = new Label(contacto.getName());
+        
+        // Agregar los elementos al HBox
+        contactBox.getChildren().addAll(imageView, nameLabel);
+
+        // Agregar el HBox al VBox principal
+        contactListContainer.getChildren().add(contactBox);
+
+        // Configurar un evento para abrir la ventana de detalles al hacer clic en el contacto
+        contactBox.setOnMouseClicked(event -> mostrarDetallesContacto(contacto));
+    }
+    
+    private void mostrarDetallesContacto(Contact contacto) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/mycompany/proyectoestructuras/InfoContacto.fxml"));
+            Parent root = fxmlLoader.load();
+
+            
+            InfoContactoController controller = fxmlLoader.getController();
+            //agrgar controller el contacto
+
+            Stage detallesStage = new Stage();
+            detallesStage.setScene(new Scene(root));
+            detallesStage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     public void cambiarVentana(){
