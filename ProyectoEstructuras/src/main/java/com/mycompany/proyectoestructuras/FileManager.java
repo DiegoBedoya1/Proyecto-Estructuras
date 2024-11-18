@@ -7,6 +7,7 @@ package com.mycompany.proyectoestructuras;
 import com.mycompany.proyectoestructuras.structures.MyArrayList;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  *
