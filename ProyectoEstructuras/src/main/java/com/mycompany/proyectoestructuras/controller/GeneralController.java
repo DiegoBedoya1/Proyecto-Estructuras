@@ -6,33 +6,26 @@ package com.mycompany.proyectoestructuras.controller;
 
 import com.mycompany.proyectoestructuras.ArchivoContactos;
 import com.mycompany.proyectoestructuras.Contact;
-import com.mycompany.proyectoestructuras.ListaContactos;
 import com.mycompany.proyectoestructuras.Person;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -54,7 +47,6 @@ public class GeneralController implements Initializable {
     @FXML
     private VBox contactList;
     
-    private ListaContactos listaContactos;
     private ArchivoContactos archivoController;
     /**
      * Initializes the controller class.
@@ -99,7 +91,7 @@ public class GeneralController implements Initializable {
         contactList.getChildren().addAll(contactBox);
         // Agregar foto
         ImageView imageView = new ImageView();
-        Image image = new Image(getClass().getResource("/com/mycompany/proyectoestructuras/images/default_contact.png").toExternalForm());
+        Image image = new Image(getClass().getResource("/com/mycompany/proyectoestructuras/images/fotoDefault.png").toExternalForm());
         imageView.setImage(image);
         imageView.setFitHeight(50);
         imageView.setFitWidth(50);
