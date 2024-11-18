@@ -6,11 +6,13 @@ package com.mycompany.proyectoestructuras;
 
 import com.mycompany.proyectoestructuras.Contact;
 import com.mycompany.proyectoestructuras.structures.CircularDoubleNode;
-import com.mycompany.proyectoestructuras.structures.CircularDoubleNode;
 import com.mycompany.proyectoestructuras.structures.IteratorCircular;
+<<<<<<< HEAD
 import com.mycompany.proyectoestructuras.structures.IteratorCircular;
 import com.mycompany.proyectoestructuras.structures.MyArrayList;
 import com.mycompany.proyectoestructuras.structures.MyCircleDoubleLinkedList;
+=======
+>>>>>>> 2a3124ea104ab05b047bf804a6586a97eda53fc7
 import com.mycompany.proyectoestructuras.structures.MyCircleDoubleLinkedList;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -42,6 +44,7 @@ public class ListaContactos {
         }
         return false;*/
         if(contactos.contains(contacto)){
+<<<<<<< HEAD
              CircularDoubleNode<Contact> actual = contactos.getFirstNode();
             do{
                 if(actual.getData().equals(contacto)){
@@ -60,6 +63,13 @@ public class ListaContactos {
                 actual = actual.getNext();
                 
             }while(actual!=contactos.getFirstNode());
+=======
+             
+            int size = contactos.size();
+            for(int j = 0 ;j<size-1;j++){
+                return true;
+            }
+>>>>>>> 2a3124ea104ab05b047bf804a6586a97eda53fc7
         }
         return false;
     }
@@ -84,10 +94,12 @@ public class ListaContactos {
     
     
     
+    
     public boolean contieneContacto(Contact contacto){
         return contactos.contains(contacto);
     }
     
+<<<<<<< HEAD
     public IteratorCircular<Contact> getIterator() {
         CircularDoubleNode<Contact> actual = contactos.getFirstNode();
         IteratorCircular<Contact> devuelto = new IteratorCircular<>(actual);
@@ -100,6 +112,16 @@ public class ListaContactos {
         // Método para filtrar contactos basado en un criterio específico
         MyArrayList<Contact> resultado = new MyArrayList<>();
     }
+=======
+    public Iterator<CircularDoubleNode> getIterator() {
+        return (Iterator<CircularDoubleNode>) new IteratorCircular<>(contactos.getFirstNode());      
+    }
+    
+    /*public List<Contact> filtrarContactos(Predicate<Contact> criterio) {
+        // Método para filtrar contactos basado en un criterio específico
+        return contactos.stream().filter(criterio).toList();
+    }**/
+>>>>>>> 2a3124ea104ab05b047bf804a6586a97eda53fc7
     
     public void ordenarContactos(Comparator<Contact> comparador) {
         // Puedes implementar el ordenamiento basado en el criterio

@@ -7,22 +7,33 @@ package com.mycompany.proyectoestructuras.controller;
 import com.mycompany.proyectoestructuras.ArchivoContactos;
 import com.mycompany.proyectoestructuras.Contact;
 import com.mycompany.proyectoestructuras.ListaContactos;
+import com.mycompany.proyectoestructuras.Person;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -40,6 +51,8 @@ public class GeneralController implements Initializable {
     private Circle añadir;
     @FXML
     private TextField buscador;
+    @FXML
+    private VBox contactList;
     
     private ListaContactos listaContactos;
     private ArchivoContactos archivoController;
@@ -51,6 +64,11 @@ public class GeneralController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        try{
+            mostrarContactos();
+        }catch(IOException | RuntimeException e){
+            System.out.println("Ha ocurrido un error");
+        }
         Image img1 = new Image(getClass().getResource("/com/mycompany/proyectoestructuras/images/buscar.png").toExternalForm());
         Image img2 = new Image(getClass().getResource("/com/mycompany/proyectoestructuras/images/añadir.png").toExternalForm());
         buscar.setFill(new ImagePattern(img1));
@@ -59,12 +77,26 @@ public class GeneralController implements Initializable {
                 cambiarVentana();
             });
     }
+    /*
+    @Override
+    
+    public void initialize(URL url, ResourceBundle rb) {
+        try{
+        cargarCombo();
+        }catch(IOException | RuntimeException e){
+            System.out.println("Ha ocurrido un error");
+            root.getChildren().clear();
+            root.getChildren().add(new Label("Ha ocurrido un error"));
+        }
+        
+    }
+    */
     
     private void agregarContactoAVista(Contact contacto) {
         // Crear un HBox para cada contacto con su nombre y foto
         HBox contactBox = new HBox();
         contactBox.setSpacing(10);
-
+        contactList.getChildren().addAll(contactBox);
         // Agregar foto
         ImageView imageView = new ImageView();
         Image image = new Image(getClass().getResource("/com/mycompany/proyectoestructuras/images/default_contact.png").toExternalForm());
@@ -79,7 +111,7 @@ public class GeneralController implements Initializable {
         contactBox.getChildren().addAll(imageView, nameLabel);
 
         // Agregar el HBox al VBox principal
-        contactListContainer.getChildren().add(contactBox);
+        contactList.getChildren().add(contactBox);
 
         // Configurar un evento para abrir la ventana de detalles al hacer clic en el contacto
         contactBox.setOnMouseClicked(event -> mostrarDetallesContacto(contacto));
@@ -101,6 +133,35 @@ public class GeneralController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    @FXML
+    public void mostrarContactos() throws IOException {
+        // Crear un HBox para cada contacto con su nombre y foto     
+        ArrayList<Contact> contactos=Contact.cargarContactos("Contactos.txt");
+        for(Contact con:contactos){
+            VBox datosC = new VBox();
+            datosC.setSpacing(10);
+            datosC.setAlignment(Pos.CENTER_LEFT);
+            Region linea = new Region();
+            linea.setMinHeight(1);
+            linea.setStyle("-fx-background-color: black;");
+            Label nombres = new Label();
+            nombres.setFont(Font.font("Arial", 14));
+            if("person".equals(con.getTipo().toLowerCase())){
+                Person per = (Person) con;
+                nombres.setText(per.getName()+per.getLastName());
+                datosC.getChildren().add(nombres);
+                contactList.getChildren().add(datosC);
+                contactList.getChildren().add(linea);
+            }else{
+                nombres.setText(con.getName());
+                datosC.getChildren().addAll(nombres);
+                contactList.getChildren().add(datosC);
+                contactList.getChildren().add(linea);
+            }
+        }
+        contactList.setOnMouseClicked(event -> mostrarDetallesContacto(contactos.get(0)));
     }
     
     public void cambiarVentana(){

@@ -65,6 +65,7 @@ public class MyCircleDoubleLinkedList<T> {
         return head.getData();
     }
     
+<<<<<<< HEAD
     public CircularDoubleNode<T> getFirstNode() {
         return head;  // Devuelve la referencia al nodo cabeza
     }
@@ -77,6 +78,13 @@ public class MyCircleDoubleLinkedList<T> {
         if (size > 0) {
             size--;
         }
+=======
+    public CircularDoubleNode getFirstNode() {
+        if (head == null) {
+            return null;
+        }
+        return head;
+>>>>>>> 2a3124ea104ab05b047bf804a6586a97eda53fc7
     }
 
     // Método para obtener el último elemento de la lista
