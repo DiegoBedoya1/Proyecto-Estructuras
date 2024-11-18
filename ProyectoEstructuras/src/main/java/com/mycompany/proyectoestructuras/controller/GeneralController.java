@@ -7,18 +7,25 @@ package com.mycompany.proyectoestructuras.controller;
 import com.mycompany.proyectoestructuras.ArchivoContactos;
 import com.mycompany.proyectoestructuras.Contact;
 import com.mycompany.proyectoestructuras.ListaContactos;
+import com.mycompany.proyectoestructuras.Person;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
@@ -51,6 +58,13 @@ public class GeneralController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        try{
+            mostrarContactos();
+        }catch(IOException | RuntimeException e){
+            System.out.println("Ha ocurrido un error");
+            contactListContainer.getChildren().clear();
+            contactListContainer.getChildren().add(new Label("Ha ocurrido un error"));
+        }
         Image img1 = new Image(getClass().getResource("/com/mycompany/proyectoestructuras/images/buscar.png").toExternalForm());
         Image img2 = new Image(getClass().getResource("/com/mycompany/proyectoestructuras/images/añadir.png").toExternalForm());
         buscar.setFill(new ImagePattern(img1));
@@ -59,12 +73,26 @@ public class GeneralController implements Initializable {
                 cambiarVentana();
             });
     }
+    /*
+    @Override
+    
+    public void initialize(URL url, ResourceBundle rb) {
+        try{
+        cargarCombo();
+        }catch(IOException | RuntimeException e){
+            System.out.println("Ha ocurrido un error");
+            root.getChildren().clear();
+            root.getChildren().add(new Label("Ha ocurrido un error"));
+        }
+        
+    }
+    */
     
     private void agregarContactoAVista(Contact contacto) {
         // Crear un HBox para cada contacto con su nombre y foto
         HBox contactBox = new HBox();
         contactBox.setSpacing(10);
-
+        
         // Agregar foto
         ImageView imageView = new ImageView();
         Image image = new Image(getClass().getResource("/com/mycompany/proyectoestructuras/images/default_contact.png").toExternalForm());
@@ -101,6 +129,31 @@ public class GeneralController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    @FXML
+    public void mostrarContactos() throws IOException {
+        // Crear un HBox para cada contacto con su nombre y foto
+        HBox contactBox = new HBox();
+        contactBox.setSpacing(10);
+        ArrayList<Contact> contactos=Contact.cargarContactos("Contactos.txt");
+        for(Contact con:contactos){
+            HBox datosC = new HBox();
+            datosC.setSpacing(10);
+            Label nombres = new Label();
+            if("person".equals(con.getTipo().toLowerCase())){
+                Person per = (Person) con;
+                nombres.setText(per.getName()+per.getLastName());
+                datosC.getChildren().addAll(nombres);
+                contactBox.getChildren().addAll(datosC);
+            }else{
+                nombres.setText(con.getName());
+                datosC.getChildren().addAll(nombres);
+                contactBox.getChildren().addAll(datosC);
+            }
+        }
+        contactListContainer.getChildren().add(contactBox);
+        //contactBox.setOnMouseClicked(event -> mostrarDetallesContacto());
     }
     
     public void cambiarVentana(){

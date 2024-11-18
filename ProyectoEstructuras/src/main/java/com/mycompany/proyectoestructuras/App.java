@@ -12,7 +12,7 @@ import java.io.IOException;
  * JavaFX App
  */
 public class App extends Application {
-
+    public static String pathFiles="/com/mycompany/proyectoestructuras/files/";
     private static Scene scene;
 
     @Override

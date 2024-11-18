@@ -11,8 +11,8 @@ package com.mycompany.proyectoestructuras;
 public class Person extends Contact{
     private String lastName;
 
-    public Person(String lastName, String name, String phoneNumber, Address address, String email,String country) {
-        super(name, phoneNumber, address, email,country);
+    public Person(String tipo,String name, String lastName, String phoneNumber, Address address, String email,String country) {
+        super(tipo,name, phoneNumber, address, email,country);
         this.lastName = lastName;
     }
 

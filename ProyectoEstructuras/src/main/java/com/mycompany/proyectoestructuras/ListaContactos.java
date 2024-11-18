@@ -6,10 +6,7 @@ package com.mycompany.proyectoestructuras;
 
 import com.mycompany.proyectoestructuras.Contact;
 import com.mycompany.proyectoestructuras.structures.CircularDoubleNode;
-import com.mycompany.proyectoestructuras.structures.CircularDoubleNode;
 import com.mycompany.proyectoestructuras.structures.IteratorCircular;
-import com.mycompany.proyectoestructuras.structures.IteratorCircular;
-import com.mycompany.proyectoestructuras.structures.MyCircleDoubleLinkedList;
 import com.mycompany.proyectoestructuras.structures.MyCircleDoubleLinkedList;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -44,9 +41,10 @@ public class ListaContactos {
              
             int size = contactos.size();
             for(int j = 0 ;j<size-1;j++){
-                
+                return true;
             }
         }
+        return false;
     }
     
    /* private void eliminarNodo(Contact contacto){
@@ -69,18 +67,19 @@ public class ListaContactos {
     
     
     
+    
     public boolean contieneContacto(Contact contacto){
         return contactos.contains(contacto);
     }
     
-    public Iterator<Contact> getIterator() {
-        return new IteratorCircular<>(contactos.getFirstNode());      
+    public Iterator<CircularDoubleNode> getIterator() {
+        return (Iterator<CircularDoubleNode>) new IteratorCircular<>(contactos.getFirstNode());      
     }
     
-    public List<Contact> filtrarContactos(Predicate<Contact> criterio) {
+    /*public List<Contact> filtrarContactos(Predicate<Contact> criterio) {
         // Método para filtrar contactos basado en un criterio específico
         return contactos.stream().filter(criterio).toList();
-    }
+    }**/
     
     public void ordenarContactos(Comparator<Contact> comparador) {
         // Puedes implementar el ordenamiento basado en el criterio

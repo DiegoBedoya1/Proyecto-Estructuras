@@ -64,6 +64,13 @@ public class MyCircleDoubleLinkedList<T> {
         }
         return head.getData();
     }
+    
+    public CircularDoubleNode getFirstNode() {
+        if (head == null) {
+            return null;
+        }
+        return head;
+    }
 
     // Método para obtener el último elemento de la lista
     // Complejidad O(1) ya que accede directamente al último nodo
