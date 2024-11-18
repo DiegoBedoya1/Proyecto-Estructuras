@@ -11,17 +11,17 @@
 <?import javafx.scene.text.Text?>
 
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="646.0" prefWidth="519.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="646.0" prefWidth="519.0" style="-fx-background-color: GREY;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyectoestructuras.controller.AñadirVentanaController">
    <children>
-      <ScrollPane prefHeight="646.0" prefWidth="522.0">
+      <ScrollPane prefHeight="646.0" prefWidth="522.0" style="-fx-background-color: GREY;">
          <content>
-            <VBox prefHeight="644.0" prefWidth="518.0">
+            <VBox prefHeight="644.0" prefWidth="518.0" style="-fx-background-color: GREY;">
                <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="62.0" prefWidth="501.0" spacing="200.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="62.0" prefWidth="526.0" spacing="200.0" style="-fx-background-color: GREY;">
                      <children>
                         <HBox alignment="CENTER_LEFT" prefHeight="58.0" prefWidth="293.0" spacing="15.0">
                            <children>
-                              <Circle fx:id="cancelar" fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                              <Circle fx:id="cancelar" fill="DODGERBLUE" radius="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Crear contacto" textAlignment="CENTER" wrappingWidth="126.41912889480591">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
@@ -49,48 +49,48 @@
                         <Insets />
                      </opaqueInsets>
                   </HBox>
-                  <VBox alignment="CENTER" prefHeight="194.0" prefWidth="495.0" spacing="20.0">
+                  <VBox alignment="CENTER" prefHeight="194.0" prefWidth="495.0" spacing="20.0" style="-fx-background-color: GREY;">
                      <children>
-                        <Circle fx:id="foto" fill="DODGERBLUE" radius="78.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Agregar foto" />
+                        <Circle fx:id="foto" fill="DODGERBLUE" radius="50.0" stroke="DODGERBLUE" strokeType="INSIDE" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Agregar foto" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="19.0" />
+                           </font>
+                        </Text>
                      </children>
                   </VBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="79.0" prefWidth="534.0" spacing="50.0">
+                  <HBox alignment="CENTER" prefHeight="79.0" prefWidth="534.0" style="-fx-background-color: GREY;">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nombres :" />
-                        <TextField fx:id="TfNombre" />
+                        <TextField fx:id="TfNombre" prefHeight="26.0" prefWidth="190.0" promptText="Nombre" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #1e90ff;" />
                      </children>
-                     <padding>
-                        <Insets left="50.0" />
-                     </padding>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="79.0" prefWidth="534.0" spacing="50.0">
+                  <HBox alignment="CENTER" prefHeight="79.0" prefWidth="534.0" style="-fx-background-color: GREY;">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Apellidos :" />
-                        <TextField fx:id="TfApellido" />
+                        <TextField fx:id="TfApellido" prefHeight="26.0" prefWidth="190.0" promptText="Apellido" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #1e90ff;" />
                      </children>
-                     <padding>
-                        <Insets left="50.0" />
-                     </padding>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="79.0" prefWidth="534.0" spacing="50.0">
+                  <HBox alignment="CENTER" prefHeight="79.0" prefWidth="534.0" style="-fx-background-color: GREY;">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Empresa :" />
-                        <TextField fx:id="TfEmpresa" />
+                        <TextField fx:id="TfEmpresa" prefHeight="26.0" prefWidth="190.0" promptText="Empresa" style="-fx-border-color: #1e90ff; -fx-background-radius: 15; -fx-border-radius: 15;" />
                      </children>
-                     <padding>
-                        <Insets left="50.0" />
-                     </padding>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="79.0" prefWidth="534.0" spacing="50.0">
+                  <HBox alignment="CENTER" prefHeight="79.0" prefWidth="534.0" spacing="10.0" style="-fx-background-color: GREY;">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Telefono :" />
-                        <TextField fx:id="TfTelefono" />
+                        <TextField fx:id="TfTelefono" prefHeight="27.0" prefWidth="185.0" promptText="Telefono" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-border-color: #1e90ff;">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </TextField>
+                        <Circle fx:id="añadirTelefono" fill="DODGERBLUE" radius="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
                      </children>
-                     <padding>
-                        <Insets left="50.0" />
-                     </padding>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets left="30.0" />
+                     </VBox.margin>
                   </HBox>
+                  <VBox fx:id="contTelefonosExtra" alignment="CENTER" prefHeight="58.0" prefWidth="518.0" style="-fx-background-color: GREY;" />
                </children>
             </VBox>
          </content>
