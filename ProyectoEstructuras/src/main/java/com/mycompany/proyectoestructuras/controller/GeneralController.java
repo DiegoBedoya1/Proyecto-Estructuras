@@ -32,6 +32,7 @@ public class GeneralController implements Initializable {
     private Circle añadir;
     @FXML
     private TextField buscador;
+    
 
     /**
      * Initializes the controller class.

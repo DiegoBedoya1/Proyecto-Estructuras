@@ -1,11 +1,132 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyectoestructuras.controller.AñadirVentanaController">
-    
-</AnchorPane>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="646.0" prefWidth="516.0" style="-fx-background-color: GREY;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyectoestructuras.controller.AñadirVentanaController">
+   <children>
+      <ScrollPane prefHeight="646.0" prefWidth="522.0" style="-fx-background-color: GREY;">
+         <content>
+            <VBox prefHeight="646.0" prefWidth="512.0" style="-fx-background-color: GREY;">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="62.0" prefWidth="526.0" spacing="200.0" style="-fx-background-color: GREY;">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="58.0" prefWidth="293.0" spacing="15.0">
+                           <children>
+                              <Circle fx:id="cancelar" fill="DODGERBLUE" radius="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Circle>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Crear contacto" textAlignment="CENTER" wrappingWidth="126.41912889480591">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="58.0" prefWidth="204.0">
+                           <children>
+                              <Button fx:id="guardar" alignment="CENTER" mnemonicParsing="false" prefHeight="36.0" prefWidth="79.0" style="-fx-background-radius: 20; -fx-border-radius: 15; -fx-border-color: black; -fx-background-color: #1e90ff;" text="Guardar" textFill="#0a0a0b">
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+                  <VBox alignment="CENTER" prefHeight="194.0" prefWidth="495.0" spacing="20.0" style="-fx-background-color: GREY;">
+                     <children>
+                        <Circle fx:id="foto" fill="DODGERBLUE" radius="50.0" stroke="DODGERBLUE" strokeType="INSIDE" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Agregar foto">
+                           <font>
+                              <Font name="System Bold" size="19.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" prefHeight="55.0" prefWidth="512.0" style="-fx-background-color: GREY;">
+                     <children>
+                        <TextField fx:id="TfNombre" prefHeight="26.0" prefWidth="190.0" promptText="Nombre" style="-fx-background-radius: 20; -fx-border-radius: 15; -fx-border-color: #1e90ff; -fx-border-width: 5;" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="55.0" prefWidth="534.0" style="-fx-background-color: GREY;">
+                     <children>
+                        <TextField fx:id="TfApellido" prefHeight="26.0" prefWidth="190.0" promptText="Apellido" style="-fx-background-radius: 20; -fx-border-radius: 15; -fx-border-color: #1e90ff; -fx-border-width: 5;" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="55.0" prefWidth="534.0" style="-fx-background-color: GREY;">
+                     <children>
+                        <TextField fx:id="TfEmpresa" prefHeight="26.0" prefWidth="190.0" promptText="Empresa" style="-fx-border-color: #1e90ff; -fx-background-radius: 20; -fx-border-radius: 15; -fx-border-width: 5;" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="55.0" prefWidth="534.0" spacing="5.0" style="-fx-background-color: GREY;">
+                     <children>
+                        <TextField fx:id="TfTelefono" prefHeight="26.0" prefWidth="190.0" promptText="Telefono" style="-fx-background-radius: 20; -fx-border-radius: 15; -fx-border-color: #1e90ff; -fx-border-width: 5;">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </TextField>
+                        <Circle fx:id="añadirTelefono" fill="DODGERBLUE" radius="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Circle>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                  </HBox>
+                  <VBox fx:id="contTelefonosExtra" alignment="CENTER" prefHeight="38.0" prefWidth="515.0" style="-fx-background-color: GREY;" />
+                  <HBox alignment="CENTER" prefHeight="82.0" prefWidth="512.0" spacing="50.0">
+                     <children>
+                        <Circle fx:id="fecha" fill="DODGERBLUE" radius="30.0" stroke="DODGERBLUE" strokeWidth="0.0">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Circle>
+                        <Circle fx:id="ubi" fill="DODGERBLUE" radius="30.0" stroke="DODGERBLUE" strokeWidth="0.0">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Circle>
+                        <Circle fx:id="email" fill="DODGERBLUE" radius="30.0" stroke="DODGERBLUE" strokeWidth="0.0">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Circle>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</VBox>
