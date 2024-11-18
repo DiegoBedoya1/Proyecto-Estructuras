@@ -9,6 +9,7 @@ import com.mycompany.proyectoestructuras.structures.CircularDoubleNode;
 import com.mycompany.proyectoestructuras.structures.CircularDoubleNode;
 import com.mycompany.proyectoestructuras.structures.IteratorCircular;
 import com.mycompany.proyectoestructuras.structures.IteratorCircular;
+import com.mycompany.proyectoestructuras.structures.MyArrayList;
 import com.mycompany.proyectoestructuras.structures.MyCircleDoubleLinkedList;
 import com.mycompany.proyectoestructuras.structures.MyCircleDoubleLinkedList;
 import java.util.Comparator;
@@ -32,21 +33,35 @@ public class ListaContactos {
     }
     
     public boolean eliminarContacto(Contact contacto){
-        /*if(contactos.isEmpty()){
+        if(contactos.isEmpty()){
             return false;
         }
-        if(contactos.contains(contacto)){
+        /*if(contactos.contains(contacto)){
             eliminarNodo(contacto);
             return true;
         }
         return false;*/
         if(contactos.contains(contacto)){
-             
-            int size = contactos.size();
-            for(int j = 0 ;j<size-1;j++){
+             CircularDoubleNode<Contact> actual = contactos.getFirstNode();
+            do{
+                if(actual.getData().equals(contacto)){
+                    CircularDoubleNode<Contact> anterior = actual.getPrevious();
+                    CircularDoubleNode<Contact> siguiente = actual.getNext();
+                    anterior.setNext(siguiente); 
+                    siguiente.setPrevious(anterior);
+                    
+                    if (actual == contactos.getFirstNode()){
+                        contactos.setFirstNode(siguiente);
+                    }
+                    
+                    contactos.decreaseSize() ;
+                    return true;
+                }
+                actual = actual.getNext();
                 
-            }
+            }while(actual!=contactos.getFirstNode());
         }
+        return false;
     }
     
    /* private void eliminarNodo(Contact contacto){
@@ -73,13 +88,17 @@ public class ListaContactos {
         return contactos.contains(contacto);
     }
     
-    public Iterator<Contact> getIterator() {
-        return new IteratorCircular<>(contactos.getFirstNode());      
+    public IteratorCircular<Contact> getIterator() {
+        CircularDoubleNode<Contact> actual = contactos.getFirstNode();
+        IteratorCircular<Contact> devuelto = new IteratorCircular<>(actual);
+        return  devuelto;
     }
     
-    public List<Contact> filtrarContactos(Predicate<Contact> criterio) {
+    
+    
+    public MyArrayList<Contact> filtrarContactos(Predicate<Contact> criterio) {
         // Método para filtrar contactos basado en un criterio específico
-        return contactos.stream().filter(criterio).toList();
+        MyArrayList<Contact> resultado = new MyArrayList<>();
     }
     
     public void ordenarContactos(Comparator<Contact> comparador) {
