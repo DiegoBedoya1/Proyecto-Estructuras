@@ -139,7 +139,7 @@ public class GeneralController implements Initializable {
             nombres.setFont(Font.font("Arial", 14));
             if("person".equals(con.getTipo().toLowerCase())){
                 Person per = (Person) con;
-                nombres.setText(per.getName()+per.getLastName());
+                nombres.setText(per.getName()+" "+per.getLastName());
                 datosC.getChildren().add(nombres);
                 contactList.getChildren().add(datosC);
                 contactList.getChildren().add(linea);
