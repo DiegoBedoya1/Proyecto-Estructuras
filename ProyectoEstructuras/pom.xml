@@ -20,6 +20,12 @@
             <version>13</version>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <version>24-ea+15</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
