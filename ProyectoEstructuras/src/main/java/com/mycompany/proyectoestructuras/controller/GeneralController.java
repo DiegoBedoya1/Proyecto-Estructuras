@@ -4,7 +4,6 @@
  */
 package com.mycompany.proyectoestructuras.controller;
 
-import com.mycompany.proyectoestructuras.ArchivoContactos;
 import com.mycompany.proyectoestructuras.Contact;
 import com.mycompany.proyectoestructuras.Person;
 import java.io.IOException;
@@ -46,8 +45,6 @@ public class GeneralController implements Initializable {
     private TextField buscador;
     @FXML
     private VBox contactList;
-    
-    private ArchivoContactos archivoController;
     /**
      * Initializes the controller class.
      * @param url
