@@ -5,8 +5,10 @@
 package com.mycompany.proyectoestructuras;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -78,14 +80,13 @@ public abstract class Contact {
         this.country = country;
     }
       
-    public static ArrayList<Contact> cargarContactos(String nameFile){
+    public static ArrayList<Contact> cargarContactos(String fileName){
         ArrayList<Contact> c = new ArrayList<>();
-        try(BufferedReader br = new BufferedReader(new FileReader(App.pathFiles+nameFile))){
+        try(BufferedReader br = new BufferedReader(new FileReader(App.pathFiles+fileName))){
             String linea;
             while((linea = br.readLine()) != null){
                 String[] datos = linea.split(",");
                 String tipo = datos[0].toLowerCase();
-                
                 Address address=null;
                         
                 if(tipo.equals("person")){
@@ -113,9 +114,9 @@ public abstract class Contact {
                     }else{
                         address = new Address(datos[4]);
                     }
-                    String email = datos[5];
-                    String country = datos[6];
-                    String webPage = datos[7];
+                    String email = datos[6];
+                    String country = datos[7];
+                    String webPage = datos[8];
                     
                      Company company = new Company(tipo,name, phoneNumber, RUC,address, email, country,webPage);
                      c.add(company);
@@ -126,5 +127,14 @@ public abstract class Contact {
             e.printStackTrace();
         }
         return c;
+    }
+    
+    public void guardarContactos(String tipo,String linea){
+        try(BufferedWriter wr = new BufferedWriter(new FileWriter(App.pathFiles+"Contactos.txt"))){
+            wr.write(linea);
+            wr.newLine();         
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 }

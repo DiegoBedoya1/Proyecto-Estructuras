@@ -4,6 +4,11 @@
  */
 package com.mycompany.proyectoestructuras.controller;
 
+import com.mycompany.proyectoestructuras.Address;
+import com.mycompany.proyectoestructuras.App;
+import com.mycompany.proyectoestructuras.Company;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;

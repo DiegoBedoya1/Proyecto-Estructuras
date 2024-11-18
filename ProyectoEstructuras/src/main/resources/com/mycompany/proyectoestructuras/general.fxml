@@ -26,6 +26,6 @@
     
     <!-- Área de lista de contactos con scroll -->
     <ScrollPane fx:id="contactScrollPane" fitToWidth="true" prefHeight="487.0" prefWidth="351.0" style="-fx-background: GREY;">
-        <VBox fx:id="contactList" spacing="15" style="-fx-padding: 10;" />
+        <VBox fx:id="contactList" prefHeight="0.0" prefWidth="358.0" spacing="15" style="-fx-padding: 10;" />
     </ScrollPane>
 </VBox>
