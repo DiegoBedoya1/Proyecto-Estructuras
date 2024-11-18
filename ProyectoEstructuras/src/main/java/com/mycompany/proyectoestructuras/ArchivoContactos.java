@@ -1,4 +1,4 @@
-package com.mycompany.proyectoestructuras.controller;
+package com.mycompany.proyectoestructuras;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -18,10 +18,10 @@ import java.io.IOException;
  */
 
 
-public class ArchivoContactosController {
+public class ArchivoContactos {
     private MyCircleDoubleLinkedList<Contact> listaContactos;
     
-    public ArchivoContactosController(){
+    public ArchivoContactos(){
         this.listaContactos = new MyCircleDoubleLinkedList<>();
     }
     
