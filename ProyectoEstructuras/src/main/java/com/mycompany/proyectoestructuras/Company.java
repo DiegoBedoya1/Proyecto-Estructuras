@@ -9,9 +9,12 @@ package com.mycompany.proyectoestructuras;
  * @author diego
  */
 public class Company extends Contact {
-
-    public Company(String name, String phoneNumber, Address address, String email, String country) {
-        super(name, phoneNumber, address, email, country);
+    String RUC;
+    String webPage;
+    public Company(String tipo,String name, String phoneNumber, String RUC,Address address, String email, String country,String webPage) {
+        super(tipo,name, phoneNumber, address, email, country);
+        this.RUC=RUC;
+        this.webPage=webPage;
     }
     
 }
