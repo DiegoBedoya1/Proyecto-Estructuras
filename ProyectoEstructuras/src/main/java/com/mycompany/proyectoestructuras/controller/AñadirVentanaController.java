@@ -37,12 +37,11 @@ import javafx.stage.Stage;
  */
 public class AñadirVentanaController implements Initializable {
     
-    
-    
-    @FXML
-    Circle añadirTelefono;
     @FXML
     Circle foto;
+    
+    /*@FXML
+    Circle añadirTelefono;
     @FXML
     Circle cancelar;
     @FXML
@@ -53,6 +52,7 @@ public class AñadirVentanaController implements Initializable {
     Circle fecha;
     @FXML
     Button guardar;
+    */
     @FXML
     Label btListo;
     @FXML
@@ -96,17 +96,15 @@ public class AñadirVentanaController implements Initializable {
         
         btListo.setOnMouseClicked(event -> {
                 guardarContactos();
-            });
-        
-        btListo.setOnMouseClicked(event -> {
                 volverVentana();
+                cerrarVentana();
             });
         
         btCancelar.setOnMouseClicked(event -> {
                 volverVentana();
             });
         
-        email.setOnMouseClicked(event -> {
+        /*email.setOnMouseClicked(event -> {
                 cambiarVentanaEmail();
             });
                 
@@ -119,13 +117,14 @@ public class AñadirVentanaController implements Initializable {
         ubi.setOnMouseClicked(event -> {
                 cambiarVentanaUbi();
             });
+*/
     }
     
     public void guardarContactos(){
         String linea="";
         if(tfnom.getText().isEmpty() && tfape.getText().isEmpty()){
             linea="Compania"+","+tfemp.getText()+","+tftel.getText()+","+tfruc.getText()+","+tfdir.getText()+","+tfurl.getText()+","+tfemail.getText()+","+tfpais.getText()+","+tfweb.getText();
-        }else{
+        }else if(!tfnom.getText().isEmpty()){
             linea="Person"+","+tfnom.getText()+","+tfape.getText()+","+tftel.getText()+","+tfdir.getText()+","+tfurl.getText()+","+tfemail.getText()+","+tfpais.getText();
         }
         
@@ -163,11 +162,11 @@ public class AñadirVentanaController implements Initializable {
         contTelefonosExtra.getChildren().add(nuevoTelefono);
     }
     
-    private void cerrarVentana( ) {
+    /*private void cerrarVentana( ) {
         // Obtener la Stage actual y cerrarla
         Stage stage = (Stage) cancelar.getScene().getWindow();
         stage.close();
-    }
+    }*/
     
     public void cambiarVentanaUbi(){
         try {
@@ -224,5 +223,10 @@ public class AñadirVentanaController implements Initializable {
             e.printStackTrace();
         }
     }
+    
+    public void cerrarVentana() {
+    Stage stage = (Stage) foto.getScene().getWindow();
+    stage.close(); 
+}
     
 }
