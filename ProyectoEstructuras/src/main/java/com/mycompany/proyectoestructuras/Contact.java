@@ -131,8 +131,8 @@ public abstract class Contact {
 
 
     
-    public void guardarContactos(String tipo,String linea){
-        try(BufferedWriter wr = new BufferedWriter(new FileWriter(App.pathFiles+"Contactos.txt"))){
+    public static void guardarContactos(String linea){
+        try(BufferedWriter wr = new BufferedWriter(new FileWriter(App.pathFiles+"Contactos.txt",true))){
             wr.write(linea);
             wr.newLine();         
         }catch(IOException e){

@@ -1,132 +1,109 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="646.0" prefWidth="516.0" style="-fx-background-color: GREY;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyectoestructuras.controller.AñadirVentanaController">
-   <children>
-      <ScrollPane prefHeight="646.0" prefWidth="522.0" style="-fx-background-color: GREY;">
-         <content>
-            <VBox prefHeight="646.0" prefWidth="512.0" style="-fx-background-color: GREY;">
+<Pane prefHeight="548.0" prefWidth="360.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyectoestructuras.controller.AñadirVentanaController">
+         <children>
+            <Pane prefHeight="23.0" prefWidth="360.0">
                <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="62.0" prefWidth="526.0" spacing="200.0" style="-fx-background-color: GREY;">
+                  <Label layoutX="128.0" layoutY="18.0" text="Nuevo contacto" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="btCancelar" layoutX="14.0" layoutY="13.0" text="Cancelar" textFill="#0704bc">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="btListo" layoutX="308.0" layoutY="12.0" text="Listo" textFill="#0704bc">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <ScrollPane layoutY="43.0" prefHeight="511.0" prefWidth="360.0" style="-fx-background-color: GREY;">
+               <content>
+                  <VBox prefHeight="505.0" prefWidth="360.0" style="-fx-background-color: BLACK;">
                      <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="58.0" prefWidth="293.0" spacing="15.0">
+                        <VBox alignment="CENTER" prefHeight="136.0" prefWidth="360.0" spacing="5.0" style="-fx-background-color: BLACK;">
                            <children>
-                              <Circle fx:id="cancelar" fill="DODGERBLUE" radius="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </Circle>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Crear contacto" textAlignment="CENTER" wrappingWidth="126.41912889480591">
+                              <Circle fx:id="foto" fill="DODGERBLUE" radius="50.0" stroke="#262728" strokeType="INSIDE" />
+                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Agregar foto">
                                  <font>
-                                    <Font name="System Bold" size="18.0" />
+                                    <Font name="System Bold" size="19.0" />
                                  </font>
                               </Text>
                            </children>
-                           <padding>
-                              <Insets left="10.0" />
-                           </padding>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="58.0" prefWidth="204.0">
-                           <children>
-                              <Button fx:id="guardar" alignment="CENTER" mnemonicParsing="false" prefHeight="36.0" prefWidth="79.0" style="-fx-background-radius: 20; -fx-border-radius: 15; -fx-border-color: black; -fx-background-color: #1e90ff;" text="Guardar" textFill="#0a0a0b">
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                                 <font>
-                                    <Font name="System Bold" size="13.0" />
-                                 </font>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </Button>
-                           </children>
-                        </HBox>
-                     </children>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                  </HBox>
-                  <VBox alignment="CENTER" prefHeight="194.0" prefWidth="495.0" spacing="20.0" style="-fx-background-color: GREY;">
+                        </VBox>
+                  <VBox prefHeight="363.0" prefWidth="360.0">
                      <children>
-                        <Circle fx:id="foto" fill="DODGERBLUE" radius="50.0" stroke="DODGERBLUE" strokeType="INSIDE" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Agregar foto">
+                        <TextField fx:id="tfnom" prefHeight="32.0" prefWidth="360.0" promptText="Nombre" style="-fx-background-color: #262728; -fx-background-radius: transparent;">
                            <font>
-                              <Font name="System Bold" size="19.0" />
+                              <Font size="13.0" />
                            </font>
-                        </Text>
+                        </TextField>
+                        <TextField fx:id="tfape" prefHeight="32.0" prefWidth="360.0" promptText="Apellido" style="-fx-background-color: #262728; -fx-background-radius: transparent;">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="tfemp" prefHeight="32.0" prefWidth="360.0" promptText="Empresa" style="-fx-background-color: #262728; -fx-background-radius: transparent;">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </TextField>
+                        <VBox prefHeight="25.0" prefWidth="360.0" />
+                        <TextField fx:id="tftel" prefHeight="32.0" prefWidth="360.0" promptText="Número de teléfono" style="-fx-background-color: #262728; -fx-background-radius: transparent;">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </TextField>
+                        <VBox prefHeight="25.0" prefWidth="360.0" />
+                        <TextField fx:id="tfdir" prefHeight="32.0" prefWidth="360.0" promptText="Dirección" style="-fx-background-color: #262728; -fx-background-radius: transparent;">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="tfurl" prefHeight="32.0" prefWidth="360.0" promptText="Url" style="-fx-background-color: #262728; -fx-background-radius: transparent;">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="tfpais" prefHeight="32.0" prefWidth="360.0" promptText="País" style="-fx-background-color: #262728; -fx-background-radius: transparent;">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </TextField>
+                        <VBox prefHeight="25.0" prefWidth="360.0" />
+                        <TextField fx:id="tfemail" prefHeight="32.0" prefWidth="360.0" promptText="Email" style="-fx-background-color: #262728; -fx-background-radius: transparent;">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="tfruc" prefHeight="32.0" prefWidth="360.0" promptText="RUC" style="-fx-background-color: #262728; -fx-background-radius: transparent;">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="tfweb" prefHeight="32.0" prefWidth="360.0" promptText="Página web" style="-fx-background-color: #262728; -fx-background-radius: transparent;">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </TextField>
                      </children>
                   </VBox>
-                  <HBox alignment="CENTER" prefHeight="55.0" prefWidth="512.0" style="-fx-background-color: GREY;">
-                     <children>
-                        <TextField fx:id="TfNombre" prefHeight="26.0" prefWidth="190.0" promptText="Nombre" style="-fx-background-radius: 20; -fx-border-radius: 15; -fx-border-color: #1e90ff; -fx-border-width: 5;" />
                      </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="55.0" prefWidth="534.0" style="-fx-background-color: GREY;">
-                     <children>
-                        <TextField fx:id="TfApellido" prefHeight="26.0" prefWidth="190.0" promptText="Apellido" style="-fx-background-radius: 20; -fx-border-radius: 15; -fx-border-color: #1e90ff; -fx-border-width: 5;" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="55.0" prefWidth="534.0" style="-fx-background-color: GREY;">
-                     <children>
-                        <TextField fx:id="TfEmpresa" prefHeight="26.0" prefWidth="190.0" promptText="Empresa" style="-fx-border-color: #1e90ff; -fx-background-radius: 20; -fx-border-radius: 15; -fx-border-width: 5;" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="55.0" prefWidth="534.0" spacing="5.0" style="-fx-background-color: GREY;">
-                     <children>
-                        <TextField fx:id="TfTelefono" prefHeight="26.0" prefWidth="190.0" promptText="Telefono" style="-fx-background-radius: 20; -fx-border-radius: 15; -fx-border-color: #1e90ff; -fx-border-width: 5;">
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                        </TextField>
-                        <Circle fx:id="añadirTelefono" fill="DODGERBLUE" radius="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Circle>
-                     </children>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                     <padding>
-                        <Insets left="30.0" />
-                     </padding>
-                  </HBox>
-                  <VBox fx:id="contTelefonosExtra" alignment="CENTER" prefHeight="38.0" prefWidth="515.0" style="-fx-background-color: GREY;" />
-                  <HBox alignment="CENTER" prefHeight="82.0" prefWidth="512.0" spacing="50.0">
-                     <children>
-                        <Circle fx:id="fecha" fill="DODGERBLUE" radius="30.0" stroke="DODGERBLUE" strokeWidth="0.0">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Circle>
-                        <Circle fx:id="ubi" fill="DODGERBLUE" radius="30.0" stroke="DODGERBLUE" strokeWidth="0.0">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Circle>
-                        <Circle fx:id="email" fill="DODGERBLUE" radius="30.0" stroke="DODGERBLUE" strokeWidth="0.0">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Circle>
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-         </content>
-      </ScrollPane>
-   </children>
-</VBox>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </children>
+      </Pane>
