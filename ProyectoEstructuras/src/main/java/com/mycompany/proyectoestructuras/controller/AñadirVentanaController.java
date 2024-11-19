@@ -106,6 +106,19 @@ public class AñadirVentanaController implements Initializable {
                 volverVentana();
             });
         
+        email.setOnMouseClicked(event -> {
+                cambiarVentanaEmail();
+            });
+                
+                
+        fecha.setOnMouseClicked(event -> {
+                cambiarVentanaFecha();
+            });
+                        
+                        
+        ubi.setOnMouseClicked(event -> {
+                cambiarVentanaUbi();
+            });
     }
     
     public void guardarContactos(){

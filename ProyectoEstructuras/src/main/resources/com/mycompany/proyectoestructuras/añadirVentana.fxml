@@ -18,12 +18,12 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label layoutX="14.0" layoutY="13.0" text="Cancelar" textFill="#0704bc">
+                  <Label fx:id="btCancelar" layoutX="14.0" layoutY="13.0" text="Cancelar" textFill="#0704bc">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Label>
-                  <Label layoutX="308.0" layoutY="12.0" text="Listo" textFill="#0704bc">
+                  <Label fx:id="btListo" layoutX="308.0" layoutY="12.0" text="Listo" textFill="#0704bc">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
