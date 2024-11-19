@@ -7,6 +7,7 @@ package com.mycompany.proyectoestructuras.controller;
 import com.mycompany.proyectoestructuras.Address;
 import com.mycompany.proyectoestructuras.App;
 import com.mycompany.proyectoestructuras.Company;
+import com.mycompany.proyectoestructuras.Contact;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -19,6 +20,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
@@ -52,13 +54,29 @@ public class AñadirVentanaController implements Initializable {
     @FXML
     Button guardar;
     @FXML
-    TextField TfNombre;
+    Label btListo;
     @FXML
-    TextField TfApellido;
+    Label btCancelar;
     @FXML
-    TextField TfEmpresa;
+    TextField tfnom;
     @FXML
-    TextField TfTelefono;
+    TextField tfape;
+    @FXML
+    TextField tfemp;
+    @FXML
+    TextField tftel;
+    @FXML
+    TextField tfdir;
+    @FXML
+    TextField tfurl;
+    @FXML
+    TextField tfpais;
+    @FXML
+    TextField tfemail;
+    @FXML
+    TextField tfruc;
+    @FXML
+    TextField tfweb;
     @FXML
     VBox contTelefonosExtra;
     /**
@@ -66,41 +84,41 @@ public class AñadirVentanaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        /*
         Image img1 = new Image(getClass().getResource("/com/mycompany/proyectoestructuras/images/cancelar.png").toExternalForm());
         Image img2 = new Image(getClass().getResource("/com/mycompany/proyectoestructuras/images/añadir.png").toExternalForm());
         Image img3 = new Image(getClass().getResource("/com/mycompany/proyectoestructuras/images/añadirFoto.png").toExternalForm());
         Image img5 = new Image(getClass().getResource("/com/mycompany/proyectoestructuras/images/fecha.png").toExternalForm());
         Image img6 = new Image(getClass().getResource("/com/mycompany/proyectoestructuras/images/ubi.png").toExternalForm());
         Image img7 = new Image(getClass().getResource("/com/mycompany/proyectoestructuras/images/email.png").toExternalForm());
-        cancelar.setFill(new ImagePattern(img1));
-        añadirTelefono.setFill(new ImagePattern(img2));
-        foto.setFill(new ImagePattern(img3));
-        fecha.setFill(new ImagePattern(img5));
-        ubi.setFill(new ImagePattern(img6));
-        email.setFill(new ImagePattern(img7));
+        */
+
         
-        añadirTelefono.setOnMouseClicked(event -> {
-                añadirTelefonos();
+        btListo.setOnMouseClicked(event -> {
+                guardarContactos();
             });
         
-        cancelar.setOnMouseClicked(event -> {
-                cerrarVentana();
+        btListo.setOnMouseClicked(event -> {
+                volverVentana();
             });
         
-        email.setOnMouseClicked(event -> {
-                cambiarVentanaEmail();
+        btCancelar.setOnMouseClicked(event -> {
+                volverVentana();
             });
-                
-                
-        fecha.setOnMouseClicked(event -> {
-                cambiarVentanaFecha();
-            });
-                        
-                        
-        ubi.setOnMouseClicked(event -> {
-                cambiarVentanaUbi();
-            });
+        
     }
+    
+    public void guardarContactos(){
+        String linea="";
+        if(tfnom.getText().isEmpty() && tfape.getText().isEmpty()){
+            linea="Compania"+","+tfemp.getText()+","+tftel.getText()+","+tfruc.getText()+","+tfdir.getText()+","+tfurl.getText()+","+tfemail.getText()+","+tfpais.getText()+","+tfweb.getText();
+        }else{
+            linea="Person"+","+tfnom.getText()+","+tfape.getText()+","+tftel.getText()+","+tfdir.getText()+","+tfurl.getText()+","+tfemail.getText()+","+tfpais.getText();
+        }
+        
+        Contact.guardarContactos(linea);
+    }
+    
     
     @FXML
     private void añadirTelefonos() {
@@ -169,6 +187,20 @@ public class AñadirVentanaController implements Initializable {
     public void cambiarVentanaFecha(){
         try {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/mycompany/proyectoestructuras/fecha.fxml"));
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root);
+        Stage detallesStage = new Stage();
+        detallesStage.setScene(scene);
+        detallesStage.show();
+        
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void volverVentana(){
+        try {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/mycompany/proyectoestructuras/general.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
         Stage detallesStage = new Stage();
