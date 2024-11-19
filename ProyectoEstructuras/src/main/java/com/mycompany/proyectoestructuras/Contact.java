@@ -130,7 +130,7 @@ public abstract class Contact {
     }
     
     public static void guardarContactos(String linea){
-        try(BufferedWriter wr = new BufferedWriter(new FileWriter(App.pathFiles+"Contactos.txt"))){
+        try(BufferedWriter wr = new BufferedWriter(new FileWriter(App.pathFiles+"Contactos.txt",true))){
             wr.write(linea);
             wr.newLine();         
         }catch(IOException e){

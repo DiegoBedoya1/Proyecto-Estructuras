@@ -1,1 +1,6 @@
 Person,Mar,Cruz,0988854321,,,,
+Person,John,Lopez,0997654321,,,,
+Person,Luis,Perez,0987654321,AlboradaVI,,,Ecuador
+Person,Maria,Lopez,0987654341,Guayacanes,,,Ecuador
+Compania,Crecos,0912345678,0998765432,Alborada,,,Ecuador,https://www.crecos.com/
+Compania,H&M,0912365678,,Kennedy,https://maps.app.goo.gl/6gJK6ZwSSPydi7Mw7,,Ecuador,https://ec.hm.com/
