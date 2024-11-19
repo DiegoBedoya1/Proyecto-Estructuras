@@ -87,36 +87,30 @@ public abstract class Contact {
             while ((linea = br.readLine()) != null) {
                 String[] datos = linea.split(",");
 
-                // Verificamos que haya al menos 8 campos para evitar errores
-                if (datos.length < 8) {
-                    System.out.println("Línea ignorada debido a datos incompletos: " + linea);
-                    continue;
-                }
-
+                // Manejar datos nulos o vacíos asignando valores directamente
                 String tipo = datos[0].toLowerCase();  // 'person' o 'compania'
+                String name = datos.length > 1 ? datos[1] : null;
+                String phoneNumber = datos.length > 2 ? datos[2] : null;
                 Address address = null;
-                String name = datos[1];
-                String phoneNumber = datos[2];
-                String email = datos[5];
-                String country = datos[6];
 
-                if (!datos[3].isEmpty()) {
-                    // Si hay una URL de la dirección, creamos la dirección con URL
-                    if (datos.length > 8 && !datos[7].isEmpty()) {
-                        address = new Address(datos[3], datos[7]);
-                    } else {
-                        address = new Address(datos[3]);
-                    }
+                if (datos.length > 3) {
+                    String direccion = datos[3];
+                    String urlAddress = datos.length > 7 ? datos[7] : null;
+                    address = urlAddress != null ? new Address(direccion, urlAddress) : new Address(direccion);
                 }
 
-                // Cargar personas o empresas dependiendo del tipo
+                String email = datos.length > 5 ? datos[5] : null;
+                String country = datos.length > 6 ? datos[6] : null;
+
                 if (tipo.equals("person")) {
-                    String lastName = datos[2];
+                    // Crear persona incluso con valores faltantes o nulos
+                    String lastName = datos.length > 4 ? datos[4] : null;
                     Contact persona = new Person(tipo, name, lastName, phoneNumber, address, email, country);
                     contactos.add(persona);
                 } else if (tipo.equals("compania")) {
-                    String RUC = datos[3];
-                    String webPage = datos.length > 8 ? datos[8] : "";  // Si hay una URL de empresa, la guardamos
+                    // Crear compañía incluso con valores faltantes o nulos
+                    String RUC = datos.length > 4 ? datos[4] : null;
+                    String webPage = datos.length > 8 ? datos[8] : null;
                     Contact compania = new Company(tipo, name, phoneNumber, RUC, address, email, country, webPage);
                     contactos.add(compania);
                 }
@@ -126,6 +120,7 @@ public abstract class Contact {
         }
         return contactos;
     }
+
 
 
 

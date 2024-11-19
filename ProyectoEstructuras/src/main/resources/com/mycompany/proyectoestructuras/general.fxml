@@ -4,28 +4,36 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<VBox id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="360.0" style="-fx-background-color: GREY;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyectoestructuras.controller.GeneralController">
+<VBox id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="582.0" prefWidth="415.0" style="-fx-background-color: GREY;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyectoestructuras.controller.GeneralController">
     <!-- Barra superior con el buscador y botón para agregar contactos -->
     <HBox id="buscador" alignment="CENTER" spacing="10" style="-fx-padding: 10; -fx-background-color: GREY;">
         <TextField fx:id="buscador" focusTraversable="false" prefHeight="27.0" prefWidth="236.0" promptText="Buscar contacto..." style="-fx-border-color: Blue; -fx-background-radius: 10; -fx-border-radius: 10;">
-         <cursor>
-            <Cursor fx:constant="TEXT" />
-         </cursor></TextField>
-      <Circle id="buscar" fx:id="buscar" fill="DODGERBLUE" radius="18.0" stroke="DODGERBLUE" strokeType="INSIDE" strokeWidth="2.0">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Circle>
-      <Circle id="añadir" fx:id="añadir" fill="DODGERBLUE" radius="18.0" stroke="DODGERBLUE" strokeType="INSIDE" strokeWidth="2.0">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Circle>
+            <cursor>
+                <Cursor fx:constant="TEXT" />
+            </cursor>
+        </TextField>
+        <Circle id="buscar" fx:id="buscar" fill="DODGERBLUE" radius="18.0" stroke="DODGERBLUE" strokeType="INSIDE" strokeWidth="2.0">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </Circle>
+        <Circle id="añadir" fx:id="añadir" fill="DODGERBLUE" radius="18.0" stroke="DODGERBLUE" strokeType="INSIDE" strokeWidth="2.0">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </Circle>
     </HBox>
     
     <!-- Área de lista de contactos con scroll -->
-    <ScrollPane fx:id="contactScrollPane" fitToWidth="true" prefHeight="487.0" prefWidth="351.0" style="-fx-background: GREY;">
-        <VBox fx:id="contactList" prefHeight="0.0" prefWidth="358.0" spacing="15" style="-fx-padding: 10;" />
+    <ScrollPane fx:id="contactScrollPane" fitToHeight="true" fitToWidth="true" prefHeight="616.0" prefWidth="469.0" style="-fx-background: GREY;">
+        <VBox fx:id="contactList" prefHeight="560.0" prefWidth="449.0" spacing="15" style="-fx-padding: 10;">
+            <VBox.vgrow>
+                <Priority fx:constant="ALWAYS" />
+            </VBox.vgrow>
+        </VBox>
     </ScrollPane>
 </VBox>
