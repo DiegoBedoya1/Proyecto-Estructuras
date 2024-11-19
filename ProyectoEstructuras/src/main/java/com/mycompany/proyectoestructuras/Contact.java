@@ -4,9 +4,9 @@
  */
 package com.mycompany.proyectoestructuras;
 
+import com.mycompany.proyectoestructuras.structures.MyArrayList;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -80,54 +80,56 @@ public abstract class Contact {
         this.country = country;
     }
       
-    public static ArrayList<Contact> cargarContactos(String fileName){
-        ArrayList<Contact> c = new ArrayList<>();
-        try(BufferedReader br = new BufferedReader(new FileReader(App.pathFiles+fileName))){
+    public static MyArrayList<Contact> cargarContactos(String fileName) {
+        MyArrayList<Contact> contactos = new MyArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(App.pathFiles + fileName))) {
             String linea;
-            while((linea = br.readLine()) != null){
+            while ((linea = br.readLine()) != null) {
                 String[] datos = linea.split(",");
-                String tipo = datos[0].toLowerCase();
-                Address address=null;
-                        
-                if(tipo.equals("person")){
-                    String name = datos[1];
+
+                // Verificamos que haya al menos 8 campos para evitar errores
+                if (datos.length < 8) {
+                    System.out.println("Línea ignorada debido a datos incompletos: " + linea);
+                    continue;
+                }
+
+                String tipo = datos[0].toLowerCase();  // 'person' o 'compania'
+                Address address = null;
+                String name = datos[1];
+                String phoneNumber = datos[2];
+                String email = datos[5];
+                String country = datos[6];
+
+                if (!datos[3].isEmpty()) {
+                    // Si hay una URL de la dirección, creamos la dirección con URL
+                    if (datos.length > 8 && !datos[7].isEmpty()) {
+                        address = new Address(datos[3], datos[7]);
+                    } else {
+                        address = new Address(datos[3]);
+                    }
+                }
+
+                // Cargar personas o empresas dependiendo del tipo
+                if (tipo.equals("person")) {
                     String lastName = datos[2];
-                    String phoneNumber = datos[3];
-                    if(!datos[5].isEmpty()){
-                        address = new Address(datos[4], datos[5]);
-                    }else{
-                        address = new Address(datos[4]);
-                    }
-                    String email = datos[6];
-                    String country = datos[7];
-                    
-                    Contact person = new Person(tipo,name, lastName, phoneNumber, address, email, country);
-                    c.add(person);
-                    
-                }else if(tipo.equals("compania")){
-                    String name = datos[1];
-                    String phoneNumber = datos[2];
-                    String RUC=datos[3];
-                    
-                    if(!datos[5].isEmpty()){
-                        address = new Address(datos[4], datos[5]);
-                    }else{
-                        address = new Address(datos[4]);
-                    }
-                    String email = datos[6];
-                    String country = datos[7];
-                    String webPage = datos[8];
-                    
-                     Company company = new Company(tipo,name, phoneNumber, RUC,address, email, country,webPage);
-                     c.add(company);
+                    Contact persona = new Person(tipo, name, lastName, phoneNumber, address, email, country);
+                    contactos.add(persona);
+                } else if (tipo.equals("compania")) {
+                    String RUC = datos[3];
+                    String webPage = datos.length > 8 ? datos[8] : "";  // Si hay una URL de empresa, la guardamos
+                    Contact compania = new Company(tipo, name, phoneNumber, RUC, address, email, country, webPage);
+                    contactos.add(compania);
                 }
             }
-            
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        return c;
+        return contactos;
     }
+
+
+
+
     
     public void guardarContactos(String tipo,String linea){
         try(BufferedWriter wr = new BufferedWriter(new FileWriter(App.pathFiles+"Contactos.txt"))){

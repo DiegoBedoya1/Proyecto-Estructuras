@@ -1,5 +1,8 @@
-Person,Luis,Perez,0987654321,AlboradaVI,,,Ecuador
-Person,Maria,Lopez,0987654341,Guayacanes,,,Ecuador
-Compania,Crecos,0912345678,0998765432,Alborada,,,Ecuador,https://www.crecos.com/
-Compania,H&M,0912365678,,Kennedy,https://maps.app.goo.gl/6gJK6ZwSSPydi7Mw7,,Ecuador,https://ec.hm.com/
-
+Person,Luis,Perez,0987654321,AlboradaVI,Guayaquil,luis.perez@email.com,Ecuador
+Person,Maria,Lopez,0987654341,Guayacanes,Guayaquil,maria.lopez@email.com,Ecuador
+Person,Juan,Diaz,0987324655,SantaRosa,Guayaquil,juan.diaz@email.com,Ecuador
+Person,Ana,Garcia,0987345678,LaPaz,Cuenca,ana.garcia@email.com,Ecuador
+Compania,Crecos,0912345678,0998765432,Alborada,Guayaquil,contacto@crecos.com,Ecuador,https://www.crecos.com/
+Compania,H&M,0912365678,0912345679,Kenedy,Guayaquil,contacto@hm.com,Ecuador,https://ec.hm.com/
+Compania,Google,0912345678,0987654321,Mountain View,California,google@google.com,USA,https://www.google.com
+Compania,Microsoft,0912323657,0998765432,Redmond,Washington,ms@microsoft.com,USA,https://www.microsoft.com

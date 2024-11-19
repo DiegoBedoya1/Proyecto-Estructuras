@@ -4,13 +4,12 @@
  */
 package com.mycompany.proyectoestructuras.controller;
 
+import com.mycompany.proyectoestructuras.Company;
 import com.mycompany.proyectoestructuras.Contact;
 import com.mycompany.proyectoestructuras.Person;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import com.mycompany.proyectoestructuras.structures.MyArrayList;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +23,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
@@ -117,38 +115,38 @@ public class GeneralController implements Initializable {
     @FXML
     public void mostrarContactos() throws IOException {
         // Cargar los contactos desde el archivo
-        ArrayList<Contact> contactos = Contact.cargarContactos("Contactos.txt");
+        MyArrayList<Contact> contactos = Contact.cargarContactos("Contactos.txt");
+        System.out.println(contactos.size());
         contactList.setSpacing(10); // Espaciado entre los contactos en la lista
 
         for (Contact con : contactos) {
-            // Crear un HBox para alinear la imagen y los datos del contacto
+            // Crear el HBox para alinear la imagen y los datos del contacto
             HBox contactoHBox = new HBox();
             contactoHBox.setCursor(javafx.scene.Cursor.HAND);
-            contactoHBox.setSpacing(15); // Espaciado entre la imagen y los datos
+            contactoHBox.setSpacing(15);
             contactoHBox.setAlignment(Pos.CENTER_LEFT);
 
             // Crear el círculo para la imagen del contacto
-            Circle fotoCirculo = new Circle(25); // Radio de 25 para un tamaño razonable
+            Circle fotoCirculo = new Circle(25);
             Image foto = new Image(getClass().getResource("/com/mycompany/proyectoestructuras/images/fotoDefault.png").toExternalForm());
             fotoCirculo.setFill(new ImagePattern(foto));
 
-            // Crear un VBox para los datos del contacto (nombre y atributos)
+            // Crear el VBox para los datos del contacto
             VBox datosC = new VBox();
-            datosC.setSpacing(5); // Espaciado entre las líneas de texto
+            datosC.setSpacing(5);
             datosC.setAlignment(Pos.CENTER_LEFT);
 
             // Crear el label para el nombre del contacto
             Label nombres = new Label();
             nombres.setFont(Font.font("Arial", FontWeight.BOLD, 14));
 
-            if ("person".equals(con.getTipo().toLowerCase())) {
-                // Si es una persona, mostrar nombre y apellido
+            if (con instanceof Person) {
                 Person per = (Person) con;
                 nombres.setText(per.getName() + " " + per.getLastName());
-            } else {
-                // Si es una empresa, mostrar solo el nombre
-                nombres.setText(con.getName());
-                }
+            } else if (con instanceof Company) {
+                Company comp = (Company) con;
+                nombres.setText(comp.getName());
+            }
 
             // Agregar el nombre al VBox de datos
             datosC.getChildren().add(nombres);

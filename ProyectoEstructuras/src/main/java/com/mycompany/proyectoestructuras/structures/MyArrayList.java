@@ -8,79 +8,128 @@ package com.mycompany.proyectoestructuras.structures;
  *
  * @author diego
  */
-public class MyArrayList<T> {
-    private T[] array;
+public class MyArrayList<T> implements Iterable<T> {
+    private Object[] array;
     private int size;
-    
-    public MyArrayList(){
-        this.array = (T[]) new Object[1];
-        this.size = 0;
+
+    // Constructor para inicializar la lista con un tamaño inicial
+    public MyArrayList() {
+        array = new Object[10];  // Tamaño inicial
+        size = 0;
     }
-    
-    public void add(T element){
-        if(size == array.length)
-            addCapacity();
-        array[size] = element;
-        size++;
-    }
-    public void add(int index,T element){
-        if(index<0 || index>size){
-            throw new IndexOutOfBoundsException("Index out of range");
+
+    // Método para añadir un elemento al final de la lista
+    public void add(T element) {
+        if (size == array.length) {
+            ensureCapacity();  // Asegurarse de que haya espacio suficiente
         }
-        else if(size==array.length){
-            addCapacity();
-        }
-        for(int i = size;size>index;i--){
-            array[i] = array[i-1];
-        }
-        array[index] = element;
-        size++;
+        array[size++] = element;  // Añadir el elemento y aumentar el tamaño
     }
-    
-    private void addCapacity(){
-        int newCapacity = array.length+(array.length/2); 
-        T[] newArray = (T[]) new Object[newCapacity];
-        for(int i = 0;i<newArray.length;i++){
-            newArray[i] = array[i];
+
+    // Método para obtener un elemento en un índice específico
+    public T get(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Índice fuera de rango");
         }
-        array = newArray;
+        return (T) array[index];
     }
-    public boolean isEmpty(){
-        return size==0;
-    }
-    public int size(){
+
+    // Método para obtener el tamaño de la lista
+    public int size() {
         return size;
     }
-    public T get(int index){
-        if(index<0 || index>size)
-           throw new IndexOutOfBoundsException("Index out of range");
-        
-        return array[index];
+
+    // Método para asegurarse de que el array tenga suficiente capacidad
+    private void ensureCapacity() {
+        int newCapacity = array.length * 2;  // Duplicar el tamaño del array
+        array = new Object[newCapacity];  // Crear un nuevo array más grande
+        System.arraycopy(array, 0, array, 0, size);  // Copiar los elementos existentes
     }
-    public void set(int index,T element){
-        if(index<0 || index>size)
-          throw new IndexOutOfBoundsException("Index out of range");
-        array[index] = element;
-    }
-    
-    public T remove(int index){
-        if(index<0 || index>size)
-            throw new IndexOutOfBoundsException("Index out of range");
-        
-        T element = array[index];
-        for(int i = index;i<size;i++){
-            array[i] = array[i+1];
+
+    // Método para eliminar un elemento en un índice específico
+    public void remove(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Índice fuera de rango");
         }
-        array[size-1] = null;
+
+        for (int i = index; i < size - 1; i++) {
+            array[i] = array[i + 1];  // Mover los elementos a la izquierda
+        }
+        array[size - 1] = null;  // Eliminar la última posición
         size--;
-        return element;
     }
-    
-    public boolean contains(T element){
-        for(int i = 0;i<size;i++){
-            if(array[i].equals(element))
-                return true;
+
+    // Método para comprobar si la lista está vacía
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    // Método para limpiar la lista
+    public void clear() {
+        for (int i = 0; i < size; i++) {
+            array[i] = null;  // Establecer todos los elementos a null
         }
-        return false;
+        size = 0;
+    }
+
+    // Método para obtener el índice de un elemento
+    public int indexOf(T element) {
+        for (int i = 0; i < size; i++) {
+            if (array[i].equals(element)) {
+                return i;
+            }
+        }
+        return -1;  // No encontrado
+    }
+
+    // Método para convertir la lista a un arreglo de objetos
+    public Object[] toArray() {
+        Object[] result = new Object[size];
+        System.arraycopy(array, 0, result, 0, size);
+        return result;
+    }
+
+    // Método para imprimir la lista
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("[");
+        for (int i = 0; i < size; i++) {
+            sb.append(array[i].toString());
+            if (i < size - 1) sb.append(", ");
+        }
+        sb.append("]");
+        return sb.toString();
+    }
+
+    // Implementación de Iterable, devolviendo un iterador personalizado
+    @Override
+    public MyIterator iterator() {
+        return new MyIterator();
+    }
+
+    // Clase interna para el iterador personalizado
+    private class MyIterator implements java.util.Iterator<T> {
+        private int currentIndex = 0;
+
+        // Método que verifica si hay más elementos en la lista
+        @Override
+        public boolean hasNext() {
+            return currentIndex < size;
+        }
+
+        // Método que devuelve el siguiente elemento
+        @Override
+        public T next() {
+            if (!hasNext()) {
+                throw new IndexOutOfBoundsException("No hay más elementos en la lista");
+            }
+            return (T) array[currentIndex++];
+        }
+
+        // Método que no es necesario, pero se puede implementar
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException("Eliminar no es soportado");
+        }
     }
 }

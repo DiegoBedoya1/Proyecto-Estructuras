@@ -4,12 +4,15 @@
  */
 package com.mycompany.proyectoestructuras.structures;
 
+import java.util.Iterator;
+
 
 /**
  *
  * @author aldaz
+ * @param <T>
  */
-public class MyCircleDoubleLinkedList<T> {
+public class MyCircleDoubleLinkedList<T> implements Iterable<T>{
     private CircularDoubleNode<T> head; // Referencia al primer nodo de la lista
     private int size;                  // Tamaño de la lista (número de nodos)
 
@@ -182,4 +185,34 @@ public class MyCircleDoubleLinkedList<T> {
         } while (actual != head.getPrevious());
         System.out.println("(cabeza en reversa)"); // Indicar el final de la lista y referencia inversa
     }
+    
+    //iterador para la circular
+    @Override
+    public Iterator<T> iterator() {
+        return new CircleListIterator();
+    }
+
+    // Clase interna que implementa Iterator para la lista circular
+    private class CircleListIterator implements Iterator<T> {
+        private CircularDoubleNode<T> current = head; // Nodo actual
+        private boolean hasIteratedOnce = false; // Para evitar que el iterador recorra la lista nuevamente
+
+        @Override
+        public boolean hasNext() {
+            // Si la lista no está vacía y no hemos recorrido todo el ciclo
+            return current != null && (current != head || !hasIteratedOnce);
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext()) {
+                throw new IllegalStateException("No hay más elementos en la lista");
+            }
+            T data = current.getData();
+            current = current.getNext(); // Avanzamos al siguiente nodo
+            hasIteratedOnce = true; // Marcamos que ya hemos iterado una vez
+            return data;
+        }
+    }
+    
 }
