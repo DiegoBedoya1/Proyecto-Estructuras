@@ -8,6 +8,7 @@ import com.mycompany.proyectoestructuras.Company;
 import com.mycompany.proyectoestructuras.Contact;
 import com.mycompany.proyectoestructuras.Person;
 import com.mycompany.proyectoestructuras.structures.MyArrayList;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,6 +25,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
@@ -66,6 +68,7 @@ public class GeneralController implements Initializable {
         añadir.setFill(new ImagePattern(img2));
         añadir.setOnMouseClicked(event -> {
                 cambiarVentana();
+                cerrarVentana();
             });
     }
 
@@ -95,21 +98,24 @@ public class GeneralController implements Initializable {
         contactBox.setOnMouseClicked(event -> mostrarDetallesContacto(contacto));
     }
     
+    @FXML
     private void mostrarDetallesContacto(Contact contacto) {
         try {
+            // Cargar la ventana de detalles
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/mycompany/proyectoestructuras/InfoContacto.fxml"));
             Parent root = fxmlLoader.load();
 
-            
+            // Obtener el controlador de la ventana de detalles
             InfoContactoController controller = fxmlLoader.getController();
-            //agrgar controller el contacto
+            controller.setContacto(contacto); // Pasar el contacto al controlador
 
+            // Configurar y mostrar la ventana
             Stage detallesStage = new Stage();
+            detallesStage.setTitle("Detalles del Contacto");
             detallesStage.setScene(new Scene(root));
             detallesStage.show();
-
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Imprimir el error para depuración
         }
     }
     
@@ -127,43 +133,31 @@ public class GeneralController implements Initializable {
             contactoHBox.setCursor(javafx.scene.Cursor.HAND);
             contactoHBox.setSpacing(15);
             contactoHBox.setAlignment(Pos.CENTER_LEFT);
-            contactoHBox.setStyle("-fx-background-radius: 20;-fx-background-color: #f0f0f0; -fx-padding: 10; -fx-border-color: #d0d0d0; -fx-border-radius: 20; -fx-border-width: 2;"); // Borde redondeado
+            contactoHBox.setStyle("-fx-background-radius: 20; -fx-background-color: #f0f0f0; -fx-padding: 10; -fx-border-color: #d0d0d0; -fx-border-radius: 20; -fx-border-width: 2;");
 
             // Crear el círculo para la imagen del contacto
-            Circle fotoCirculo = new Circle(25);
-            Image foto = new Image(getClass().getResource("/com/mycompany/proyectoestructuras/images/fotoDefault.png").toExternalForm());
-            fotoCirculo.setFill(new ImagePattern(foto));
-
-            // Agregar un borde circular al círculo de la foto
-            fotoCirculo.setStyle("-fx-stroke: #d0d0d0; -fx-stroke-width: 2;"); // Borde del círculo de la foto
-
+            Circle fotoCirculo = new Circle(25); // Radio del círculo
+            Image defaultFoto = new Image(getClass().getResource("/com/mycompany/proyectoestructuras/images/fotoDefault.png").toExternalForm());
+            fotoCirculo.setFill(new ImagePattern(defaultFoto));
             // Crear el VBox para los datos del contacto
             VBox datosC = new VBox();
             datosC.setSpacing(5);
             datosC.setAlignment(Pos.CENTER_LEFT);
-            datosC.setPrefWidth(200); // Ancho preferido para los datos
-            datosC.setStyle("-fx-background-radius: 10; -fx-padding: 5;"); // Borde redondeado y relleno de los datos
 
             // Crear el label para el nombre del contacto
             Label nombres = new Label();
             nombres.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-            nombres.setWrapText(true); // Permite que el texto se ajuste al espacio disponible
+            nombres.setWrapText(true); // Permitir que el texto se ajuste al espacio disponible
 
             if (con instanceof Person) {
                 Person per = (Person) con;
-                if (!per.getName().isEmpty()) {
-                    nombres.setText(per.getName() + (per.getLastName().isEmpty() ? "" : " " + per.getLastName()));
-                } else {
-                    nombres.setText(per.getPhoneNumber().isEmpty() ? "Sin información" : per.getPhoneNumber());
-                }
+                nombres.setText(per.getName() + " " + per.getLastName());
             } else if (con instanceof Company) {
                 Company comp = (Company) con;
-                nombres.setText(comp.getName().isEmpty() ? "Sin información" : comp.getName());
+                nombres.setText(comp.getName());
             }
 
-            // Asegurar márgenes y tamaño del texto
-            nombres.setPrefWidth(180);
-            nombres.setMaxWidth(Double.MAX_VALUE); // Permitir expansión
+            // Estilo adicional para el texto
             nombres.setStyle("-fx-text-fill: #000000;");
 
             // Agregar el nombre al VBox de datos
@@ -172,11 +166,14 @@ public class GeneralController implements Initializable {
             // Agregar el círculo y los datos al HBox
             contactoHBox.getChildren().addAll(fotoCirculo, datosC);
 
+            // Agregar evento de clic para abrir la ventana de detalles
+            contactoHBox.setOnMouseClicked(event -> mostrarDetallesContacto(con));
+
             // Agregar el HBox al VBox principal
             contactList.getChildren().add(contactoHBox);
         }
 
-        // Forzar la actualización del diseño del ScrollPane
+        // Actualizar el diseño del ScrollPane
         contactList.layout();
         contactScrollPane.layout();
     }
@@ -199,6 +196,11 @@ public class GeneralController implements Initializable {
         }
     }
     
+    
+    public void cerrarVentana() {
+        Stage stage = (Stage) añadir.getScene().getWindow();
+        stage.close(); 
+    }
     
 }
     

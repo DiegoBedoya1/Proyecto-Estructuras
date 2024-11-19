@@ -225,8 +225,8 @@ public class AñadirVentanaController implements Initializable {
     }
     
     public void cerrarVentana() {
-    Stage stage = (Stage) foto.getScene().getWindow();
-    stage.close(); 
-}
+        Stage stage = (Stage) btListo.getScene().getWindow();
+        stage.close(); 
+    }
     
 }
