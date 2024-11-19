@@ -6,6 +6,8 @@ package com.mycompany.proyectoestructuras.controller;
 
 import com.mycompany.proyectoestructuras.Contact;
 import com.mycompany.proyectoestructuras.Person;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -21,11 +23,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 /**
@@ -66,20 +69,7 @@ public class GeneralController implements Initializable {
                 cambiarVentana();
             });
     }
-    /*
-    @Override
-    
-    public void initialize(URL url, ResourceBundle rb) {
-        try{
-        cargarCombo();
-        }catch(IOException | RuntimeException e){
-            System.out.println("Ha ocurrido un error");
-            root.getChildren().clear();
-            root.getChildren().add(new Label("Ha ocurrido un error"));
-        }
-        
-    }
-    */
+
     
     private void agregarContactoAVista(Contact contacto) {
         // Crear un HBox para cada contacto con su nombre y foto
@@ -126,32 +116,58 @@ public class GeneralController implements Initializable {
     
     @FXML
     public void mostrarContactos() throws IOException {
-        // Crear un HBox para cada contacto con su nombre y foto     
-        ArrayList<Contact> contactos=Contact.cargarContactos("Contactos.txt");
-        for(Contact con:contactos){
+        // Cargar los contactos desde el archivo
+        ArrayList<Contact> contactos = Contact.cargarContactos("Contactos.txt");
+        contactList.setSpacing(10); // Espaciado entre los contactos en la lista
+
+        for (Contact con : contactos) {
+            // Crear un HBox para alinear la imagen y los datos del contacto
+            HBox contactoHBox = new HBox();
+            contactoHBox.setCursor(javafx.scene.Cursor.HAND);
+            contactoHBox.setSpacing(15); // Espaciado entre la imagen y los datos
+            contactoHBox.setAlignment(Pos.CENTER_LEFT);
+
+            // Crear el círculo para la imagen del contacto
+            Circle fotoCirculo = new Circle(25); // Radio de 25 para un tamaño razonable
+            Image foto = new Image(getClass().getResource("/com/mycompany/proyectoestructuras/images/fotoDefault.png").toExternalForm());
+            fotoCirculo.setFill(new ImagePattern(foto));
+
+            // Crear un VBox para los datos del contacto (nombre y atributos)
             VBox datosC = new VBox();
-            datosC.setSpacing(10);
+            datosC.setSpacing(5); // Espaciado entre las líneas de texto
             datosC.setAlignment(Pos.CENTER_LEFT);
-            Region linea = new Region();
-            linea.setMinHeight(1);
-            linea.setStyle("-fx-background-color: black;");
+
+            // Crear el label para el nombre del contacto
             Label nombres = new Label();
-            nombres.setFont(Font.font("Arial", 14));
-            if("person".equals(con.getTipo().toLowerCase())){
+            nombres.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+
+            if ("person".equals(con.getTipo().toLowerCase())) {
+                // Si es una persona, mostrar nombre y apellido
                 Person per = (Person) con;
-                nombres.setText(per.getName()+" "+per.getLastName());
-                datosC.getChildren().add(nombres);
-                contactList.getChildren().add(datosC);
-                contactList.getChildren().add(linea);
-            }else{
+                nombres.setText(per.getName() + " " + per.getLastName());
+            } else {
+                // Si es una empresa, mostrar solo el nombre
                 nombres.setText(con.getName());
-                datosC.getChildren().addAll(nombres);
-                contactList.getChildren().add(datosC);
-                contactList.getChildren().add(linea);
-            }
+                }
+
+            // Agregar el nombre al VBox de datos
+            datosC.getChildren().add(nombres);
+
+            // Agregar el círculo y los datos al HBox
+            contactoHBox.getChildren().addAll(fotoCirculo, datosC);
+
+            // Agregar el HBox a la lista principal
+            contactList.getChildren().add(contactoHBox);
         }
-        contactList.setOnMouseClicked(event -> mostrarDetallesContacto(contactos.get(0)));
+
+        // Configurar evento de clic para mostrar detalles del primer contacto como ejemplo
+        contactList.setOnMouseClicked(event -> {
+            if (!contactos.isEmpty()) {
+                mostrarDetallesContacto(contactos.get(0)); // Puedes ajustar para identificar qué contacto fue clicado
+            }
+        });
     }
+
     
     public void cambiarVentana(){
         try {
