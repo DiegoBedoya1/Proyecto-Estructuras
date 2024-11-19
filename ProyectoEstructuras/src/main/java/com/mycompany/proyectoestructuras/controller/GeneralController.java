@@ -127,7 +127,7 @@ public class GeneralController implements Initializable {
             contactoHBox.setCursor(javafx.scene.Cursor.HAND);
             contactoHBox.setSpacing(15);
             contactoHBox.setAlignment(Pos.CENTER_LEFT);
-            contactoHBox.setStyle("-fx-background-radius: 10;-fx-background-color: #f0f0f0; -fx-padding: 10; -fx-border-color: #d0d0d0; -fx-border-radius: 20; -fx-border-width: 2;"); // Borde redondeado
+            contactoHBox.setStyle("-fx-background-radius: 20;-fx-background-color: #f0f0f0; -fx-padding: 10; -fx-border-color: #d0d0d0; -fx-border-radius: 20; -fx-border-width: 2;"); // Borde redondeado
 
             // Crear el círculo para la imagen del contacto
             Circle fotoCirculo = new Circle(25);
