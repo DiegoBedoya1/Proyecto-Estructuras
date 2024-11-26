@@ -2,3 +2,17 @@ Person,Luis,Perez,0987654321,AlboradaVI,Guayaquil,luis.perez@email.com,Ecuador
 Person,Maria,Lopez,0987654341,Guayacanes,Guayaquil,maria.lopez@email.com,Ecuador
 Person,Juan,Diaz,0987324655,SantaRosa,Guayaquil,juan.diaz@email.com,Ecuador
 Person,Ana,Garcia,0987345678,LaPaz,Cuenca,ana.garcia@email.com,Ecuador
+Person,Pedro,,0987654322,LosSamanes,Guayaquil,pedro.martinez@email.com,Ecuador
+Person,Julia,Morales,0987654323,Centro,Cuenca,julia.morales@email.com,Colombia
+Person,Carlos,Ramirez,0987654324,LasLomas,Guayaquil,carlos.ramirez@email.com,
+Person,Laura,,0987654325,Alborada,Guayaquil,laura.fernandez@email.com,Ecuador
+Person,Marco,Sanchez,0987654326,SantaTeresa,Cuenca,marco.sanchez@email.com,
+Company,TechSolutions,0987654331,RUC12345678,Calle6,Guayaquil,contact@techsolutions.com,Ecuador,www.techsolutions.com
+Company,Innovatech,0987654332,RUC87654321,Calle8,Cuenca,contact@innovatech.com,,www.innovatech.com
+Company,GlobalEnterprises,0987654333,RUC11223344,Calle3,Guayaquil,info@globalenterprises.com,Ecuador,www.globalenterprises.com
+Company,ComercialXYZ,0987654334,RUC99887766,Calle5,Guayaquil,info@comercialxyz.com,,www.comercialxyz.com
+Company,OnlineShop,0987654335,RUC12398765,Calle4,Cuenca,contact@onlineshop.com,Ecuador,www.onlineshop.com
+Company,FoodCorp,0987654336,RUC99887799,Calle2,Guayaquil,service@foodcorp.com,Ecuador,www.foodcorp.com
+Company,TechBridge,0987654337,RUC55443322,Calle7,Cuenca,support@techbridge.com,Ecuador,www.techbridge.com
+Company,FastTech,0987654338,RUC44556677,Calle10,Cuenca,hello@fasttech.com,,www.fasttech.com
+

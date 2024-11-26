@@ -9,9 +9,9 @@ package com.mycompany.proyectoestructuras.structures;
  * @author Steven Mirabá
  */
 public class CircularDoubleNode<T> {
-    private T data;                        // Dato almacenado en el nodo
-    private CircularDoubleNode<T> next; // Referencia al siguiente nodo
-    private CircularDoubleNode<T> previous;  // Referencia al nodo anterior
+    T data;                        // Dato almacenado en el nodo
+    CircularDoubleNode<T> next; // Referencia al siguiente nodo
+    CircularDoubleNode<T> previous;  // Referencia al nodo anterior
 
     // Constructor para inicializar un nodo con un dato
     public CircularDoubleNode(T data) {

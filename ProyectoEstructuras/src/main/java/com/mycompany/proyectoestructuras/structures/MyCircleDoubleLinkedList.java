@@ -4,6 +4,7 @@
  */
 package com.mycompany.proyectoestructuras.structures;
 
+import com.mycompany.proyectoestructuras.Contact;
 import java.util.Iterator;
 
 
@@ -82,15 +83,82 @@ public class MyCircleDoubleLinkedList<T> implements Iterable<T>{
             size--;
         }
     }
+    
+    public T get(int index) {
+        // Comprobamos que el índice sea válido
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Índice fuera de rango: " + index);
+        }
+        if (size == 0) {
+            return null;
+        }
+
+        CircularDoubleNode<T> current = head;
+        if (index == 0) {
+            return current.data;
+        }
+        for (int i = 0; i < index; i++) {
+            current = current.next;
+        }
+        return current.data;
+    }
+
 
     // Método para obtener el último elemento de la lista
     // Complejidad O(1) ya que accede directamente al último nodo
-    public T getLast() {
-        if (head == null) {
-            return null;
+    public CircularDoubleNode<T> getLastNode() {
+        CircularDoubleNode<T> current = head;
+        // Recorrer la lista hasta encontrar el último nodo
+        while (current != null && current.next != head) {
+            current = current.next;
         }
-        return head.getPrevious().getData(); // La cola está almacenada en cabeza.anterior
+        return current;
     }
+
+    
+
+    public void remove(int index) {
+        // Comprobamos que el índice sea válido
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Índice fuera de rango: " + index);
+        }
+
+        // Caso 1: Si la lista tiene solo un elemento
+        if (size == 1) {
+            head = null;  // Eliminamos el único nodo de la lista
+        } else {
+            // Caso 2: El índice es 0, eliminamos el primer nodo
+            if (index == 0) {
+                // Si la lista tiene más de un nodo
+                CircularDoubleNode<T> lastNode = getLastNode();  // Conseguimos el último nodo
+                head = head.next;  // La cabeza pasa a ser el siguiente nodo
+                head.previous = lastNode;  // El nuevo primer nodo apunta al último
+                lastNode.next = head;  // El último nodo apunta al nuevo primer nodo
+            } else {
+                // Caso 3: El índice no es 0, recorremos la lista
+                CircularDoubleNode<T> current = head;
+
+                // Recorremos hasta encontrar el nodo en el índice
+                for (int i = 0; i < index; i++) {
+                    current = current.next;
+                }
+
+                // Actualizamos los nodos adyacentes
+                current.previous.next = current.next;  // El nodo anterior apunta al siguiente nodo
+                current.next.previous = current.previous;  // El siguiente nodo apunta al anterior nodo
+
+                // Caso 3.1: Si eliminamos el último nodo
+                if (current.next == head) {
+                    // El penúltimo nodo apunta a la cabeza
+                    head.previous = current.previous;
+                }
+            }
+        }
+
+        // Reducimos el tamaño de la lista
+        size--;
+    }
+
     
     // Método para eliminar el primer elemento de la lista
     // Complejidad O(1) ya que solo cambia las referencias de cabeza, anterior y siguiente

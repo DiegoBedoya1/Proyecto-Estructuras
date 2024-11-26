@@ -5,12 +5,12 @@
 package com.mycompany.proyectoestructuras;
 
 import com.mycompany.proyectoestructuras.structures.MyArrayList;
+import com.mycompany.proyectoestructuras.structures.MyCircleDoubleLinkedList;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  *
@@ -30,6 +30,7 @@ public abstract class Contact {
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.email = email;
+        this.country = country;
     }
 
     public String getTipo() {
@@ -79,61 +80,61 @@ public abstract class Contact {
     public void setCountry(String country) {
         this.country = country;
     }
-      
-   public static MyArrayList<Contact> cargarContactos(String fileName) {
-    MyArrayList<Contact> contactos = new MyArrayList<>();
-    try (BufferedReader br = new BufferedReader(new FileReader(App.pathFiles + fileName))) {
-        String linea;
-        while ((linea = br.readLine()) != null) {
-            // Manejar línea vacía o nula
-            if (linea.trim().isEmpty()) continue;
 
-            String[] datos = linea.split(",");
-            
-            // Validar al menos el tipo (person o compania)
-            if (datos.length == 0 || datos[0].isEmpty()) {
-                System.err.println("Línea inválida, tipo no especificado: " + linea);
-                continue;
+    public static MyArrayList<Contact> cargarContactos(String fileName) {
+        MyArrayList<Contact> contactos = new MyArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(App.pathFiles + fileName))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                // Eliminar espacios al principio y al final de la línea
+                linea = linea.trim();
+
+                // Manejar línea vacía o nula
+                if (linea.isEmpty()) continue;
+
+                // Separar los datos usando la coma como delimitador
+                String[] datos = linea.split(",");
+
+                // Verificar si el tipo es válido
+                if (datos.length == 0 || datos[0].isEmpty()) {
+                    System.err.println("Línea inválida, tipo no especificado: " + linea);
+                    continue;
+                }
+
+                // Extraer y validar los valores de cada campo (con valores por defecto si están vacíos)
+                String tipo = datos.length > 0 && !datos[0].trim().isEmpty() ? datos[0].trim().toLowerCase() : "N/A"; // 'person' o 'compania'
+                String name = datos.length > 1 && !datos[1].trim().isEmpty() ? datos[1].trim() : "N/A";
+                String lastName = datos.length > 2 && !datos[2].trim().isEmpty() ? datos[2].trim() : "N/A";
+                String phoneNumber = datos.length > 3 && !datos[3].trim().isEmpty() ? datos[3].trim() : "N/A";
+                String address = datos.length > 4 && !datos[4].trim().isEmpty() ? datos[4].trim() : "N/A";
+                String city = datos.length > 5 && !datos[5].trim().isEmpty() ? datos[5].trim() : "N/A";
+                String email = datos.length > 6 && !datos[6].trim().isEmpty() ? datos[6].trim() : "N/A";
+                String country = datos.length > 7 && !datos[7].trim().isEmpty() ? datos[7].trim() : "N/A";
+
+                // Crear un objeto de dirección
+                Address addressObj = new Address(address, city);
+
+                // Crear el contacto dependiendo del tipo
+                if (tipo.equals("person")) {
+                    Contact persona = new Person(tipo, name, lastName, phoneNumber, addressObj, email, country);
+                    contactos.add(persona);
+                } else if (tipo.equals("compania")) {
+                    // Si es una compañía, se leen los campos adicionales
+                    String RUC = datos.length > 8 && !datos[8].trim().isEmpty() ? datos[8].trim() : "N/A";
+                    String webPage = datos.length > 9 && !datos[9].trim().isEmpty() ? datos[9].trim() : "N/A";
+                    Contact compania = new Company(tipo, name, phoneNumber, RUC, addressObj, email, country, webPage);
+                    contactos.add(compania);
+                } else {
+                    System.err.println("Tipo desconocido: " + tipo + " en línea: " + linea);
+                }
             }
-
-            // Extraer valores con manejo de índices fuera de rango
-            String tipo = datos[0].trim().toLowerCase();  // 'person' o 'compania'
-            String name = datos.length > 1 ? datos[1].trim() : null;
-            String phoneNumber = datos.length > 2 ? datos[2].trim() : null;
-
-            // Construir la dirección si está disponible
-            Address address = null;
-            if (datos.length > 3 && !datos[3].isEmpty()) {
-                String direccion = datos[3].trim();
-                String urlAddress = datos.length > 7 ? datos[7].trim() : null;
-                address = urlAddress != null && !urlAddress.isEmpty()
-                        ? new Address(direccion, urlAddress)
-                        : new Address(direccion);
-            }
-
-            String email = datos.length > 5 ? datos[5].trim() : null;
-            String country = datos.length > 6 ? datos[6].trim() : null;
-
-            if (tipo.equals("person")) {
-                // Crear una persona
-                String lastName = datos.length > 4 ? datos[4].trim() : null;
-                Contact persona = new Person(tipo, name, lastName, phoneNumber, address, email, country);
-                contactos.add(persona);
-            } else if (tipo.equals("compania")) {
-                // Crear una compañía
-                String RUC = datos.length > 4 ? datos[4].trim() : null;
-                String webPage = datos.length > 8 ? datos[8].trim() : null;
-                Contact compania = new Company(tipo, name, phoneNumber, RUC, address, email, country, webPage);
-                contactos.add(compania);
-            } else {
-                System.err.println("Tipo desconocido: " + tipo + " en línea: " + linea);
-            }
+        } catch (IOException e) {
+            System.err.println("Error al leer el archivo: " + e.getMessage());
         }
-    } catch (IOException e) {
-        System.err.println("Error al leer el archivo: " + e.getMessage());
+        return contactos;
     }
-    return contactos;
-}
+
+
 
     
     public static void guardarContactos(String linea){
@@ -144,4 +145,69 @@ public abstract class Contact {
             e.printStackTrace();
         }
     }
+    
+    public static MyCircleDoubleLinkedList<Contact> cargarContactosCircular(String fileName) {
+        MyCircleDoubleLinkedList<Contact> contactos = new MyCircleDoubleLinkedList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(App.pathFiles + fileName))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                // Eliminar espacios al principio y al final de la línea
+                linea = linea.trim();
+
+                // Manejar línea vacía o nula
+                if (linea.isEmpty()) continue;
+
+                // Separar los datos usando la coma como delimitador
+                String[] datos = linea.split(",");
+
+                // Verificar si el tipo es válido
+                if (datos.length == 0 || datos[0].isEmpty()) {
+                    System.err.println("Línea inválida, tipo no especificado: " + linea);
+                    continue;
+                }
+
+                // Extraer y validar los valores de cada campo (con valores por defecto si están vacíos)
+                String tipo = datos.length > 0 && !datos[0].trim().isEmpty() ? datos[0].trim().toLowerCase() : "N/A"; // 'person' o 'compania'
+                String name = datos.length > 1 && !datos[1].trim().isEmpty() ? datos[1].trim() : "N/A";
+                String lastName = datos.length > 2 && !datos[2].trim().isEmpty() ? datos[2].trim() : "N/A";
+                String phoneNumber = datos.length > 3 && !datos[3].trim().isEmpty() ? datos[3].trim() : "N/A";
+                String address = datos.length > 4 && !datos[4].trim().isEmpty() ? datos[4].trim() : "N/A";
+                String city = datos.length > 5 && !datos[5].trim().isEmpty() ? datos[5].trim() : "N/A";
+                String email = datos.length > 6 && !datos[6].trim().isEmpty() ? datos[6].trim() : "N/A";
+                String country = datos.length > 7 && !datos[7].trim().isEmpty() ? datos[7].trim() : "N/A";
+
+                // Crear un objeto de dirección
+                Address addressObj = new Address(address, city);
+
+                // Crear el contacto dependiendo del tipo
+                if (tipo.equals("person")) {
+                    Contact persona = new Person(tipo, name, lastName, phoneNumber, addressObj, email, country);
+                    contactos.add(persona);
+                } else if (tipo.equals("compania")) {
+                    // Si es una compañía, se leen los campos adicionales
+                    String RUC = datos.length > 8 && !datos[8].trim().isEmpty() ? datos[8].trim() : "N/A";
+                    String webPage = datos.length > 9 && !datos[9].trim().isEmpty() ? datos[9].trim() : "N/A";
+                    Contact compania = new Company(tipo, name, phoneNumber, RUC, addressObj, email, country, webPage);
+                    contactos.add(compania);
+                } else {
+                    System.err.println("Tipo desconocido: " + tipo + " en línea: " + linea);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error al leer el archivo: " + e.getMessage());
+        }
+        return contactos;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Tipo: " + tipo +
+               "\nNombre: " + (name != null ? name : "N/A") +
+               "\nTeléfono: " + (phoneNumber != null ? phoneNumber : "N/A") +
+               "\nDirección: " + (address != null ? address.toString() : "N/A") +
+               "\nCorreo: " + (email != null ? email : "N/A") +
+               "\nPaís: " + (country != null ? country : "N/A");
+    }
+    
 }

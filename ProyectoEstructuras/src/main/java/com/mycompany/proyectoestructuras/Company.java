@@ -17,4 +17,11 @@ public class Company extends Contact {
         this.webPage=webPage;
     }
     
+    @Override
+    public String toString() {
+        return super.toString() + 
+               "\nRUC: " + (RUC != null ? RUC : "N/A") +
+               "\nPágina web: " + (webPage != null ? webPage : "N/A");
+    }
+    
 }

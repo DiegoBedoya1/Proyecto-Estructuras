@@ -24,4 +24,8 @@ public class Person extends Contact{
         this.lastName = lastName;
     }
     
+    @Override
+    public String toString() {
+        return super.toString() + "\nApellido: " + (lastName != null ? lastName : "N/A");
+    }
 }
