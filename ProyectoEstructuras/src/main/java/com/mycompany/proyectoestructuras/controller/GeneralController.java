@@ -8,12 +8,12 @@ import com.mycompany.proyectoestructuras.Company;
 import com.mycompany.proyectoestructuras.Contact;
 import com.mycompany.proyectoestructuras.Person;
 import com.mycompany.proyectoestructuras.structures.MyArrayList;
-import com.mycompany.proyectoestructuras.structures.MyCircleDoubleLinkedList;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.TreeMap;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -60,7 +60,7 @@ public class GeneralController implements Initializable {
         // TODO
         inicializarSecciones();
         try{
-            mostrarContactos();
+            mostrarContactosConJerarquia();
         }catch(IOException | RuntimeException e){
             System.out.println("Ha ocurrido un error");
         }
@@ -76,6 +76,7 @@ public class GeneralController implements Initializable {
     }
     
     private Map<Character, VBox> secciones = new HashMap<>();
+    MyArrayList<Contact> contactos = Contact.cargarContactos("Contactos.txt");
     
     @FXML
     private void mostrarDetallesContacto(Contact contacto) {
@@ -99,7 +100,6 @@ public class GeneralController implements Initializable {
     }
     
     private void inicializarSecciones() {
-        // Limpiar el VBox antes de agregar nuevas secciones
         contactList.getChildren().clear();
 
         // Crear las secciones de letras A-Z
@@ -121,74 +121,64 @@ public class GeneralController implements Initializable {
         }
     }
 
+
+
     @FXML
-    public void mostrarContactos() throws IOException {
-        // Cargar los contactos desde el archivo
-        MyArrayList<Contact> contactos = Contact.cargarContactos("Contactos.txt");
-        MyCircleDoubleLinkedList<Contact> contactList = Contact.cargarContactosCircular("Contactos.txt");
-        for (Contact x : contactos) {
-            System.out.println(x);
-        }
-        
-        // Recorrer los contactos y agregarlos a las secciones correspondientes
-        for (Contact con : contactos) {
-            String nombre = con.getName().toUpperCase();
-            if (nombre.isEmpty()) continue; // Ignorar contactos sin nombre
+    public void mostrarContactosConJerarquia() throws IOException {
+        // Ordenar los contactos según la jerarquía: Apellido y nombre -> Cantidad de atributos -> País
+        contactos.sort();
 
-            char letra = nombre.charAt(0); // Obtener la letra inicial
+    inicializarSecciones();
 
-            VBox seccion = secciones.get(letra); // Obtener la sección correspondiente
+    for (Contact con : contactos) {
+        String nombre = con.getName() != null ? con.getName().toUpperCase() : "";
+        if (!nombre.isEmpty()) {
+            char letra = nombre.charAt(0);
+            VBox seccion = secciones.get(letra);
             if (seccion != null) {
-                HBox contactoHBox = crearContactoHBox(con); // Crear el HBox para el contacto
-                seccion.getChildren().add(contactoHBox); // Agregar el HBox a la sección correspondiente
+                HBox contactoHBox = crearContactoHBox(con); 
+                seccion.getChildren().add(contactoHBox);
             }
         }
     }
+}
+
+
 
     private HBox crearContactoHBox(Contact con) {
-        // Crear el HBox para representar al contacto
         HBox contactoHBox = new HBox();
         contactoHBox.setCursor(javafx.scene.Cursor.HAND);
         contactoHBox.setSpacing(15);
         contactoHBox.setAlignment(Pos.CENTER_LEFT);
         contactoHBox.setStyle("-fx-background-radius: 20; -fx-background-color: #ffffff; -fx-padding: 10; -fx-border-color: #d0d0d0; -fx-border-radius: 20; -fx-border-width: 1;");
 
-        // Crear el círculo para la imagen del contacto
         Circle fotoCirculo = new Circle(25);
         Image foto = new Image(getClass().getResource("/com/mycompany/proyectoestructuras/images/fotoDefault.png").toExternalForm());
-        fotoCirculo.setFill(new ImagePattern(foto)); // Establecer la imagen como fondo del círculo
+        fotoCirculo.setFill(new ImagePattern(foto));
 
-        // Crear el VBox para los datos del contacto
         VBox datosC = new VBox();
         datosC.setSpacing(5);
         datosC.setAlignment(Pos.CENTER_LEFT);
 
-        // Crear el label para el nombre del contacto
         Label nombres = new Label();
         nombres.setFont(Font.font("Arial", FontWeight.BOLD, 14));
         nombres.setWrapText(true);
 
-        // Asignar el nombre del contacto
         if (con instanceof Person) {
             Person per = (Person) con;
-            nombres.setText(per.getName() + " " + per.getLastName());
+            nombres.setText((per.getLastName() != null ? per.getName() + " " : "") + per.getLastName());
         } else if (con instanceof Company) {
             Company comp = (Company) con;
             nombres.setText(comp.getName());
         }
         nombres.setStyle("-fx-text-fill: #000000;");
-
-        // Agregar el nombre al VBox de datos
         datosC.getChildren().add(nombres);
-
-        // Agregar el círculo y los datos al HBox
         contactoHBox.getChildren().addAll(fotoCirculo, datosC);
-
-        // Agregar evento de clic para mostrar detalles
         contactoHBox.setOnMouseClicked(event -> mostrarDetallesContacto(con));
 
         return contactoHBox;
     }
+
     
     public void cambiarVentana(){
         try {

@@ -16,7 +16,7 @@ import java.io.IOException;
  *
  * @author diego
  */
-public abstract class Contact {
+public abstract class Contact implements Comparable<Contact> {
     private String name;
     private String phoneNumber;
     private Address address;
@@ -209,5 +209,50 @@ public abstract class Contact {
                "\nCorreo: " + (email != null ? email : "N/A") +
                "\nPaís: " + (country != null ? country : "N/A");
     }
+    
+    @Override
+    public int compareTo(Contact other) {
+        if (this instanceof Person && other instanceof Person) {
+            Person thisPerson = (Person) this;
+            Person otherPerson = (Person) other;
+
+            int lastNameComparison = compareStrings(thisPerson.getLastName(), otherPerson.getLastName());
+            if (lastNameComparison != 0) {
+                return lastNameComparison; // Si los apellidos son diferentes, devolver la comparación
+            }
+
+            return compareStrings(this.getName(), other.getName());
+        }
+
+        return compareStrings(this.getName(), other.getName());
+    }
+
+    public int compareByAttributes(Contact other) {
+        int thisAttributes = countNonNullAttributes();
+        int otherAttributes = other.countNonNullAttributes();
+        return Integer.compare(thisAttributes, otherAttributes);
+    }
+
+    public int compareByCountry(Contact other) {
+        return compareStrings(this.getCountry(), other.getCountry());
+    }
+
+    private int countNonNullAttributes() {
+        int count = 0;
+        if (name != null) count++;
+        if (phoneNumber != null) count++;
+        if (address != null) count++;
+        if (email != null) count++;
+        if (country != null) count++;
+        return count;
+    }
+
+    private int compareStrings(String s1, String s2) {
+        if (s1 == null && s2 == null) return 0;
+        if (s1 == null) return -1;
+        if (s2 == null) return 1;
+        return s1.compareToIgnoreCase(s2);
+    }
+
     
 }

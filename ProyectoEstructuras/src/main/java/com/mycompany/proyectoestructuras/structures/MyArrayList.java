@@ -4,11 +4,14 @@
  */
 package com.mycompany.proyectoestructuras.structures;
 
+import com.mycompany.proyectoestructuras.Contact;
+
 /**
  *
- * @author diego
+ * @author john
+ * @param <T>
  */
-public class MyArrayList<T> implements Iterable<T> {
+public class MyArrayList<T extends Comparable<T>> implements Iterable<T> {
     private Object[] array;
     private int size;
 
@@ -132,4 +135,37 @@ public class MyArrayList<T> implements Iterable<T> {
             throw new UnsupportedOperationException("Eliminar no es soportado");
         }
     }
+    
+    public void sort() {
+        for (int i = 0; i < size - 1; i++) {
+            for (int j = i + 1; j < size; j++) {
+                Contact c1 = (Contact) array[i];
+                Contact c2 = (Contact) array[j];
+
+                int result = c1.compareTo(c2);
+                if (result > 0) { 
+                    Object temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+                    continue;
+                }
+
+                result = c1.compareByAttributes(c2);
+                if (result > 0) { 
+                    Object temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+                    continue;
+                }
+
+                result = c1.compareByCountry(c2);
+                if (result > 0) {
+                    Object temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+                }
+            }
+        }
+    }
+
 }
