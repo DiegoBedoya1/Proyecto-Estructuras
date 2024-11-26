@@ -182,7 +182,7 @@ public class GeneralController implements Initializable {
     
     public void cambiarVentana(){
         try {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/mycompany/proyectoestructuras/añadirVentana.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/mycompany/proyectoestructuras/Eleccion.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
         Stage detallesStage = new Stage();
