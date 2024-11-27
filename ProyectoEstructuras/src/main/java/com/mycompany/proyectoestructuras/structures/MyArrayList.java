@@ -5,6 +5,7 @@
 package com.mycompany.proyectoestructuras.structures;
 
 import com.mycompany.proyectoestructuras.Contact;
+import java.util.Comparator;
 
 /**
  *
@@ -136,30 +137,15 @@ public class MyArrayList<T extends Comparable<T>> implements Iterable<T> {
         }
     }
     
-    public void sort() {
+    public void sort(Comparator<? super T> comparator) {
         for (int i = 0; i < size - 1; i++) {
             for (int j = i + 1; j < size; j++) {
-                Contact c1 = (Contact) array[i];
-                Contact c2 = (Contact) array[j];
+                T c1 = (T) array[i];
+                T c2 = (T) array[j];
 
-                int result = c1.compareTo(c2);
-                if (result > 0) { 
-                    Object temp = array[i];
-                    array[i] = array[j];
-                    array[j] = temp;
-                    continue;
-                }
-
-                result = c1.compareByAttributes(c2);
-                if (result > 0) { 
-                    Object temp = array[i];
-                    array[i] = array[j];
-                    array[j] = temp;
-                    continue;
-                }
-
-                result = c1.compareByCountry(c2);
-                if (result > 0) {
+                // Usar el Comparator para comparar los elementos
+                if (comparator.compare(c1, c2) > 0) {
+                    // Intercambiar los elementos si el orden es incorrecto
                     Object temp = array[i];
                     array[i] = array[j];
                     array[j] = temp;

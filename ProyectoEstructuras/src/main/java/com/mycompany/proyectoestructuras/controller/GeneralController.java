@@ -10,16 +10,18 @@ import com.mycompany.proyectoestructuras.Person;
 import com.mycompany.proyectoestructuras.structures.MyArrayList;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.TreeMap;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -39,57 +41,68 @@ import javafx.stage.Stage;
  * @author flsan
  */
 public class GeneralController implements Initializable {
-    
+
     @FXML
     private ScrollPane contactScrollPane;
     @FXML
     private Circle buscar;
+    @FXML
+    private Button cancelarBusquedaBtn;
+    @FXML
+    private ComboBox<String> sortCriteriaComboBox;
     @FXML
     private Circle añadir;
     @FXML
     private TextField buscador;
     @FXML
     private VBox contactList;
-    /**
-     * Initializes the controller class.
-     * @param url
-     * @param rb
-     */
-    @Override
+
+    private Map<Character, VBox> secciones = new HashMap<>();
+    MyArrayList<Contact> contactos = Contact.cargarContactos("Contactos.txt");
+    private MyArrayList<Contact> contactosFiltrados = new MyArrayList<>();
+
+
+        @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
         inicializarSecciones();
-        try{
-            mostrarContactosConJerarquia();
-        }catch(IOException | RuntimeException e){
-            System.out.println("Ha ocurrido un error");
-        }
-        
+
+        // Copiar los contactos originales para poder restaurarlos
+        copiarLista(contactos, contactosFiltrados);
+
+        // Inicializar ComboBox de ordenamiento
+        sortCriteriaComboBox.getItems().addAll("Nombre y Apellido", "Cantidad de Atributos", "País");
+        sortCriteriaComboBox.setValue(null); // Dejar el ComboBox vacío (sin selección inicial)
+        sortCriteriaComboBox.setOnAction(event -> mostrarContactosConJerarquia());
+
+        // Listener para buscar
+        buscador.textProperty().addListener((observable, oldValue, newValue) -> filtrarContactos(newValue));
+
+        // Botón de cancelar búsqueda
+        cancelarBusquedaBtn.setOnAction(event -> cancelarBusqueda());
+
+        // Setear las imágenes de los círculos
         Image img1 = new Image(getClass().getResource("/com/mycompany/proyectoestructuras/images/buscar.png").toExternalForm());
         Image img2 = new Image(getClass().getResource("/com/mycompany/proyectoestructuras/images/añadir.png").toExternalForm());
         buscar.setFill(new ImagePattern(img1));
         añadir.setFill(new ImagePattern(img2));
         añadir.setOnMouseClicked(event -> {
-                cambiarVentana();
-                cerrarVentana();
-            });
+            cambiarVentana();
+            cerrarVentana();
+        });
+
+        // Mostrar los contactos al inicio sin filtro aplicado
+        mostrarContactosConJerarquia();
     }
-    
-    private Map<Character, VBox> secciones = new HashMap<>();
-    MyArrayList<Contact> contactos = Contact.cargarContactos("Contactos.txt");
-    
+
     @FXML
     private void mostrarDetallesContacto(Contact contacto) {
         try {
-            // Cargar la ventana de detalles
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/mycompany/proyectoestructuras/InfoContacto.fxml"));
             Parent root = fxmlLoader.load();
 
-            // Obtener el controlador de la ventana de detalles
             InfoContactoController controller = fxmlLoader.getController();
-            controller.setContacto(contacto); // Pasar el contacto al controlador
+            controller.setContacto(contacto);
 
-            // Configurar y mostrar la ventana
             Stage detallesStage = new Stage();
             detallesStage.setTitle("Detalles del Contacto");
             detallesStage.setScene(new Scene(root));
@@ -98,53 +111,65 @@ public class GeneralController implements Initializable {
             e.printStackTrace(); // Imprimir el error para depuración
         }
     }
-    
+
+    @FXML
     private void inicializarSecciones() {
         contactList.getChildren().clear();
 
-        // Crear las secciones de letras A-Z
         for (char letra = 'A'; letra <= 'Z'; letra++) {
             VBox seccion = new VBox();
             seccion.setSpacing(5);
             seccion.setStyle("-fx-background-color: #f0f0f0; -fx-padding: 10; -fx-border-radius: 10; -fx-background-radius: 10;");
-
-            // Encabezado de la letra
             Text encabezado = new Text(String.valueOf(letra));
             encabezado.setStyle("-fx-font-weight: bold; -fx-fill: black;");
             encabezado.setFont(Font.font("Arial", FontWeight.BOLD, 18));
-
-            seccion.getChildren().add(encabezado); // Agregar encabezado
-            contactList.getChildren().add(seccion); // Agregar la sección al VBox principal
-
-            // Guardar la sección en el mapa para referencia futura
+            seccion.getChildren().add(encabezado);
+            contactList.getChildren().add(seccion);
             secciones.put(letra, seccion);
         }
     }
 
-
-
     @FXML
-    public void mostrarContactosConJerarquia() throws IOException {
-        // Ordenar los contactos según la jerarquía: Apellido y nombre -> Cantidad de atributos -> País
-        contactos.sort();
+    public void mostrarContactosConJerarquia() {
+        String criterio = sortCriteriaComboBox.getValue();
 
-    inicializarSecciones();
+        if (criterio != null && !criterio.isEmpty()) {
+            Comparator<Contact> comparator;
+            switch (criterio) {
+                case "Cantidad de Atributos":
+                    comparator = (c1, c2) -> c1.compareByAttributes(c2);
+                    break;
+                case "País":
+                    comparator = (c1, c2) -> c1.compareByCountry(c2);
+                    break;
+                case "Apellido y Nombre":
+                default:
+                    comparator = (c1, c2) -> c1.compareTo(c2); 
+                    break;
+            }
 
-    for (Contact con : contactos) {
-        String nombre = con.getName() != null ? con.getName().toUpperCase() : "";
-        if (!nombre.isEmpty()) {
-            char letra = nombre.charAt(0);
-            VBox seccion = secciones.get(letra);
-            if (seccion != null) {
-                HBox contactoHBox = crearContactoHBox(con); 
-                seccion.getChildren().add(contactoHBox);
+            // Ordenar los contactos utilizando el comparador
+            contactos.sort(comparator);
+        }
+
+        // Inicializar secciones para los contactos
+        inicializarSecciones();
+
+        // Mostrar los contactos ordenados
+        for (Contact con : contactos) {
+            String nombre = con.getName() != null ? con.getName().toUpperCase() : "";
+            if (!nombre.isEmpty()) {
+                char letra = nombre.charAt(0); 
+                VBox seccion = secciones.get(letra);
+                if (seccion != null) {
+                    HBox contactoHBox = crearContactoHBox(con);
+                    seccion.getChildren().add(contactoHBox);
+                }
             }
         }
     }
-}
 
-
-
+    @FXML
     private HBox crearContactoHBox(Contact con) {
         HBox contactoHBox = new HBox();
         contactoHBox.setCursor(javafx.scene.Cursor.HAND);
@@ -179,27 +204,62 @@ public class GeneralController implements Initializable {
         return contactoHBox;
     }
 
-    
-    public void cambiarVentana(){
+    @FXML
+    public void cambiarVentana() {
         try {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/mycompany/proyectoestructuras/añadirVentana.fxml"));
-        Parent root = fxmlLoader.load();
-        Scene scene = new Scene(root);
-        Stage detallesStage = new Stage();
-        detallesStage.setScene(scene);
-        detallesStage.show();
-        
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/mycompany/proyectoestructuras/añadirVentana.fxml"));
+            Parent root = fxmlLoader.load();
+            Scene scene = new Scene(root);
+            Stage detallesStage = new Stage();
+            detallesStage.setScene(scene);
+            detallesStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    
-    
+
+    @FXML
     public void cerrarVentana() {
         Stage stage = (Stage) añadir.getScene().getWindow();
-        stage.close(); 
+        stage.close();
     }
-    
-}
-    
 
+    @FXML
+    private void filtrarContactos(String query) {
+        contactosFiltrados.clear();
+        if (query.isEmpty()) {
+            copiarLista(contactos, contactosFiltrados);
+        } else {
+            for (Contact con : contactos) {
+                if (con.getName() != null && con.getName().toLowerCase().contains(query.toLowerCase())) {
+                    contactosFiltrados.add(con);
+                }
+            }
+        }
+        mostrarContactosOrdenados(contactosFiltrados);
+    }
+
+    @FXML
+    private void cancelarBusqueda() {
+        buscador.clear();
+        mostrarContactosConJerarquia();
+    }
+
+    @FXML
+    private void copiarLista(MyArrayList<Contact> fromList, MyArrayList<Contact> toList) {
+        toList.clear();
+        for (int i = 0; i < fromList.size(); i++) {
+            toList.add(fromList.get(i));
+        }
+    }
+
+    @FXML
+    private void mostrarContactosOrdenados(MyArrayList<Contact> contactos) {
+        contactList.getChildren().clear();
+        for (Contact con : contactos) {
+            HBox contactoHBox = crearContactoHBox(con);
+            contactList.getChildren().add(contactoHBox);
+        }
+    }
+
+}
