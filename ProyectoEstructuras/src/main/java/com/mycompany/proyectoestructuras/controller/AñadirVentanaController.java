@@ -62,8 +62,6 @@ public class AñadirVentanaController implements Initializable {
     @FXML
     TextField tfape;
     @FXML
-    TextField tfemp;
-    @FXML
     TextField tftel;
     @FXML
     TextField tfdir;
@@ -73,10 +71,6 @@ public class AñadirVentanaController implements Initializable {
     TextField tfpais;
     @FXML
     TextField tfemail;
-    @FXML
-    TextField tfruc;
-    @FXML
-    TextField tfweb;
     @FXML
     VBox contTelefonosExtra;
     /**
@@ -95,7 +89,7 @@ public class AñadirVentanaController implements Initializable {
 
         
         btListo.setOnMouseClicked(event -> {
-                guardarContactos();
+                guardarContacto();
                 volverVentana();
                 cerrarVentana();
             });
@@ -120,13 +114,10 @@ public class AñadirVentanaController implements Initializable {
 */
     }
     
-    public void guardarContactos(){
-        String linea="";
-        if(tfnom.getText().isEmpty() && tfape.getText().isEmpty()){
-            linea="Compania"+","+tfemp.getText()+","+tftel.getText()+","+tfruc.getText()+","+tfdir.getText()+","+tfurl.getText()+","+tfemail.getText()+","+tfpais.getText()+","+tfweb.getText();
-        }else if(!tfnom.getText().isEmpty()){
-            linea="Person"+","+tfnom.getText()+","+tfape.getText()+","+tftel.getText()+","+tfdir.getText()+","+tfurl.getText()+","+tfemail.getText()+","+tfpais.getText();
-        }
+    public void guardarContacto(){
+       
+           String linea="Person"+","+tfnom.getText()+","+tfape.getText()+","+tftel.getText()+","+tfdir.getText()+","+tfurl.getText()+","+tfemail.getText()+","+tfpais.getText();
+        
         
         Contact.guardarContactos(linea);
     }
