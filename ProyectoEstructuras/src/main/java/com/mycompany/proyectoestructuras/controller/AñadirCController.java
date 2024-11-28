@@ -26,22 +26,6 @@ import javafx.stage.Stage;
  */
 public class AñadirCController implements Initializable {
     @FXML
-    Circle foto;
-    
-    /*@FXML
-    Circle añadirTelefono;
-    @FXML
-    Circle cancelar;
-    @FXML
-    Circle ubi;
-    @FXML
-    Circle email;
-    @FXML
-    Circle fecha;
-    @FXML
-    Button guardar;
-    */
-    @FXML
     Label btListo;
     @FXML
     Label btCancelar;
@@ -61,16 +45,12 @@ public class AñadirCController implements Initializable {
     TextField tfruc;
     @FXML
     TextField tfweb;
-    @FXML
-    VBox contTelefonosExtra;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        
-         btListo.setOnMouseClicked(event -> {
+        btListo.setOnMouseClicked(event -> {
                 guardarContacto();
                 volverVentana();
                 cerrarVentana();
@@ -84,9 +64,6 @@ public class AñadirCController implements Initializable {
     public void guardarContacto(){
        
           String linea="Compania"+","+tfnom.getText()+","+tftel.getText()+","+tfruc.getText()+","+tfdir.getText()+","+tfurl.getText()+","+tfemail.getText()+","+tfpais.getText()+","+tfweb.getText();
-
-        
-        
         Contact.guardarContactos(linea);
     }
     
@@ -100,7 +77,6 @@ public class AñadirCController implements Initializable {
         detallesStage.show();
         
         } catch (IOException e) {
-            e.printStackTrace();
         }
         Stage stage = (Stage) btCancelar.getScene().getWindow();
         stage.close();

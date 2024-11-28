@@ -18,10 +18,16 @@ public class Company extends Contact {
     }
     
     @Override
-    public String toString() {
-        return super.toString() + 
-               "\nRUC: " + (RUC != null ? RUC : "N/A") +
-               "\nPágina web: " + (webPage != null ? webPage : "N/A");
+    public String toFileString() {
+        return String.format("compania,%s,%s,%s,%s,%s,%s,%s",
+            getName() != null ? getName() : "",
+            getPhoneNumber() != null ? getPhoneNumber() : "",
+            RUC != null ? RUC : "",
+            getAddress() != null ? getAddress().getAddress() : "",
+            getEmail() != null ? getEmail() : "",
+            getCountry() != null ? getCountry() : "",
+            webPage != null ? webPage : ""
+        );
     }
 
     public String getRUC() {

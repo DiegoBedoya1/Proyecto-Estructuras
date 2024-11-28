@@ -58,7 +58,7 @@ public class GeneralController implements Initializable {
     private VBox contactList;
 
     private final Map<Character, VBox> secciones;
-    MyArrayList<Contact> contactos = Contact.cargarContactos("Contactos.txt");
+    static MyArrayList<Contact> contactos = Contact.cargarContactos("Contactos.txt");
     private final MyArrayList<Contact> contactosFiltrados = new MyArrayList<>();
 
     public GeneralController() {
@@ -94,6 +94,8 @@ public class GeneralController implements Initializable {
 
             InfoContactoController controller = fxmlLoader.getController();
             controller.setContacto(contacto);
+            Stage stage = (Stage) añadir.getScene().getWindow();
+            stage.close();
 
             Stage detallesStage = new Stage();
             detallesStage.setTitle("Detalles del Contacto");
@@ -214,8 +216,6 @@ public class GeneralController implements Initializable {
     @FXML
     private void filtrarContactos(String query) {
         contactosFiltrados.clear();
-
-        // Si la consulta está vacía, restaurar la lista completa de contactos
         if (query.isEmpty()) {
             copiarLista(contactos, contactosFiltrados);
         } else {

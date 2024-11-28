@@ -24,8 +24,15 @@ public class Person extends Contact{
         this.lastName = lastName;
     }
     
-    @Override
-    public String toString() {
-        return super.toString() + "\nApellido: " + (lastName != null ? lastName : "N/A");
+    public String toFileString() {
+        return String.format("person,%s,%s,%s,%s,%s,%s",
+            getName() != null ? getName() : "",
+            lastName != null ? lastName : "",
+            getPhoneNumber() != null ? getPhoneNumber() : "",
+            getAddress() != null ? getAddress().getAddress() : "",
+            getEmail() != null ? getEmail() : "",
+            getCountry() != null ? getCountry() : ""
+        );
     }
+
 }

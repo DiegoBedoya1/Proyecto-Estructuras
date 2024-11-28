@@ -177,15 +177,17 @@ public static MyArrayList<Contact> cargarContactos(String fileName) {
     return contactos;
     }
 
-    @Override
-    public String toString() {
-        return "Tipo: " + tipo +
-               "\nNombre: " + (name != null ? name : "N/A") +
-               "\nTeléfono: " + (phoneNumber != null ? phoneNumber : "N/A") +
-               "\nDirección: " + (address != null ? address.toString() : "N/A") +
-               "\nCorreo: " + (email != null ? email : "N/A") +
-               "\nPaís: " + (country != null ? country : "N/A");
-    }
+    public String toFileString() {
+            return String.format("%s,%s,%s,%s,%s,%s", 
+                getClass().getSimpleName().toLowerCase(), // Tipo
+                name != null ? name : "",
+                phoneNumber != null ? phoneNumber : "",
+                address != null ? address.getAddress() : "",
+                email != null ? email : "",
+                country != null ? country : ""
+            );
+        }
+
     
     @Override
     public int compareTo(Contact other) {

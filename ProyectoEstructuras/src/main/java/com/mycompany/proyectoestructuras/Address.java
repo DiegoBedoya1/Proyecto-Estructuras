@@ -10,15 +10,15 @@ package com.mycompany.proyectoestructuras;
  */
 public class Address {
     private String address;
-    private String urlAddress;
+    private String city;
 
     public Address(String address) {
         this.address = address;
     }
 
-    public Address(String address, String urlAddress) {
+    public Address(String address, String city) {
         this.address = address;
-        this.urlAddress = urlAddress;
+        this.city = city;
     }
 
     public String getAddress() {
@@ -29,12 +29,12 @@ public class Address {
         this.address = address;
     }
 
-    public String getUrlAddress() {
-        return urlAddress;
+    public String getCity() {
+        return city;
     }
 
-    public void setUrlAddress(String urlAddress) {
-        this.urlAddress = urlAddress;
+    public void setCity(String city) {
+        this.city = city;
     }
     
 }

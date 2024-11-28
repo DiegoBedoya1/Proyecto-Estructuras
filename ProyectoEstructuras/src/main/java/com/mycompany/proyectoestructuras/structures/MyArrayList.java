@@ -18,16 +18,15 @@ public class MyArrayList<T extends Comparable<T>> implements Iterable<T> {
 
     // Constructor para inicializar la lista con un tamaño inicial
     public MyArrayList() {
-        array = new Object[10];  // Tamaño inicial
+        array = new Object[10];
         size = 0;
     }
 
-    // Método para añadir un elemento al final de la lista
     public void add(T element) {
         if (size == array.length) {
-            ensureCapacity();  // Asegurarse de que haya espacio suficiente
+            ensureCapacity();
         }
-        array[size++] = element;  // Añadir el elemento y aumentar el tamaño
+        array[size++] = element;
     }
 
     // Método para obtener un elemento en un índice específico
