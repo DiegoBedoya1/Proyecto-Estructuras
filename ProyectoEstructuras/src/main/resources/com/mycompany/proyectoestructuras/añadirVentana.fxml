@@ -18,12 +18,12 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="btCancelar" layoutX="14.0" layoutY="13.0" text="Cancelar" textFill="#0704bc">
+                  <Label fx:id="btCancelar" layoutX="14.0" layoutY="13.0" text="Cancelar" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Label>
-                  <Label fx:id="btListo" layoutX="308.0" layoutY="12.0" text="Listo" textFill="#0704bc">
+                  <Label fx:id="btListo" layoutX="308.0" layoutY="12.0" text="Listo" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
@@ -46,40 +46,40 @@
                         </VBox>
                   <VBox prefHeight="363.0" prefWidth="360.0">
                      <children>
-                        <TextField fx:id="tfnom" prefHeight="32.0" prefWidth="360.0" promptText="Nombre" style="-fx-background-color: #262728; -fx-background-radius: transparent;">
+                        <TextField fx:id="tfnom" prefHeight="32.0" prefWidth="360.0" promptText="Nombre" style="-fx-background-color: white; -fx-background-radius: transparent;">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="tfape" prefHeight="32.0" prefWidth="360.0" promptText="Apellido" style="-fx-background-color: #262728; -fx-background-radius: transparent;">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </TextField>
-                        <VBox prefHeight="25.0" prefWidth="360.0" />
-                        <TextField fx:id="tftel" prefHeight="32.0" prefWidth="360.0" promptText="Número de teléfono" style="-fx-background-color: #262728; -fx-background-radius: transparent;">
+                        <TextField fx:id="tfape" prefHeight="32.0" prefWidth="360.0" promptText="Apellido" style="-fx-background-color: white; -fx-background-radius: transparent;">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </TextField>
                         <VBox prefHeight="25.0" prefWidth="360.0" />
-                        <TextField fx:id="tfdir" prefHeight="32.0" prefWidth="360.0" promptText="Dirección" style="-fx-background-color: #262728; -fx-background-radius: transparent;">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </TextField>
-                        <TextField fx:id="tfurl" prefHeight="32.0" prefWidth="360.0" promptText="Url" style="-fx-background-color: #262728; -fx-background-radius: transparent;">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </TextField>
-                        <TextField fx:id="tfpais" prefHeight="32.0" prefWidth="360.0" promptText="País" style="-fx-background-color: #262728; -fx-background-radius: transparent;">
+                        <TextField fx:id="tftel" prefHeight="32.0" prefWidth="360.0" promptText="Número de teléfono" style="-fx-background-color: white; -fx-background-radius: transparent;">
                            <font>
                               <Font size="13.0" />
                            </font>
                         </TextField>
                         <VBox prefHeight="25.0" prefWidth="360.0" />
-                        <TextField fx:id="tfemail" prefHeight="32.0" prefWidth="360.0" promptText="Email" style="-fx-background-color: #262728; -fx-background-radius: transparent;">
+                        <TextField fx:id="tfdir" prefHeight="32.0" prefWidth="360.0" promptText="Dirección" style="-fx-background-color: white; -fx-background-radius: transparent;">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="tfpais" prefHeight="32.0" prefWidth="360.0" promptText="País" style="-fx-background-color: white; -fx-background-radius: transparent;">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </TextField>
+                        <VBox prefHeight="25.0" prefWidth="360.0" />
+                        <TextField fx:id="tfurl" prefHeight="32.0" prefWidth="360.0" promptText="Url" style="-fx-background-color: white; -fx-background-radius: transparent;">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </TextField>
+                        <TextField fx:id="tfemail" prefHeight="32.0" prefWidth="360.0" promptText="Email" style="-fx-background-color: white; -fx-background-radius: transparent;">
                            <font>
                               <Font size="13.0" />
                            </font>

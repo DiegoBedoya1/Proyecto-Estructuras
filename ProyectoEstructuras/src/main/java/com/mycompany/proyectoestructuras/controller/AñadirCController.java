@@ -102,6 +102,8 @@ public class AñadirCController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Stage stage = (Stage) btCancelar.getScene().getWindow();
+        stage.close();
     }
      
      public void cerrarVentana() {
