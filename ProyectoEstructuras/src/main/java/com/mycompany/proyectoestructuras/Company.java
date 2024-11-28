@@ -23,5 +23,23 @@ public class Company extends Contact {
                "\nRUC: " + (RUC != null ? RUC : "N/A") +
                "\nPágina web: " + (webPage != null ? webPage : "N/A");
     }
+
+    public String getRUC() {
+        return RUC;
+    }
+
+    public void setRUC(String RUC) {
+        this.RUC = RUC;
+    }
+
+    public String getWebPage() {
+        return webPage;
+    }
+
+    public void setWebPage(String webPage) {
+        this.webPage = webPage;
+    }
+    
+    
     
 }

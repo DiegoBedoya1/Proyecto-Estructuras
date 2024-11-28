@@ -4,19 +4,30 @@
  */
 package com.mycompany.proyectoestructuras.controller;
 
+import com.mycompany.proyectoestructuras.App;
 import com.mycompany.proyectoestructuras.Company;
 import com.mycompany.proyectoestructuras.Contact;
 import com.mycompany.proyectoestructuras.Person;
+import com.mycompany.proyectoestructuras.structures.MyArrayList;
 import com.mycompany.proyectoestructuras.structures.MyCircleDoubleLinkedList;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Path;
 import javafx.stage.Stage;
 
 /**
@@ -43,9 +54,9 @@ public class InfoContactoController implements Initializable {
 
     private Contact currentContact;
     private MyCircleDoubleLinkedList<Contact> contactList = Contact.cargarContactosCircular("Contactos.txt");
-    private int currentIndex = 0; // Para mantener el índice del contacto actual en la lista
+    private int currentIndex = 0;
 
-
+    @FXML
     public void setContacto(Contact contacto) {
         this.currentContact = contacto; // Guardar el contacto actual
 
@@ -65,63 +76,127 @@ public class InfoContactoController implements Initializable {
 
             // Asignar valores a los campos correspondientes
             contactName.setText(empresa.getName() != null ? empresa.getName() : "Sin información");
-            contactLastName.setText("N/A"); // Las empresas no tienen apellido
+            contactLastName.setText(""); 
             contactPhone.setText(empresa.getPhoneNumber() != null ? empresa.getPhoneNumber() : "Sin información");
             contactAddress.setText(empresa.getAddress() != null ? empresa.getAddress().getAddress() : "Sin información");
             contactEmail.setText(empresa.getEmail() != null ? empresa.getEmail() : "Sin información");
             contactCountry.setText(empresa.getCountry() != null ? empresa.getCountry() : "Sin información");
             contactType.setText("Empresa");
         }
-
-        // Cargar la foto predeterminada
         Image image = new Image(getClass().getResource("/com/mycompany/proyectoestructuras/images/fotoDefault.png").toExternalForm());
         contactPhoto.setFill(new ImagePattern(image));
         contactPhoto.setSmooth(true);
     }
 
-    // Método para cargar el siguiente contacto (circular)
     @FXML
     private void nextContact() {
         if (contactList != null && !contactList.isEmpty()) {
-            currentIndex = (currentIndex + 1) % contactList.size(); // Asegura el ciclo
+            currentIndex = (currentIndex + 1) % contactList.size(); 
             setContacto(contactList.get(currentIndex));
         }
     }
 
-    // Método para cargar el contacto anterior (circular)
+
     @FXML
     private void prevContact() {
         if (contactList != null && !contactList.isEmpty()) {
-            currentIndex = (currentIndex - 1 + contactList.size()) % contactList.size(); // Asegura el ciclo
+            currentIndex = (currentIndex - 1 + contactList.size()) % contactList.size();
             setContacto(contactList.get(currentIndex));
         }
     }
 
-    // Método para cerrar la ventana
+
     @FXML
     private void closeWindow() {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     }
 
-    // Método para editar el contacto (a implementar según la lógica)
     @FXML
     private void editContact() {
-        // Implementar la lógica de edición, como abrir un formulario para editar
         System.out.println("Editar contacto: " + currentContact.getName());
     }
 
-    // Método para eliminar el contacto (a implementar según la lógica)
     @FXML
     private void deleteContact() {
-        // Implementar la lógica de eliminación, como confirmar y eliminar de la lista
-        System.out.println("Eliminar contacto: " + currentContact.getName());
-        contactList.remove(currentIndex);
-        currentIndex = (currentIndex == 0) ? 0 : currentIndex - 1; // Asegurar que no se quede fuera de los límites
-        if (!contactList.isEmpty()) {
-            setContacto(contactList.get(currentIndex));
+        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmAlert.setTitle("Eliminar Contacto");
+        confirmAlert.setHeaderText("¿Estás seguro de que deseas eliminar este contacto?");
+        confirmAlert.setContentText("Esta acción es permanente y no se puede deshacer.");
+
+        Optional<ButtonType> result = confirmAlert.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+                contactList.remove(currentIndex);
+
+                actualizarArchivo();
+
+                if (!contactList.isEmpty()) {
+                    currentIndex = currentIndex % contactList.size();
+                    setContacto(contactList.get(currentIndex));
+                } else {
+                    Stage stage = (Stage) closeButton.getScene().getWindow();
+                    stage.close();
+                }
+
+                // Notificación de éxito
+                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                successAlert.setTitle("Contacto Eliminado");
+                successAlert.setHeaderText(null);
+                successAlert.setContentText("El contacto ha sido eliminado exitosamente.");
+                successAlert.showAndWait();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("Error");
+                errorAlert.setHeaderText("No se pudo eliminar el contacto");
+                errorAlert.setContentText("Ocurrió un error al intentar actualizar el archivo.");
+                errorAlert.showAndWait();
+            }
         }
     }
+
+   @FXML
+    private void actualizarArchivo() throws IOException {
+        java.nio.file.Path filePath = Paths.get(App.pathFiles + "Contactos.txt");        
+        MyArrayList<String> updatedLines = new MyArrayList<>();
+        for (int i = 0; i < contactList.size(); i++) {
+            Contact contact = contactList.get(i);
+            String line = construirLinea(contact);
+            updatedLines.add(line);
+        }
+
+        Files.write(filePath, updatedLines, StandardOpenOption.TRUNCATE_EXISTING);
+    }
+    @FXML
+    private String construirLinea(Contact contact) {
+        if (contact instanceof Person) {
+            Person person = (Person) contact;
+            return String.format("person,%s,%s,%s,%s,%s,%s",
+                person.getName(),
+                person.getLastName(),
+                person.getPhoneNumber(),
+                person.getAddress() != null ? person.getAddress().getAddress() : "",
+                person.getEmail(),
+                person.getCountry());
+        } else if (contact instanceof Company) {
+            Company company = (Company) contact;
+            return String.format("company,%s,%s,%s,%s,%s,%s,%s",
+                company.getName(),
+                company.getPhoneNumber(),
+                company.getRUC(),
+                company.getAddress() != null ? company.getAddress().getAddress() : "",
+                company.getEmail(),
+                company.getCountry(),
+                company.getWebPage());
+        }
+        return "";
+    }
+
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -129,12 +204,9 @@ public class InfoContactoController implements Initializable {
         if (contactList != null && !contactList.isEmpty()) {
             setContacto(contactList.get(currentIndex)); // Cargar el primer contacto en la vista
         }
-
-        // Deshabilitar los botones de navegación si la lista está vacía
         nextButton.setDisable(contactList == null || contactList.isEmpty());
         previousButton.setDisable(contactList == null || contactList.isEmpty());
 
-        // Configurar las acciones de los botones (si no están configuradas desde FXML)
         editButton.setOnAction(event -> editContact());
         deleteButton.setOnAction(event -> deleteContact());
         closeButton.setOnAction(event -> closeWindow());

@@ -57,30 +57,24 @@ public class GeneralController implements Initializable {
     @FXML
     private VBox contactList;
 
-    private Map<Character, VBox> secciones = new HashMap<>();
+    private final Map<Character, VBox> secciones;
     MyArrayList<Contact> contactos = Contact.cargarContactos("Contactos.txt");
-    private MyArrayList<Contact> contactosFiltrados = new MyArrayList<>();
+    private final MyArrayList<Contact> contactosFiltrados = new MyArrayList<>();
+
+    public GeneralController() {
+        this.secciones = new HashMap<>();
+    }
 
 
-        @Override
+    @Override
     public void initialize(URL url, ResourceBundle rb) {
         inicializarSecciones();
-
-        // Copiar los contactos originales para poder restaurarlos
         copiarLista(contactos, contactosFiltrados);
-
-        // Inicializar ComboBox de ordenamiento
         sortCriteriaComboBox.getItems().addAll("Nombre y Apellido", "Cantidad de Atributos", "País");
-        sortCriteriaComboBox.setValue(null); // Dejar el ComboBox vacío (sin selección inicial)
+        sortCriteriaComboBox.setValue(null);
         sortCriteriaComboBox.setOnAction(event -> mostrarContactosConJerarquia());
-
-        // Listener para buscar
         buscador.textProperty().addListener((observable, oldValue, newValue) -> filtrarContactos(newValue));
-
-        // Botón de cancelar búsqueda
         cancelarBusquedaBtn.setOnAction(event -> cancelarBusqueda());
-
-        // Setear las imágenes de los círculos
         Image img1 = new Image(getClass().getResource("/com/mycompany/proyectoestructuras/images/buscar.png").toExternalForm());
         Image img2 = new Image(getClass().getResource("/com/mycompany/proyectoestructuras/images/añadir.png").toExternalForm());
         buscar.setFill(new ImagePattern(img1));
@@ -89,8 +83,6 @@ public class GeneralController implements Initializable {
             cambiarVentana();
             cerrarVentana();
         });
-
-        // Mostrar los contactos al inicio sin filtro aplicado
         mostrarContactosConJerarquia();
     }
 
@@ -108,7 +100,6 @@ public class GeneralController implements Initializable {
             detallesStage.setScene(new Scene(root));
             detallesStage.show();
         } catch (IOException e) {
-            e.printStackTrace(); // Imprimir el error para depuración
         }
     }
 
@@ -147,16 +138,13 @@ public class GeneralController implements Initializable {
                     comparator = (c1, c2) -> c1.compareTo(c2); 
                     break;
             }
-
-            // Ordenar los contactos utilizando el comparador
             contactos.sort(comparator);
         }
 
-        // Inicializar secciones para los contactos
         inicializarSecciones();
 
-        // Mostrar los contactos ordenados
         for (Contact con : contactos) {
+                //System.out.println(con);
             String nombre = con.getName() != null ? con.getName().toUpperCase() : "";
             if (!nombre.isEmpty()) {
                 char letra = nombre.charAt(0); 
@@ -214,7 +202,6 @@ public class GeneralController implements Initializable {
             detallesStage.setScene(scene);
             detallesStage.show();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -227,11 +214,20 @@ public class GeneralController implements Initializable {
     @FXML
     private void filtrarContactos(String query) {
         contactosFiltrados.clear();
+
+        // Si la consulta está vacía, restaurar la lista completa de contactos
         if (query.isEmpty()) {
             copiarLista(contactos, contactosFiltrados);
         } else {
             for (Contact con : contactos) {
+                boolean matches = false;
                 if (con.getName() != null && con.getName().toLowerCase().contains(query.toLowerCase())) {
+                    matches = true;
+                }
+                if (con.getCountry() != null && con.getCountry().toLowerCase().contains(query.toLowerCase())) {
+                    matches = true;
+                }
+                if (matches) {
                     contactosFiltrados.add(con);
                 }
             }
