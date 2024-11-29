@@ -123,10 +123,29 @@ private void closeWindow() {
 
     @FXML
     private void editContact() {
-        try {
-            FXMLLoader fxmlLoader;
-            if (currentContact instanceof Person) {
-                fxmlLoader = new FXMLLoader(getClass().getResource("/com/mycompany/proyectoestructuras/añadirVentana.fxml"));
+         try {
+        FXMLLoader fxmlLoader;
+        if (currentContact instanceof Person) {
+            Person persona = (Person) currentContact;
+            // Cargar el archivo FXML
+            fxmlLoader = new FXMLLoader(getClass().getResource("/com/mycompany/proyectoestructuras/añadirVentana.fxml"));
+            Parent root = fxmlLoader.load(); 
+            
+            // Obtener el controlador directamente del FXMLLoader
+            AñadirVentanaController controller = fxmlLoader.getController();
+            controller.setNom(persona.getName()); 
+            controller.setAp(persona.getLastName());
+            controller.setDir(persona.getAddress().getAddress());
+            controller.setTel(persona.getPhoneNumber());
+            controller.setEmail(persona.getEmail());
+            controller.setPais(persona.getCountry());
+            String nomAct = controller.tfnom.getText();
+            System.out.println("nombre actualizado: "+nomAct);
+            
+            // Mostrar la ventana
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
             } else {
                 fxmlLoader = new FXMLLoader(getClass().getResource("/com/mycompany/proyectoestructuras/añadirC.fxml"));
             }

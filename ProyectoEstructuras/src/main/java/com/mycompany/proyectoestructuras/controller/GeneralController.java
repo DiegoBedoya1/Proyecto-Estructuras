@@ -146,7 +146,7 @@ public class GeneralController implements Initializable {
         inicializarSecciones();
 
         for (Contact con : contactos) {
-                //System.out.println(con);
+                System.out.println(con);
             String nombre = con.getName() != null ? con.getName().toUpperCase() : "";
             if (!nombre.isEmpty()) {
                 char letra = nombre.charAt(0); 

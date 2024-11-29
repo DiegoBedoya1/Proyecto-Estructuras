@@ -4,7 +4,10 @@
  */
 package com.mycompany.proyectoestructuras.controller;
 
+import com.mycompany.proyectoestructuras.Address;
+import com.mycompany.proyectoestructuras.Company;
 import com.mycompany.proyectoestructuras.Contact;
+import com.mycompany.proyectoestructuras.Person;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -60,10 +63,14 @@ public class AñadirCController implements Initializable {
                 volverVentana();
             });
     }    
-    
+    @FXML
     public void guardarContacto(){
        
-          String linea="Compania"+","+tfnom.getText()+","+tftel.getText()+","+tfruc.getText()+","+tfdir.getText()+","+tfurl.getText()+","+tfemail.getText()+","+tfpais.getText()+","+tfweb.getText();
+        String linea="compania"+","+tfnom.getText()+","+tftel.getText()+","+tfruc.getText()+","+tfdir.getText()+","+tfurl.getText()+","+tfemail.getText()+","+tfpais.getText()+","+tfweb.getText();
+        Address direccion = new Address(tfdir.getText());
+        Company compa = new Company("compania",tfnom.getText(),tftel.getText(),tfruc.getText(),direccion,tfemail.getText(),tfpais.getText(),tfweb.getText());
+        GeneralController.contactos.add(compa);
+        InfoContactoController.contactList.add(compa);
         Contact.guardarContactos(linea);
     }
     

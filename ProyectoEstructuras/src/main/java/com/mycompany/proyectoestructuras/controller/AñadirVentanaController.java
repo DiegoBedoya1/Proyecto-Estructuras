@@ -8,6 +8,7 @@ import com.mycompany.proyectoestructuras.Address;
 import com.mycompany.proyectoestructuras.App;
 import com.mycompany.proyectoestructuras.Company;
 import com.mycompany.proyectoestructuras.Contact;
+import com.mycompany.proyectoestructuras.Person;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -58,19 +59,28 @@ public class AñadirVentanaController implements Initializable {
     @FXML
     Label btCancelar;
     @FXML
-    TextField tfnom;
+     TextField tfnom ;
     @FXML
-    TextField tfape;
+     TextField tfape ;
     @FXML
-    TextField tftel;
+     TextField tftel ;
     @FXML
-    TextField tfdir;
+     TextField tfdir ;
     @FXML
-    TextField tfurl;
+     TextField tfurl ;
     @FXML
-    TextField tfpais;
+     TextField tfpais ;
     @FXML
-    TextField tfemail;
+     TextField tfemail;
+    private static AñadirVentanaController instance;
+
+     public AñadirVentanaController() {
+        instance = this;
+    }
+
+    public static AñadirVentanaController getInstance() {
+        return instance;
+    }
 
     /**
      * Initializes the controller class.
@@ -89,13 +99,16 @@ public class AñadirVentanaController implements Initializable {
                 volverVentana();
             });
     }
-    
+    @FXML
     public void guardarContacto(){
        
-           String linea="Person"+","+tfnom.getText()+","+tfape.getText()+","+tftel.getText()+","+tfdir.getText()+","+tfurl.getText()+","+tfemail.getText()+","+tfpais.getText();
-        
-        
+         String linea="person"+","+tfnom.getText()+","+tfape.getText()+","+tftel.getText()+","+tfdir.getText()+","+tfurl.getText()+","+tfemail.getText()+","+tfpais.getText();
+         Address direccion = new Address(tfdir.getText());
+         Person persona = new Person("person",tfnom.getText(),tfape.getText(),tftel.getText(),direccion,tfemail.getText(),tfpais.getText());
+        GeneralController.contactos.add(persona);
+        InfoContactoController.contactList.add(persona);
         Contact.guardarContactos(linea);
+        
     }
     
     public void cambiarVentanaUbi(){
@@ -159,5 +172,26 @@ public class AñadirVentanaController implements Initializable {
         Stage stage = (Stage) btListo.getScene().getWindow();
         stage.close(); 
     }
+    
+    public void setNom(String texto){
+        tfnom.setText(texto);
+    }
+    
+    public void setAp(String texto){
+        tfape.setText(texto);
+    }
+     public void setTel(String texto){
+        tftel.setText(texto);
+    }
+      public void setDir(String texto){
+        tfdir.setText(texto);
+    }
+       public void setPais(String texto){
+        tfpais.setText(texto);
+    }
+        public void setEmail(String texto){
+        tfemail.setText(texto);
+    }
+        
     
 }
