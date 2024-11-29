@@ -4,7 +4,10 @@
  */
 package com.mycompany.proyectoestructuras.structures;
 
+import com.mycompany.proyectoestructuras.Company;
 import com.mycompany.proyectoestructuras.Contact;
+import com.mycompany.proyectoestructuras.Person;
+import com.mycompany.proyectoestructuras.controller.InfoContactoController;
 import java.util.Iterator;
 
 
@@ -291,7 +294,67 @@ public class MyCircleDoubleLinkedList<T> implements Iterable<T>{
         this.head = head;
     }
     
+    public void set(int index, T data) {
+        if (head == null) {
+            throw new IndexOutOfBoundsException("La lista está vacía.");
+        }
+
+        CircularDoubleNode<T> current = head;
+        int count = 0;
+
+        do {
+            if (count == index) {
+                current.data = data; // Reemplaza el dato
+                return;
+            }
+            current = current.getNext();
+            count++;
+        } while (current != head);
+
+        throw new IndexOutOfBoundsException("Índice fuera de rango: " + index);
+    }
+
     
     
+    public void update(Person updatedPerson) {
+        if (head == null) {
+            System.out.println("La lista está vacía, no se puede actualizar.");
+            return;
+        }
+
+        CircularDoubleNode<T> current = head;
+
+        do {
+            if (current.getData() instanceof Person && current.getData().equals(updatedPerson)) {
+                current.data = (T) updatedPerson;
+                System.out.println("Elemento actualizado.");
+                return;
+            }
+            current = current.getNext(); 
+        } while (current != head); 
+
+        System.out.println("Elemento no encontrado en la lista.");
+    }
+
+    public void update(Company updatedCompany) {
+        if (head == null) {
+            System.out.println("La lista está vacía, no se puede actualizar.");
+            return;
+        }
+
+        CircularDoubleNode<T> current = head;
+
+        do {
+            if (current.getData() instanceof Company && current.getData().equals(updatedCompany)) {
+                current.data = (T) updatedCompany;
+                System.out.println("Elemento actualizado.");
+                return;
+            }
+            current = current.getNext(); 
+        } while (current != head); 
+
+        System.out.println("Elemento no encontrado en la lista.");
+    }
+
     
 }

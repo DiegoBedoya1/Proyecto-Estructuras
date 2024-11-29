@@ -58,7 +58,7 @@ public class GeneralController implements Initializable {
     private VBox contactList;
 
     private final Map<Character, VBox> secciones;
-    static MyArrayList<Contact> contactos = Contact.cargarContactos("Contactos.txt");
+    public static MyArrayList<Contact> contactos = Contact.cargarContactos("Contactos.txt");
     private final MyArrayList<Contact> contactosFiltrados = new MyArrayList<>();
 
     public GeneralController() {
@@ -262,8 +262,10 @@ public class GeneralController implements Initializable {
     public static void actualizarContacto(Contact oldContact, Contact newContact) {
         int index = contactos.indexOf(oldContact);
         if (index != -1) {
-            contactos.set(index, newContact); // Reemplazar el contacto antiguo por el nuevo
+            contactos.set(index, newContact);
         }
+        
+        
     }
     
 }

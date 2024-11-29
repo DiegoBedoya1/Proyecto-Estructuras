@@ -45,7 +45,7 @@ public class Company extends Contact {
     public void setWebPage(String webPage) {
         this.webPage = webPage;
     }
-    
+
     
     
 }

@@ -4,7 +4,10 @@
  */
 package com.mycompany.proyectoestructuras.structures;
 
+import com.mycompany.proyectoestructuras.Company;
 import com.mycompany.proyectoestructuras.Contact;
+import com.mycompany.proyectoestructuras.Person;
+import com.mycompany.proyectoestructuras.controller.GeneralController;
 import java.util.Comparator;
 
 /**
@@ -162,6 +165,26 @@ public class MyArrayList<T extends Comparable<T>> implements Iterable<T> {
     private void checkIndex(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Índice fuera de rango");
+        }
+    }
+    
+    public static void update(Person updatedPerson) {
+        for (int i = 0; i < GeneralController.contactos.size(); i++) {
+            Contact contact = GeneralController.contactos.get(i);
+            if (contact.equals(updatedPerson)) {
+                GeneralController.contactos.set(i, updatedPerson);
+                break;
+            }
+        }
+    }
+    
+    public static void update(Company updatedCompany) {
+        for (int i = 0; i < GeneralController.contactos.size(); i++) {
+            Contact contact = GeneralController.contactos.get(i);
+            if (contact.equals(updatedCompany)) {
+                GeneralController.contactos.set(i, updatedCompany);
+                break;
+            }
         }
     }
 }

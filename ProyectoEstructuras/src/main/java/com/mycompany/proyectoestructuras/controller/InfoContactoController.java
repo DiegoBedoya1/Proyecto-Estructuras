@@ -4,6 +4,7 @@
  */
 package com.mycompany.proyectoestructuras.controller;
 
+import com.mycompany.proyectoestructuras.Address;
 import com.mycompany.proyectoestructuras.App;
 import com.mycompany.proyectoestructuras.Company;
 import com.mycompany.proyectoestructuras.Contact;
@@ -28,6 +29,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
@@ -132,51 +134,152 @@ private void closeWindow() {
     }
 }
 
-
     @FXML
     private void editContact() {
-         try {
-        FXMLLoader fxmlLoader;
-        if (currentContact instanceof Person) {
-            Person persona = (Person) currentContact;
-            fxmlLoader = new FXMLLoader(getClass().getResource("/com/mycompany/proyectoestructuras/editarP.fxml"));
-            Parent root = fxmlLoader.load(); 
+        try {
+            FXMLLoader fxmlLoader;
+            Stage currentStage = (Stage) closeButton.getScene().getWindow();
+            currentStage.hide();
             
-            AñadirVentanaController controller = fxmlLoader.getController();
-            controller.setNom(persona.getName()); 
-            controller.setAp(persona.getLastName());
-            controller.setDir(persona.getAddress().getAddress());
-            controller.setTel(persona.getPhoneNumber());
-            controller.setEmail(persona.getEmail());
-            controller.setPais(persona.getCountry());
-            String nomAct = controller.tfnom.getText();
-            System.out.println("nombre actualizado: "+nomAct);
-            
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-            } else {
-                fxmlLoader = new FXMLLoader(getClass().getResource("/com/mycompany/proyectoestructuras/editarC.fxml"));
-            }
-
-            Parent root = fxmlLoader.load();
-
             if (currentContact instanceof Person) {
-                EditarPController controller = fxmlLoader.getController();
-                controller.setContacto((Person) currentContact);
-            } else if (currentContact instanceof Company) {
-                EditarCController controller = fxmlLoader.getController();
-                controller.setContacto((Company) currentContact);
-            }
+                Person persona = (Person) currentContact;
+                fxmlLoader = new FXMLLoader(getClass().getResource("/com/mycompany/proyectoestructuras/editarP.fxml"));
+                Parent root = fxmlLoader.load();
 
-            Stage stage = new Stage();
-            stage.setTitle("Editar Contacto");
-            stage.setScene(new Scene(root));
-            stage.show();
+                EditarPController controller = fxmlLoader.getController();
+
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+                controller.setContacto(currentContact);
+                controller.setOnSaveAction(event -> {
+                    String nuevoNombre = controller.getTfnom().getText();
+                    String nuevoTelefono = controller.getTftel().getText();
+                    String nuevaDireccion = controller.getTfdir().getText();
+                    String nuevoEmail = controller.getTfemail().getText();
+                    String nuevoPais = controller.getTfpais().getText();
+
+                    boolean haCambiado = false;
+
+                    if (!nuevoNombre.equals(persona.getName())) {
+                        persona.setName(nuevoNombre);
+                        haCambiado = true;
+                    }
+                    if (!nuevoTelefono.equals(persona.getPhoneNumber())) {
+                        persona.setPhoneNumber(nuevoTelefono);
+                        haCambiado = true;
+                    }
+                    if (!nuevaDireccion.equals(persona.getAddress() != null ? persona.getAddress().getAddress() : "")) {
+                        if (persona.getAddress() == null) {
+                            persona.setAddress(new Address(nuevaDireccion));
+                        } else {
+                            persona.getAddress().setAddress(nuevaDireccion);
+                        }
+                        haCambiado = true;
+                    }
+                    if (!nuevoEmail.equals(persona.getEmail())) {
+                        persona.setEmail(nuevoEmail);
+                        haCambiado = true;
+                    }
+                    if (!nuevoPais.equals(persona.getCountry())) {
+                        persona.setCountry(nuevoPais);
+                        haCambiado = true;
+                    }
+
+                    if (haCambiado) {
+                        
+                        MyArrayList.update(persona);
+                        
+                        for (int i = 0; i < contactList.size(); i++) {
+                            if (contactList.get(i).equals(persona)) {
+                                contactList.set(i, persona);
+                                break;
+                            }
+                        }
+                        deleteContact();
+                        contactList = Contact.cargarContactosCircular("Contactos.txt");
+                    }
+                });
+
+            } else if (currentContact instanceof Company) {
+                Company company = (Company) currentContact;
+                fxmlLoader = new FXMLLoader(getClass().getResource("/com/mycompany/proyectoestructuras/editarC.fxml"));
+                Parent root = fxmlLoader.load();
+
+                EditarCController controller = fxmlLoader.getController();
+                Stage stage = new Stage();
+                stage.setTitle("Editar Compañía");
+                stage.setScene(new Scene(root));
+                stage.show();
+                controller.setContacto(currentContact);
+                controller.setOnSaveAction(event -> {
+                    String nuevoNombre = controller.getTfnom().getText();
+                    String nuevoTelefono = controller.getTftel().getText();
+                    String nuevaDireccion = controller.getTfdir().getText();
+                    String nuevoEmail = controller.getTfemail().getText();
+                    String nuevoPais = controller.getTfpais().getText();
+                    String nuevaUrl = controller.getTfurl().getText(); 
+                    String nuevoRuc = controller.getTruc().getText(); 
+
+                    boolean haCambiado = false;
+
+                    if (!nuevoNombre.equals(company.getName())) {
+                        company.setName(nuevoNombre);
+                        haCambiado = true;
+                    }
+                    if (!nuevoTelefono.equals(company.getPhoneNumber())) {
+                        company.setPhoneNumber(nuevoTelefono);
+                        haCambiado = true;
+                    }
+                    if (!nuevaDireccion.equals(company.getAddress() != null ? company.getAddress().getAddress() : "")) {
+                        if (company.getAddress() == null) {
+                            company.setAddress(new Address(nuevaDireccion));
+                        } else {
+                            company.getAddress().setAddress(nuevaDireccion);
+                        }
+                        haCambiado = true;
+                    }
+                    if (!nuevoEmail.equals(company.getEmail())) {
+                        company.setEmail(nuevoEmail);
+                        haCambiado = true;
+                    }
+                    if (!nuevoPais.equals(company.getCountry())) {
+                        company.setCountry(nuevoPais);
+                        haCambiado = true;
+                    }
+                    if (!nuevaUrl.equals(company.getWebPage())) {
+                        company.setWebPage(nuevaUrl);
+                        haCambiado = true;
+                    }
+                    if (!nuevoRuc.equals(company.getRUC())) {
+                        company.setRUC(nuevoRuc);
+                        haCambiado = true;
+                    }
+
+                    if (haCambiado) {
+                        
+                        MyArrayList.update(company);
+                        
+                        for (int i = 0; i < contactList.size(); i++) {
+                            if (contactList.get(i).equals(company)) {
+                                contactList.set(i, company);
+                                break;
+                            }
+                        }
+                        
+                        deleteContact();
+                        contactList = Contact.cargarContactosCircular("Contactos.txt");
+                    }
+                });
+            }
 
         } catch (IOException e) {
+            e.printStackTrace();
         }
     }
+
+
+
 
 
     @FXML
@@ -273,4 +376,5 @@ private void closeWindow() {
 
         actualizarArchivo();
     }
+    
 }

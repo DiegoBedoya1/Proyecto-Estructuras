@@ -7,15 +7,17 @@ package com.mycompany.proyectoestructuras.controller;
 import com.mycompany.proyectoestructuras.Address;
 import com.mycompany.proyectoestructuras.Company;
 import com.mycompany.proyectoestructuras.Contact;
-import com.mycompany.proyectoestructuras.Person;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -28,9 +30,9 @@ import javafx.stage.Stage;
 public class EditarCController implements Initializable {
     
     @FXML
-    Label btListo;
+    Button btListo;
     @FXML
-    Label btCancelar;
+    Button btCancelar;
     @FXML
     TextField tfnom;
     @FXML
@@ -44,9 +46,9 @@ public class EditarCController implements Initializable {
     @FXML
     TextField tfemail;
     @FXML
-    TextField tfruc;
+    TextField truc;
     @FXML
-    TextField tfweb;
+    TextField tweb;
     
     private Contact contactoOriginal;
 
@@ -59,8 +61,8 @@ public class EditarCController implements Initializable {
         tfurl.setText(contacto.getAddress() != null && contacto.getAddress().getCity() != null ? contacto.getAddress().getCity() : "");
         tfpais.setText(contacto.getCountry() != null ? contacto.getCountry() : "");
         tfemail.setText(contacto.getEmail() != null ? contacto.getEmail() : "");
-        tfruc.setText(contacto instanceof Company && ((Company) contacto).getRUC() != null ? ((Company) contacto).getRUC() : "");
-        tfweb.setText(contacto instanceof Company && ((Company) contacto).getWebPage() != null ? ((Company) contacto).getWebPage() : "");
+        truc.setText(contacto instanceof Company && ((Company) contacto).getRUC() != null ? ((Company) contacto).getRUC() : "");
+        tweb.setText(contacto instanceof Company && ((Company) contacto).getWebPage() != null ? ((Company) contacto).getWebPage() : "");
     }
 
     public void guardarContacto() {
@@ -69,22 +71,20 @@ public class EditarCController implements Initializable {
             "Compania", 
             tfnom.getText(), 
             tftel.getText(), 
-            tfruc.getText(), 
+            truc.getText(), 
             direccion, 
             tfemail.getText(), 
             tfpais.getText(), 
-            tfweb.getText()
+            tweb.getText()
         );
-
-        //GeneralController.actualizarContacto(contactoOriginal, contactoEditado);
-
+        GeneralController.actualizarContacto(contactoOriginal, contactoEditado);
         InfoContactoController.actualizarArchivo();
     }
     
     
      public void volverVentana(){
         try {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/mycompany/proyectoestructuras/general.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/mycompany/proyectoestructuras/infoContacto.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
         Stage detallesStage = new Stage();
@@ -119,5 +119,77 @@ public class EditarCController implements Initializable {
         btCancelar.setOnMouseClicked(event -> {
                 volverVentana();
             });
-    }    
+    }
+    
+     public void setOnSaveAction(EventHandler<ActionEvent> event) {
+        btListo.setOnAction(event);
+    }
+
+    public TextField getTfnom() {
+        return tfnom;
+    }
+
+    public void setTfnom(TextField tfnom) {
+        this.tfnom = tfnom;
+    }
+
+    public TextField getTftel() {
+        return tftel;
+    }
+
+    public void setTftel(TextField tftel) {
+        this.tftel = tftel;
+    }
+
+    public TextField getTfdir() {
+        return tfdir;
+    }
+
+    public void setTfdir(TextField tfdir) {
+        this.tfdir = tfdir;
+    }
+
+    public TextField getTfurl() {
+        return tfurl;
+    }
+
+    public void setTfurl(TextField tfurl) {
+        this.tfurl = tfurl;
+    }
+
+    public TextField getTfpais() {
+        return tfpais;
+    }
+
+    public void setTfpais(TextField tfpais) {
+        this.tfpais = tfpais;
+    }
+
+    public TextField getTfemail() {
+        return tfemail;
+    }
+
+    public void setTfemail(TextField tfemail) {
+        this.tfemail = tfemail;
+    }
+
+    public TextField getTruc() {
+        return truc;
+    }
+
+    public void setTruc(TextField truc) {
+        this.truc = truc;
+    }
+
+    public TextField getTweb() {
+        return tweb;
+    }
+
+    public void setTweb(TextField tweb) {
+        this.tweb = tweb;
+    }
+    
+     
+    
+    
 }

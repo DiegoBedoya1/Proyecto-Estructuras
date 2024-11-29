@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
@@ -9,23 +10,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane prefHeight="548.0" prefWidth="360.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyectoestructuras.controller.AñadirCController">
+<Pane prefHeight="548.0" prefWidth="360.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyectoestructuras.controller.EditarCController">
          <children>
             <Pane prefHeight="23.0" prefWidth="360.0">
                <children>
                   <Label layoutX="128.0" layoutY="18.0" text="Nuevo contacto" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="btCancelar" layoutX="14.0" layoutY="13.0" text="Cancelar" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="btListo" layoutX="308.0" layoutY="12.0" text="Listo" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
                      </font>
                   </Label>
                </children>
@@ -91,5 +82,7 @@
                   </VBox>
                </content>
             </ScrollPane>
+      <Button fx:id="btListo" layoutX="300.0" layoutY="12.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Listo" />
+      <Button fx:id="btCancelar" layoutX="14.0" layoutY="12.0" mnemonicParsing="false" text="Cancelar" />
          </children>
       </Pane>

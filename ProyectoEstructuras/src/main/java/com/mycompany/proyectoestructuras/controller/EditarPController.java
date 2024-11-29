@@ -10,11 +10,14 @@ import com.mycompany.proyectoestructuras.Person;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -27,9 +30,9 @@ import javafx.stage.Stage;
 public class EditarPController implements Initializable {
 
     @FXML
-    Label btListo;
+    Button btListo;
     @FXML
-    Label btCancelar;
+    Button btCancelar;
     @FXML
      TextField tfnom ;
     @FXML
@@ -63,10 +66,8 @@ public class EditarPController implements Initializable {
     
     public void guardarContacto() {
         Address direccion = new Address(tfdir.getText());
-        Contact contactoEditado = new Person("Person", tfnom.getText(), tfape.getText(), tftel.getText(),direccion, tfemail.getText(), tfpais.getText()); 
-    
-        //GeneralController.actualizarContacto(contactoOriginal, contactoEditado);
-
+        Contact contactoEditado = new Person("Person", tfnom.getText(), tfape.getText(), tftel.getText(),direccion, tfemail.getText(), tfpais.getText());
+        GeneralController.actualizarContacto(contactoOriginal, contactoEditado);
         InfoContactoController.actualizarArchivo();
     
     }
@@ -74,7 +75,7 @@ public class EditarPController implements Initializable {
     
     public void volverVentana(){
         try {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/mycompany/proyectoestructuras/general.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/mycompany/proyectoestructuras/infoContacto.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
         Stage detallesStage = new Stage();
@@ -109,5 +110,78 @@ public class EditarPController implements Initializable {
                 volverVentana();
             });
     }    
+    
+   
+    private static EditarPController instance;
+
+     public EditarPController() {
+        instance = this;
+    }
+
+    public static EditarPController getInstance() {
+        return instance;
+    }
+    
+    public void setOnSaveAction(EventHandler<ActionEvent> event) {
+        btListo.setOnAction(event);
+    }
+
+    public TextField getTfnom() {
+        return tfnom;
+    }
+
+    public void setTfnom(TextField tfnom) {
+        this.tfnom = tfnom;
+    }
+
+    public TextField getTfape() {
+        return tfape;
+    }
+
+    public void setTfape(TextField tfape) {
+        this.tfape = tfape;
+    }
+
+    public TextField getTftel() {
+        return tftel;
+    }
+
+    public void setTftel(TextField tftel) {
+        this.tftel = tftel;
+    }
+
+    public TextField getTfdir() {
+        return tfdir;
+    }
+
+    public void setTfdir(TextField tfdir) {
+        this.tfdir = tfdir;
+    }
+
+    public TextField getTfurl() {
+        return tfurl;
+    }
+
+    public void setTfurl(TextField tfurl) {
+        this.tfurl = tfurl;
+    }
+
+    public TextField getTfpais() {
+        return tfpais;
+    }
+
+    public void setTfpais(TextField tfpais) {
+        this.tfpais = tfpais;
+    }
+
+    public TextField getTfemail() {
+        return tfemail;
+    }
+
+    public void setTfemail(TextField tfemail) {
+        this.tfemail = tfemail;
+    }
+
+   
     
 }
