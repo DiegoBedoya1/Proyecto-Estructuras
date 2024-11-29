@@ -135,7 +135,8 @@ public class MyArrayList<T extends Comparable<T>> implements Iterable<T> {
             throw new UnsupportedOperationException("Eliminar no es soportado");
         }
     }
-    
+
+    // Método para ordenar la lista usando un comparador
     public void sort(Comparator<? super T> comparator) {
         for (int i = 0; i < size - 1; i++) {
             for (int j = i + 1; j < size; j++) {
@@ -153,4 +154,14 @@ public class MyArrayList<T extends Comparable<T>> implements Iterable<T> {
         }
     }
 
+    public void set(int index, T element) {
+        checkIndex(index);  // Verificar que el índice es válido
+        array[index] = element;  // Reemplazar el elemento
+    }
+
+    private void checkIndex(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Índice fuera de rango");
+        }
+    }
 }

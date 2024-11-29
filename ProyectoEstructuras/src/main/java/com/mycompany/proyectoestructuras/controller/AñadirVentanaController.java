@@ -39,22 +39,6 @@ import javafx.stage.Stage;
 public class AñadirVentanaController implements Initializable {
     
     @FXML
-    Circle foto;
-    
-    /*@FXML
-    Circle añadirTelefono;
-    @FXML
-    Circle cancelar;
-    @FXML
-    Circle ubi;
-    @FXML
-    Circle email;
-    @FXML
-    Circle fecha;
-    @FXML
-    Button guardar;
-    */
-    @FXML
     Label btListo;
     @FXML
     Label btCancelar;
@@ -87,8 +71,6 @@ public class AñadirVentanaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        
         btListo.setOnMouseClicked(event -> {
                 guardarContacto();
                 volverVentana();
@@ -99,6 +81,8 @@ public class AñadirVentanaController implements Initializable {
                 volverVentana();
             });
     }
+    
+    
     @FXML
     public void guardarContacto(){
        
@@ -109,47 +93,6 @@ public class AñadirVentanaController implements Initializable {
         InfoContactoController.contactList.add(persona);
         Contact.guardarContactos(linea);
         
-    }
-    
-    public void cambiarVentanaUbi(){
-        try {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/mycompany/proyectoestructuras/ubi.fxml"));
-        Parent root = fxmlLoader.load();
-        Scene scene = new Scene(root);
-        Stage detallesStage = new Stage();
-        detallesStage.setScene(scene);
-        detallesStage.show();
-        
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    
-    public void cambiarVentanaEmail(){
-        try {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/mycompany/proyectoestructuras/email.fxml"));
-        Parent root = fxmlLoader.load();
-        Scene scene = new Scene(root);
-        Stage detallesStage = new Stage();
-        detallesStage.setScene(scene);
-        detallesStage.show();
-        
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    
-    public void cambiarVentanaFecha(){
-        try {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/mycompany/proyectoestructuras/fecha.fxml"));
-        Parent root = fxmlLoader.load();
-        Scene scene = new Scene(root);
-        Stage detallesStage = new Stage();
-        detallesStage.setScene(scene);
-        detallesStage.show();
-        
-        } catch (IOException e) {
-        }
     }
     
     public void volverVentana(){

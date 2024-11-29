@@ -8,6 +8,7 @@ import com.mycompany.proyectoestructuras.App;
 import com.mycompany.proyectoestructuras.Company;
 import com.mycompany.proyectoestructuras.Contact;
 import com.mycompany.proyectoestructuras.Person;
+import com.mycompany.proyectoestructuras.structures.CircularDoubleNode;
 import com.mycompany.proyectoestructuras.structures.MyArrayList;
 import com.mycompany.proyectoestructuras.structures.MyCircleDoubleLinkedList;
 import java.io.IOException;
@@ -138,7 +139,7 @@ private void closeWindow() {
         FXMLLoader fxmlLoader;
         if (currentContact instanceof Person) {
             Person persona = (Person) currentContact;
-            fxmlLoader = new FXMLLoader(getClass().getResource("/com/mycompany/proyectoestructuras/añadirVentana.fxml"));
+            fxmlLoader = new FXMLLoader(getClass().getResource("/com/mycompany/proyectoestructuras/editarP.fxml"));
             Parent root = fxmlLoader.load(); 
             
             AñadirVentanaController controller = fxmlLoader.getController();
@@ -155,18 +156,18 @@ private void closeWindow() {
             stage.setScene(new Scene(root));
             stage.show();
             } else {
-                fxmlLoader = new FXMLLoader(getClass().getResource("/com/mycompany/proyectoestructuras/añadirC.fxml"));
+                fxmlLoader = new FXMLLoader(getClass().getResource("/com/mycompany/proyectoestructuras/editarC.fxml"));
             }
 
             Parent root = fxmlLoader.load();
 
-//            if (currentContact instanceof Person) {
-//                AñadirVentanaController controller = fxmlLoader.getController();
-//                controller.setContacto((Person) currentContact);
-//            } else if (currentContact instanceof Company) {
-//                AñadirCController controller = fxmlLoader.getController();
-//                controller.setContacto((Company) currentContact);
-//            }
+            if (currentContact instanceof Person) {
+                EditarPController controller = fxmlLoader.getController();
+                controller.setContacto((Person) currentContact);
+            } else if (currentContact instanceof Company) {
+                EditarCController controller = fxmlLoader.getController();
+                controller.setContacto((Company) currentContact);
+            }
 
             Stage stage = new Stage();
             stage.setTitle("Editar Contacto");
@@ -221,7 +222,7 @@ private void closeWindow() {
         }
     }
 
-    private void actualizarArchivo() {
+    public static void actualizarArchivo() {
         MyArrayList<String> contactosActualizados = new MyArrayList<>();
         for (Contact contacto : GeneralController.contactos) {
             contactosActualizados.add(contacto.toFileString());
@@ -254,4 +255,22 @@ private void closeWindow() {
         previousButton.setOnAction(event -> prevContact());
     }
 
+    public static void actualizarContactoEnCircular(MyCircleDoubleLinkedList<Contact> circularList, Contact oldContact, Contact newContact) {
+        CircularDoubleNode<Contact> currentNode = circularList.getHead();
+
+        if (currentNode == null) {
+            return;
+        }
+
+        do {
+            if (currentNode.getData().equals(oldContact)) {
+                currentNode.setData(newContact);
+                break; 
+            }
+            currentNode = currentNode.getNext(); 
+        } while (currentNode != circularList.getHead()); 
+
+
+        actualizarArchivo();
+    }
 }

@@ -282,5 +282,16 @@ public class MyCircleDoubleLinkedList<T> implements Iterable<T>{
             return data;
         }
     }
+
+    public CircularDoubleNode<T> getHead() {
+        return head;
+    }
+
+    public void setHead(CircularDoubleNode<T> head) {
+        this.head = head;
+    }
+    
+    
+    
     
 }

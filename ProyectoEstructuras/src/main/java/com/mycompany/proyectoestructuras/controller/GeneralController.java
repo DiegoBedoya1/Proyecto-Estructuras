@@ -258,4 +258,12 @@ public class GeneralController implements Initializable {
         }
     }
 
+    
+    public static void actualizarContacto(Contact oldContact, Contact newContact) {
+        int index = contactos.indexOf(oldContact);
+        if (index != -1) {
+            contactos.set(index, newContact); // Reemplazar el contacto antiguo por el nuevo
+        }
+    }
+    
 }
