@@ -15,6 +15,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.Iterator;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -27,6 +28,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -51,6 +53,7 @@ public class InfoContactoController implements Initializable {
     @FXML private Button closeButton;
     @FXML private Button previousButton;
     @FXML private Button nextButton;
+    @FXML private VBox infoContenedor;
 
 
     private Contact currentContact;
@@ -59,6 +62,14 @@ public class InfoContactoController implements Initializable {
 
     @FXML
     public void setContacto(Contact contacto) {
+       contactName.setText("");
+       contactLastName.setText("");
+       contactPhone.setText("");
+       contactAddress.setText("");
+       contactEmail.setText("");
+       contactCountry.setText("");
+       contactType.setText("");
+       
         this.currentContact = contacto;
 
         if (contacto instanceof Person) {
@@ -127,11 +138,9 @@ private void closeWindow() {
         FXMLLoader fxmlLoader;
         if (currentContact instanceof Person) {
             Person persona = (Person) currentContact;
-            // Cargar el archivo FXML
             fxmlLoader = new FXMLLoader(getClass().getResource("/com/mycompany/proyectoestructuras/añadirVentana.fxml"));
             Parent root = fxmlLoader.load(); 
             
-            // Obtener el controlador directamente del FXMLLoader
             AñadirVentanaController controller = fxmlLoader.getController();
             controller.setNom(persona.getName()); 
             controller.setAp(persona.getLastName());
@@ -142,7 +151,6 @@ private void closeWindow() {
             String nomAct = controller.tfnom.getText();
             System.out.println("nombre actualizado: "+nomAct);
             
-            // Mostrar la ventana
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
@@ -160,7 +168,6 @@ private void closeWindow() {
 //                controller.setContacto((Company) currentContact);
 //            }
 
-            // Mostrar la ventana de edición
             Stage stage = new Stage();
             stage.setTitle("Editar Contacto");
             stage.setScene(new Scene(root));
@@ -173,21 +180,38 @@ private void closeWindow() {
 
     @FXML
     private void deleteContact() {
+        Stage currentStage = (Stage) deleteButton.getScene().getWindow();
+        currentStage.close();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmación");
         alert.setHeaderText("Eliminar contacto");
         alert.setContentText("¿Está seguro de que desea eliminar este contacto de forma permanente?");
         Optional<ButtonType> result = alert.showAndWait();
+        currentStage.show();
 
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            contactList.remove(currentIndex);
+            
+            int indice = 0;
+            Iterator it = contactList.iterator();
+            while (it.hasNext()) {
+                if (!it.next().equals(currentContact)) {
+                    indice++;
+                }
+                break;
+            }
+            contactList.remove(indice);
+            
+            
             Contact contactoAEliminar = currentContact;
             int indexInArrayList = GeneralController.contactos.indexOf(contactoAEliminar);
 
             if (indexInArrayList != -1) {
                 GeneralController.contactos.remove(indexInArrayList);
             }
+            
             actualizarArchivo();
+            contactList = Contact.cargarContactosCircular("Contactos.txt");
+            
             if (!contactList.isEmpty()) {
                 currentIndex = (currentIndex == contactList.size()) ? contactList.size() - 1 : currentIndex;
                 setContacto(contactList.get(currentIndex));
@@ -200,7 +224,7 @@ private void closeWindow() {
     private void actualizarArchivo() {
         MyArrayList<String> contactosActualizados = new MyArrayList<>();
         for (Contact contacto : GeneralController.contactos) {
-            contactosActualizados.add(contacto.toString());
+            contactosActualizados.add(contacto.toFileString());
         }
 
         try {
@@ -211,7 +235,6 @@ private void closeWindow() {
                 StandardOpenOption.CREATE
             );
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane prefHeight="546.0" prefWidth="367.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="com.mycompany.proyectoestructuras.controller.InfoContactoController">
+<AnchorPane prefHeight="546.0" prefWidth="367.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyectoestructuras.controller.InfoContactoController">
     <!-- Contenedor principal -->
     <VBox alignment="CENTER" layoutX="76.0" layoutY="39.0" spacing="20" AnchorPane.leftAnchor="76.0" AnchorPane.topAnchor="39.0">
         <!-- Título -->
@@ -17,7 +17,7 @@
         <Circle fx:id="contactPhoto" fill="black" radius="60" stroke="white" strokeWidth="2" />
         
         <!-- Detalles del contacto -->
-        <VBox alignment="CENTER" spacing="10">
+        <VBox fx:id="infoContenedor" alignment="CENTER" spacing="10">
             <Label fx:id="contactName" text="Nombre: " />
             <Label fx:id="contactLastName" text="Apellido: " />
             <Label fx:id="contactPhone" text="Teléfono: " />
