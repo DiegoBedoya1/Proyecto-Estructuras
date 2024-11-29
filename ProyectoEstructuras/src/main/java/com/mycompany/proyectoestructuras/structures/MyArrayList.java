@@ -9,6 +9,7 @@ import com.mycompany.proyectoestructuras.Contact;
 import com.mycompany.proyectoestructuras.Person;
 import com.mycompany.proyectoestructuras.controller.GeneralController;
 import java.util.Comparator;
+import java.lang.reflect.Array;
 
 /**
  *
@@ -16,12 +17,12 @@ import java.util.Comparator;
  * @param <T>
  */
 public class MyArrayList<T extends Comparable<T>> implements Iterable<T> {
-    private Object[] array;
+    private T[] array;
     private int size;
 
     // Constructor para inicializar la lista con un tamaño inicial
-    public MyArrayList() {
-        array = new Object[10];
+    public MyArrayList(Class<T> clazz) {
+        array = (T[]) Array.newInstance(clazz, 10);
         size = 0;
     }
 
@@ -29,6 +30,10 @@ public class MyArrayList<T extends Comparable<T>> implements Iterable<T> {
         if (size == array.length) {
             ensureCapacity();
         }
+        if(element==null){
+            System.out.println("Error al agregar");
+            return;
+    }
         array[size++] = element;
     }
 
@@ -37,7 +42,7 @@ public class MyArrayList<T extends Comparable<T>> implements Iterable<T> {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Índice fuera de rango");
         }
-        return (T) array[index];
+        return array[index];
     }
 
     // Método para obtener el tamaño de la lista
@@ -45,11 +50,11 @@ public class MyArrayList<T extends Comparable<T>> implements Iterable<T> {
         return size;
     }
 
-    // Método para asegurarse de que el array tenga suficiente capacidad
     private void ensureCapacity() {
-        int newCapacity = array.length * 2;  // Duplicar el tamaño del array
-        array = new Object[newCapacity];  // Crear un nuevo array más grande
-        System.arraycopy(array, 0, array, 0, size);  // Copiar los elementos existentes
+        int newCapacity = array.length+(array.length/2);  
+        T[] nuevo = (T[]) Array.newInstance(array.getClass().getComponentType(), newCapacity);
+        System.arraycopy(array, 0, nuevo, 0, size); 
+        array = nuevo;
     }
 
     // Método para eliminar un elemento en un índice específico
@@ -149,7 +154,7 @@ public class MyArrayList<T extends Comparable<T>> implements Iterable<T> {
                 // Usar el Comparator para comparar los elementos
                 if (comparator.compare(c1, c2) > 0) {
                     // Intercambiar los elementos si el orden es incorrecto
-                    Object temp = array[i];
+                    T temp = array[i];
                     array[i] = array[j];
                     array[j] = temp;
                 }

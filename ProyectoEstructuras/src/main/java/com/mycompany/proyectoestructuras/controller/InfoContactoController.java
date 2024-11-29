@@ -325,7 +325,7 @@ private void closeWindow() {
     }
 
     public static void actualizarArchivo() {
-        MyArrayList<String> contactosActualizados = new MyArrayList<>();
+        MyArrayList<String> contactosActualizados = new MyArrayList<>(String.class);
         for (Contact contacto : GeneralController.contactos) {
             contactosActualizados.add(contacto.toFileString());
         }

@@ -59,7 +59,7 @@ public class GeneralController implements Initializable {
 
     private final Map<Character, VBox> secciones;
     public static MyArrayList<Contact> contactos = Contact.cargarContactos("Contactos.txt");
-    private final MyArrayList<Contact> contactosFiltrados = new MyArrayList<>();
+    private final MyArrayList<Contact> contactosFiltrados = new MyArrayList<>(Contact.class);
 
     public GeneralController() {
         this.secciones = new HashMap<>();

@@ -45,9 +45,9 @@ public class AñadirCController implements Initializable {
     @FXML
     TextField tfemail;
     @FXML
-    TextField tfruc;
+    TextField truc;
     @FXML
-    TextField tfweb;
+    TextField tweb;
     /**
      * Initializes the controller class.
      */
@@ -66,12 +66,14 @@ public class AñadirCController implements Initializable {
     @FXML
     public void guardarContacto(){
        
-        String linea="compania"+","+tfnom.getText()+","+tftel.getText()+","+tfruc.getText()+","+tfdir.getText()+","+tfurl.getText()+","+tfemail.getText()+","+tfpais.getText()+","+tfweb.getText();
+        String linea="compania"+","+tfnom.getText()+","+tftel.getText()+","+truc.getText()+","+tfdir.getText()+","+tfurl.getText()+","+tfemail.getText()+","+tfpais.getText()+","+tweb.getText();
         Address direccion = new Address(tfdir.getText());
-        Company compa = new Company("compania",tfnom.getText(),tftel.getText(),tfruc.getText(),direccion,tfemail.getText(),tfpais.getText(),tfweb.getText());
-        GeneralController.contactos.add(compa);
-        InfoContactoController.contactList.add(compa);
+        Company compa = new Company("compania",tfnom.getText(),tftel.getText(),truc.getText(),direccion,tfemail.getText(),tfpais.getText(),tweb.getText());
         Contact.guardarContactos(linea);
+        GeneralController.contactos.add(compa);
+        Contact.cargarContactos("Contactos.txt");
+        InfoContactoController.contactList.add(compa);
+       InfoContactoController.contactList = Contact.cargarContactosCircular("Contactos.txt");  
     }
     
      public void volverVentana(){

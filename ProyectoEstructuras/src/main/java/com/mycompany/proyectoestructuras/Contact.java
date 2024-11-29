@@ -83,7 +83,7 @@ public abstract class Contact implements Comparable<Contact> {
 
     
 public static MyArrayList<Contact> cargarContactos(String fileName) {
-    MyArrayList<Contact> contactos = new MyArrayList<>();
+    MyArrayList<Contact> contactos = new MyArrayList<>(Contact.class);
     try (BufferedReader br = new BufferedReader(new FileReader(App.pathFiles + fileName))) {
         String linea;
         while ((linea = br.readLine()) != null) {
@@ -107,12 +107,13 @@ public static MyArrayList<Contact> cargarContactos(String fileName) {
                 addressObj = new Address(address, city);
             }
             if (tipo.equals("person")) {
-                Contact persona = new Person(tipo, name, lastName, phoneNumber, addressObj, email, country);
+                Person persona = new Person(tipo, name, lastName, phoneNumber, addressObj, email, country);
                 contactos.add(persona); // Añadir el contacto incluso si falta información
             } else if (tipo.equals("compania")) {
                 String RUC = datos.length > 8 ? datos[8].trim() : "";
                 String webPage = datos.length > 9 ? datos[9].trim() : "";
-                Contact compania = new Company(tipo, name, phoneNumber, RUC, addressObj, email, country, webPage);
+                
+                Company compania = new Company(tipo, name, phoneNumber, RUC, addressObj, email, country, webPage);
                 contactos.add(compania); // Añadir la compañía incluso si falta información
             } else {
                 System.err.println("Tipo desconocido: " + tipo + " en línea: " + linea);
@@ -160,12 +161,12 @@ public static MyArrayList<Contact> cargarContactos(String fileName) {
                 addressObj = new Address(address, city);
             }
             if (tipo.equals("person")) {
-                Contact persona = new Person(tipo, name, lastName, phoneNumber, addressObj, email, country);
+                Person persona = new Person(tipo, name, lastName, phoneNumber, addressObj, email, country);
                 contactos.add(persona); // Añadir el contacto incluso si falta información
             } else if (tipo.equals("compania")) {
                 String RUC = datos.length > 8 ? datos[8].trim() : "";
                 String webPage = datos.length > 9 ? datos[9].trim() : "";
-                Contact compania = new Company(tipo, name, phoneNumber, RUC, addressObj, email, country, webPage);
+                Company compania = new Company(tipo, name, phoneNumber, RUC, addressObj, email, country, webPage);
                 contactos.add(compania); // Añadir la compañía incluso si falta información
             } else {
                 System.err.println("Tipo desconocido: " + tipo + " en línea: " + linea);

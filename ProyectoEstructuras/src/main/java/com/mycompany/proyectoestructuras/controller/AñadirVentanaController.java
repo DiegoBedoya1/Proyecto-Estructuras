@@ -85,14 +85,15 @@ public class AñadirVentanaController implements Initializable {
     
     @FXML
     public void guardarContacto(){
-       
-         String linea="person"+","+tfnom.getText()+","+tfape.getText()+","+tftel.getText()+","+tfdir.getText()+","+tfurl.getText()+","+tfemail.getText()+","+tfpais.getText();
+         String linea="person,"+tfnom.getText()+","+tfape.getText()+","+tftel.getText()+","+tfdir.getText()+","+tfurl.getText()+","+tfemail.getText()+","+tfpais.getText()+"\n";
          Address direccion = new Address(tfdir.getText());
          Person persona = new Person("person",tfnom.getText(),tfape.getText(),tftel.getText(),direccion,tfemail.getText(),tfpais.getText());
+         Contact.guardarContactos(linea);
         GeneralController.contactos.add(persona);
+        Contact.cargarContactos("Contactos.txt");
         InfoContactoController.contactList.add(persona);
-        Contact.guardarContactos(linea);
-        
+        InfoContactoController.contactList = Contact.cargarContactosCircular("Contactos.txt");
+      
     }
     
     public void volverVentana(){
