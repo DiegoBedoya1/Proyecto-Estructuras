@@ -316,7 +316,7 @@ public class MyCircleDoubleLinkedList<T> implements Iterable<T>{
 
     
     
-    public void update(Person updatedPerson) {
+    public void update(Contact updatedContact) {
         if (head == null) {
             System.out.println("La lista está vacía, no se puede actualizar.");
             return;
@@ -325,36 +325,17 @@ public class MyCircleDoubleLinkedList<T> implements Iterable<T>{
         CircularDoubleNode<T> current = head;
 
         do {
-            if (current.getData() instanceof Person && current.getData().equals(updatedPerson)) {
-                current.data = (T) updatedPerson;
-                System.out.println("Elemento actualizado.");
+            if (current.getData().equals(updatedContact)) {
+                current.data = (T) updatedContact; // Actualizamos el nodo
+                System.out.println("Contacto actualizado.");
                 return;
             }
-            current = current.getNext(); 
-        } while (current != head); 
+            current = current.getNext();
+        } while (current != head);
 
-        System.out.println("Elemento no encontrado en la lista.");
+        System.out.println("Contacto no encontrado en la lista.");
     }
 
-    public void update(Company updatedCompany) {
-        if (head == null) {
-            System.out.println("La lista está vacía, no se puede actualizar.");
-            return;
-        }
-
-        CircularDoubleNode<T> current = head;
-
-        do {
-            if (current.getData() instanceof Company && current.getData().equals(updatedCompany)) {
-                current.data = (T) updatedCompany;
-                System.out.println("Elemento actualizado.");
-                return;
-            }
-            current = current.getNext(); 
-        } while (current != head); 
-
-        System.out.println("Elemento no encontrado en la lista.");
-    }
 
     
 }

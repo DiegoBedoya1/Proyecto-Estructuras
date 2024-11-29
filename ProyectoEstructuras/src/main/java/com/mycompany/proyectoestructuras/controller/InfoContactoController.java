@@ -193,10 +193,10 @@ private void closeWindow() {
                         for (int i = 0; i < contactList.size(); i++) {
                             if (contactList.get(i).equals(persona)) {
                                 contactList.set(i, persona);
+                                contactList.remove(i);
                                 break;
                             }
                         }
-                        deleteContact();
                         contactList = Contact.cargarContactosCircular("Contactos.txt");
                     }
                 });
@@ -263,11 +263,10 @@ private void closeWindow() {
                         for (int i = 0; i < contactList.size(); i++) {
                             if (contactList.get(i).equals(company)) {
                                 contactList.set(i, company);
+                                contactList.remove(i);
                                 break;
                             }
                         }
-                        
-                        deleteContact();
                         contactList = Contact.cargarContactosCircular("Contactos.txt");
                     }
                 });
