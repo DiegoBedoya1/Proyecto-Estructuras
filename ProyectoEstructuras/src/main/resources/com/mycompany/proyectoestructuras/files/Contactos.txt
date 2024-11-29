@@ -1,13 +1,11 @@
-person,Juan,Pérez,123456789,Av. Siempre Viva,juan.perez@example.com,Ecuador
-compania,TechCorp,0987654321,1234567890,Av. La Paz,contacto@techcorp.com,Ecuador,www.techcorp.com
-person,Julia,Lopez,987654321,Av. Los Naranjos,ana.lopez@example.com,Ecuador
-compania,InnovaTech,123456789,,Av. 9 de Octubre,info@innovatech.com,Ecuador,
+compania,InnovaTech,,,Av. 9 de Octubre,Ecuador,,
 person,Mario,Gonzalez,567890123,,,
-person,María,Gómez,1122334455,Calle Ficticia,maria.gomez@example.com,Venezuela
-compania,GlobalTech,9876543210,5555555555,Calle Internacional,contacto@globaltech.com,Ecuador,www.globaltech.com
-person,Carlos,Moreno,3344556677,Calle del Sol,carlos.moreno@example.com,Colombia
-compania,SmartSolutions,1029384756,4444444444,Calle de la Innovación,soporte@smartsolutions.com,Ecuador,www.smartsolutions.com
-person,Luis,Martínez,9988776655,Calle Nueva,luis.martinez@example.com,Argentina
-person,Diego,Bedoya,0960697970,Guangala,Guayaquil,dbedoya@espol.edu.ec,Ecuador
-
-compania,PornHub,0960697970,155851,ESPOL,Guayaquil,pornhub@gmail.com,Ecuador,pornhub.com
+person,María,Gómez,1122334455,Calle Ficticia,Venezuela,
+person,Julia,Lopez,987654321,Av. Los Naranjos,Ecuador,
+person,Luis,Martínez,9988776655,Calle Nueva,Argentina,
+person,Carlos,Moreno,3344556677,Calle del Sol,Colombia,
+person,Juan,Pérez,123456789,Av. Siempre Viva,Ecuador,
+person,Diego,Bedoya,0960697970,Guangala,dbedoya@espol.edu.ec,Ecuador
+compania,GlobalTech,5555555555,,Calle Internacional,Ecuador,www.globaltech.com,
+compania,SmartSolutions,4444444444,,Calle de la Innovación,Ecuador,www.smartsolutions.com,
+compania,TechCorp,1234567890,,Av. La Paz,Ecuador,www.techcorp.com,

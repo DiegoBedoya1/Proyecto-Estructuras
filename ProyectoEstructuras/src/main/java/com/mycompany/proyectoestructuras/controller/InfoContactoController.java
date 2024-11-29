@@ -283,8 +283,7 @@ private void closeWindow() {
 
     @FXML
     private void deleteContact() {
-        Stage currentStage = (Stage) deleteButton.getScene().getWindow();
-        currentStage.close();
+       Stage currentStage = (Stage) deleteButton.getScene().getWindow();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmación");
         alert.setHeaderText("Eliminar contacto");

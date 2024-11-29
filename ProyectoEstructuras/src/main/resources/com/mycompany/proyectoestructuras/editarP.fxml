@@ -14,7 +14,7 @@
          <children>
             <Pane prefHeight="23.0" prefWidth="360.0">
                <children>
-                  <Label layoutX="128.0" layoutY="18.0" text="Nuevo contacto" textFill="WHITE">
+                  <Label layoutX="128.0" layoutY="18.0" text="Editar contacto" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
