@@ -7,37 +7,37 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane prefHeight="546.0" prefWidth="367.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyectoestructuras.controller.InfoContactoController">
+<AnchorPane prefHeight="546.0" prefWidth="367.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyectoestructuras.controller.InfoContactoController" style="-fx-background-color: #2C3E50;">
     <!-- Contenedor principal -->
-    <VBox alignment="CENTER" layoutX="76.0" layoutY="39.0" spacing="20" AnchorPane.leftAnchor="76.0" AnchorPane.topAnchor="39.0">
+    <VBox alignment="CENTER" layoutX="76.0" layoutY="39.0" spacing="20" AnchorPane.leftAnchor="76.0" AnchorPane.topAnchor="39.0" style="-fx-background-color: #34495E; -fx-background-radius: 15px; -fx-padding: 20px;">
         <!-- Título -->
-        <Label fx:id="contactTitle" style="-fx-font-size: 18px; -fx-font-weight: bold;" text="Información del Contacto" />
+        <Label fx:id="contactTitle" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: white;" text="Información del Contacto" />
         
         <!-- Foto del contacto -->
-        <Circle fx:id="contactPhoto" fill="black" radius="60" stroke="white" strokeWidth="2" />
+        <Circle fx:id="contactPhoto" fill="dodgerblue" radius="60" stroke="white" strokeWidth="3" />
         
         <!-- Detalles del contacto -->
-        <VBox fx:id="infoContenedor" alignment="CENTER" spacing="10">
-            <Label fx:id="contactName" text="Nombre: " />
-            <Label fx:id="contactLastName" text="Apellido: " />
-            <Label fx:id="contactPhone" text="Teléfono: " />
-            <Label fx:id="contactAddress" text="Dirección: " />
-            <Label fx:id="contactEmail" text="Correo: " />
-            <Label fx:id="contactCountry" text="País: " />
-            <Label fx:id="contactType" text="Tipo: " />
+        <VBox fx:id="infoContenedor" alignment="CENTER" spacing="12" style="-fx-background-color: #2C3E50; -fx-background-radius: 10px; -fx-padding: 10px;">
+            <Label fx:id="contactName" style="-fx-text-fill: white;" text="Nombre: " />
+            <Label fx:id="contactLastName" style="-fx-text-fill: white;" text="Apellido: " />
+            <Label fx:id="contactPhone" style="-fx-text-fill: white;" text="Teléfono: " />
+            <Label fx:id="contactAddress" style="-fx-text-fill: white;" text="Dirección: " />
+            <Label fx:id="contactEmail" style="-fx-text-fill: white;" text="Correo: " />
+            <Label fx:id="contactCountry" style="-fx-text-fill: white;" text="País: " />
+            <Label fx:id="contactType" style="-fx-text-fill: white;" text="Tipo: " />
         </VBox>
         
         <!-- Botones -->
-        <HBox alignment="CENTER" spacing="10">
-            <Button fx:id="editButton" style="-fx-background-color: green; -fx-text-fill: white;" text="Editar" />
-            <Button fx:id="deleteButton" style="-fx-background-color: red; -fx-text-fill: white;" text="Eliminar" />
-            <Button fx:id="closeButton" style="-fx-background-color: gray; -fx-text-fill: white;" text="Cerrar" />
+        <HBox alignment="CENTER" spacing="15" style="-fx-background-color: #34495E; -fx-background-radius: 8px; -fx-padding: 10px;">
+            <Button fx:id="editButton" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10px; -fx-border-radius: 5px;" text="Editar" />
+            <Button fx:id="deleteButton" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10px; -fx-border-radius: 5px;" text="Eliminar" />
+            <Button fx:id="closeButton" style="-fx-background-color: #95a5a6; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10px; -fx-border-radius: 5px;" text="Cerrar" />
         </HBox>
 
         <!-- Navegación -->
-        <HBox alignment="CENTER" spacing="50.0">
-            <Button fx:id="previousButton" style="-fx-background-color: #3a1bff; -fx-background-radius: 10; -fx-border-radius: 10;" text="Anterior" textFill="WHITE" />
-            <Button fx:id="nextButton" style="-fx-background-color: #3a1bff; -fx-background-radius: 10; -fx-border-radius: 10;" text="Siguiente" textFill="WHITE" />
+        <HBox alignment="CENTER" spacing="50.0" style="-fx-background-color: #2C3E50; -fx-padding: 10px;">
+            <Button fx:id="previousButton" style="-fx-background-color: #3a1bff; -fx-background-radius: 10; -fx-border-radius: 10; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10px;" text="Anterior" />
+            <Button fx:id="nextButton" style="-fx-background-color: #3a1bff; -fx-background-radius: 10; -fx-border-radius: 10; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10px;" text="Siguiente" />
         </HBox>
     </VBox>
 </AnchorPane>

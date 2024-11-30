@@ -10,78 +10,91 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane prefHeight="548.0" prefWidth="360.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyectoestructuras.controller.EditarPController">
-         <children>
-            <Pane prefHeight="23.0" prefWidth="360.0">
-               <children>
-                  <Label layoutX="128.0" layoutY="18.0" text="Editar contacto" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
-            <ScrollPane layoutY="43.0" prefHeight="511.0" prefWidth="360.0" style="-fx-background-color: GREY;">
-               <content>
-                  <VBox prefHeight="505.0" prefWidth="360.0" style="-fx-background-color: BLACK;">
-                     <children>
-                        <VBox alignment="CENTER" prefHeight="136.0" prefWidth="360.0" spacing="5.0" style="-fx-background-color: BLACK;">
-                           <children>
-                              <Circle fx:id="foto" fill="DODGERBLUE" radius="50.0" stroke="#262728" strokeType="INSIDE" />
-                              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Agregar foto">
-                                 <font>
-                                    <Font name="System Bold" size="19.0" />
-                                 </font>
-                              </Text>
-                           </children>
-                        </VBox>
-                  <VBox prefHeight="363.0" prefWidth="360.0">
-                     <children>
-                        <TextField fx:id="tfnom" prefHeight="32.0" prefWidth="360.0" promptText="Nombre" style="-fx-background-color: white; -fx-background-radius: transparent;">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
+<Pane prefHeight="548.0" prefWidth="360.0" style="-fx-background-color: #2C3E50;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.proyectoestructuras.controller.EditarPController">
+    <children>
+        <!-- Barra superior con los botones y título -->
+        <Pane prefHeight="23.0" prefWidth="360.0">
+            <children>
+                <Label layoutX="128.0" layoutY="18.0" text="Editar contacto" textFill="WHITE">
+                    <font>
+                        <Font name="Arial" size="16.0" />
+                    </font>
+                </Label>
+                <!-- Botón de Cancelar -->
+                <Button fx:id="btCancelar" layoutX="14.0" layoutY="13.0" text="Cancelar" textFill="WHITE" style="-fx-background-color: transparent; -fx-border-color: white; -fx-cursor: hand;">
+                    <font>
+                        <Font name="Arial" size="14.0" />
+                    </font>
+                </Button>
+                <!-- Botón de Listo -->
+                <Button fx:id="btListo" layoutX="308.0" layoutY="12.0" text="Listo" textFill="WHITE" style="-fx-background-color: transparent; -fx-border-color: white; -fx-cursor: hand;">
+                    <font>
+                        <Font name="Arial" size="14.0" />
+                    </font>
+                </Button>
+            </children>
+        </Pane>
+
+        <!-- Scroll Pane con contenido de formulario -->
+        <ScrollPane layoutY="43.0" prefHeight="511.0" prefWidth="360.0" style="-fx-background-color: #34495E; -fx-border-radius: 10;">
+            <content>
+                <VBox prefHeight="505.0" prefWidth="360.0" style="-fx-background-color: #34495E; -fx-spacing: 10px; -fx-padding: 10px;">
+                    <!-- Sección para la foto de contacto -->
+                    <VBox alignment="CENTER" prefHeight="136.0" prefWidth="360.0" spacing="10.0">
+                        <Circle fx:id="foto" fill="DODGERBLUE" radius="50.0" stroke="#2C3E50" strokeType="INSIDE" />
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Agregar foto">
+                            <font>
+                                <Font name="Arial" size="16.0" />
+                            </font>
+                        </Text>
+                    </VBox>
+
+                    <!-- Formulario de campos de texto -->
+                    <VBox prefHeight="363.0" prefWidth="360.0">
+                        <TextField fx:id="tfnom" prefHeight="32.0" prefWidth="360.0" promptText="Nombre" style="-fx-background-color: white; -fx-background-radius: 5px; -fx-text-fill: #2C3E50;">
+                            <font>
+                                <Font size="13.0" />
+                            </font>
                         </TextField>
-                        <TextField fx:id="tfape" prefHeight="32.0" prefWidth="360.0" promptText="Apellido" style="-fx-background-color: white; -fx-background-radius: transparent;">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
+
+                        <TextField fx:id="tfape" prefHeight="32.0" prefWidth="360.0" promptText="Apellido" style="-fx-background-color: white; -fx-background-radius: 5px; -fx-text-fill: #2C3E50;">
+                            <font>
+                                <Font size="13.0" />
+                            </font>
                         </TextField>
-                        <VBox prefHeight="25.0" prefWidth="360.0" />
-                        <TextField fx:id="tftel" prefHeight="32.0" prefWidth="360.0" promptText="Número de teléfono" style="-fx-background-color: white; -fx-background-radius: transparent;">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
+
+                        <TextField fx:id="tftel" prefHeight="32.0" prefWidth="360.0" promptText="Número de teléfono" style="-fx-background-color: white; -fx-background-radius: 5px; -fx-text-fill: #2C3E50;">
+                            <font>
+                                <Font size="13.0" />
+                            </font>
                         </TextField>
-                        <VBox prefHeight="25.0" prefWidth="360.0" />
-                        <TextField fx:id="tfdir" prefHeight="32.0" prefWidth="360.0" promptText="Dirección" style="-fx-background-color: white; -fx-background-radius: transparent;">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
+
+                        <TextField fx:id="tfdir" prefHeight="32.0" prefWidth="360.0" promptText="Dirección" style="-fx-background-color: white; -fx-background-radius: 5px; -fx-text-fill: #2C3E50;">
+                            <font>
+                                <Font size="13.0" />
+                            </font>
                         </TextField>
-                        <TextField fx:id="tfpais" prefHeight="32.0" prefWidth="360.0" promptText="País" style="-fx-background-color: white; -fx-background-radius: transparent;">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
+
+                        <TextField fx:id="tfpais" prefHeight="32.0" prefWidth="360.0" promptText="País" style="-fx-background-color: white; -fx-background-radius: 5px; -fx-text-fill: #2C3E50;">
+                            <font>
+                                <Font size="13.0" />
+                            </font>
                         </TextField>
-                        <VBox prefHeight="25.0" prefWidth="360.0" />
-                        <TextField fx:id="tfurl" prefHeight="32.0" prefWidth="360.0" promptText="Url" style="-fx-background-color: white; -fx-background-radius: transparent;">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
+
+                        <TextField fx:id="tfurl" prefHeight="32.0" prefWidth="360.0" promptText="Url" style="-fx-background-color: white; -fx-background-radius: 5px; -fx-text-fill: #2C3E50;">
+                            <font>
+                                <Font size="13.0" />
+                            </font>
                         </TextField>
-                        <TextField fx:id="tfemail" prefHeight="32.0" prefWidth="360.0" promptText="Email" style="-fx-background-color: white; -fx-background-radius: transparent;">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
+
+                        <TextField fx:id="tfemail" prefHeight="32.0" prefWidth="360.0" promptText="Email" style="-fx-background-color: white; -fx-background-radius: 5px; -fx-text-fill: #2C3E50;">
+                            <font>
+                                <Font size="13.0" />
+                            </font>
                         </TextField>
-                     </children>
-                  </VBox>
-                     </children>
-                  </VBox>
-               </content>
-            </ScrollPane>
-      <Button fx:id="btCancelar" layoutX="14.0" layoutY="13.0" mnemonicParsing="false" text="Cancelar" />
-      <Button fx:id="btListo" layoutX="295.0" layoutY="13.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Listo" />
-         </children>
-      </Pane>
+                    </VBox>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </children>
+</Pane>
