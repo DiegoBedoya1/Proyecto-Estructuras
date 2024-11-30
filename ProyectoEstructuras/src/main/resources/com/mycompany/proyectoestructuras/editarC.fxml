@@ -24,7 +24,7 @@
 
         <ScrollPane layoutY="43.0" prefHeight="511.0" prefWidth="360.0" style="-fx-background-color: #2C3E50;">
             <content>
-                <VBox prefHeight="505.0" prefWidth="360.0" style="-fx-background-color: #2C3E50;" spacing="10">
+                <VBox prefHeight="505.0" prefWidth="360.0" spacing="10" style="-fx-background-color: #2C3E50;">
                     <children>
                         <VBox alignment="CENTER" prefHeight="136.0" prefWidth="360.0" spacing="5.0" style="-fx-background-color: #2C3E50;">
                             <children>
@@ -57,7 +57,7 @@
                                     </font>
                                 </TextField>
 
-                                <TextField fx:id="tfurl" prefHeight="32.0" prefWidth="360.0" promptText="Url" style="-fx-background-color: white; -fx-background-radius: 5px; -fx-text-fill: #2C3E50;">
+                                <TextField fx:id="tfurl" prefHeight="32.0" prefWidth="360.0" promptText="Ciudad" style="-fx-background-color: white; -fx-background-radius: 5px; -fx-text-fill: #2C3E50;">
                                     <font>
                                         <Font size="13.0" />
                                     </font>
@@ -85,7 +85,7 @@
             </content>
         </ScrollPane>
 
-        <Button fx:id="btListo" layoutX="300.0" layoutY="12.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Listo" style="-fx-background-color: #2980B9; -fx-text-fill: white; -fx-border-radius: 5px;" />
-        <Button fx:id="btCancelar" layoutX="14.0" layoutY="12.0" mnemonicParsing="false" text="Cancelar" style="-fx-background-color: #E74C3C; -fx-text-fill: white; -fx-border-radius: 5px;" />
+        <Button fx:id="btListo" layoutX="300.0" layoutY="12.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" style="-fx-background-color: #2980B9; -fx-text-fill: white; -fx-border-radius: 5px;" text="Listo" />
+        <Button fx:id="btCancelar" layoutX="14.0" layoutY="12.0" mnemonicParsing="false" style="-fx-background-color: #E74C3C; -fx-text-fill: white; -fx-border-radius: 5px;" text="Cancelar" />
     </children>
 </Pane>

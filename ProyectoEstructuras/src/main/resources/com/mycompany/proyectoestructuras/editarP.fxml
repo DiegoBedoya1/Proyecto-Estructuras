@@ -21,13 +21,13 @@
                     </font>
                 </Label>
                 <!-- Botón de Cancelar -->
-                <Button fx:id="btCancelar" layoutX="14.0" layoutY="13.0" text="Cancelar" textFill="WHITE" style="-fx-background-color: transparent; -fx-border-color: white; -fx-cursor: hand;">
+                <Button fx:id="btCancelar" layoutX="14.0" layoutY="13.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-cursor: hand;" text="Cancelar" textFill="WHITE">
                     <font>
                         <Font name="Arial" size="14.0" />
                     </font>
                 </Button>
                 <!-- Botón de Listo -->
-                <Button fx:id="btListo" layoutX="308.0" layoutY="12.0" text="Listo" textFill="WHITE" style="-fx-background-color: transparent; -fx-border-color: white; -fx-cursor: hand;">
+                <Button fx:id="btListo" layoutX="308.0" layoutY="12.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-cursor: hand;" text="Listo" textFill="WHITE">
                     <font>
                         <Font name="Arial" size="14.0" />
                     </font>
@@ -81,7 +81,7 @@
                             </font>
                         </TextField>
 
-                        <TextField fx:id="tfurl" prefHeight="32.0" prefWidth="360.0" promptText="Url" style="-fx-background-color: white; -fx-background-radius: 5px; -fx-text-fill: #2C3E50;">
+                        <TextField fx:id="tfurl" prefHeight="32.0" prefWidth="360.0" promptText="Ciudad" style="-fx-background-color: white; -fx-background-radius: 5px; -fx-text-fill: #2C3E50;">
                             <font>
                                 <Font size="13.0" />
                             </font>

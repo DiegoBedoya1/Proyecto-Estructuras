@@ -73,7 +73,7 @@ public class AñadirVentanaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         btListo.setOnMouseClicked(event -> {
                 guardarContacto();
-                volverVentana();
+                volverInicio();
                 cerrarVentana();
             });
         
@@ -98,7 +98,7 @@ public class AñadirVentanaController implements Initializable {
     
     public void volverVentana(){
         try {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/mycompany/proyectoestructuras/general.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/mycompany/proyectoestructuras/Eleccion.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
         Stage detallesStage = new Stage();
@@ -110,6 +110,20 @@ public class AñadirVentanaController implements Initializable {
         Stage stage = (Stage) btCancelar.getScene().getWindow();
         stage.close(); 
         
+    }
+    public void volverInicio(){
+        try {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/mycompany/proyectoestructuras/general.fxml"));
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root);
+        Stage detallesStage = new Stage();
+        detallesStage.setScene(scene);
+        detallesStage.show();
+        
+        } catch (IOException e) {
+        }
+        Stage stage = (Stage) btCancelar.getScene().getWindow();
+        stage.close();
     }
     
     public void cerrarVentana() {
