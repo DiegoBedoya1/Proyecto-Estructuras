@@ -1,11 +1,10 @@
-compania,InnovaTech,,,,,,
-person,Mario,Gonzalez,567890123,,,
-person,María,Gómez,1122334455,,,
-person,Julia,Lopez,987654321,,,
-person,Luis,Martínez,9988776655,,,
-person,Carlos,Moreno,3344556677,,,
-person,Juan,Pérez,123456789,,,
-person,Diego,Bedoya,0960697970,Guangala,,
-compania,GlobalTech,,,Calle Internacional,,,
-compania,SmartSolutions,,,Calle de la Innovación,,,
-compania,TechCorp,,,Av. La Paz,,,
+person,Juan,Pérez,123456789,Av. Siempre Viva,Guayaquil,juan.perez@example.com,Ecuador
+compania,TechCorp,,0987654321,Av. La Paz,Guayaquil,contacto@techcorp.com,Ecuador,1234567890,www.techcorp.com
+person,Ana,Lopez,987654321,Av. Los Naranjos,Guayaquil,ana.lopez@example.com,Ecuador
+compania,InnovaTech,,123456789,Av. 9 de Octubre,Guayaquil,info@innovatech.com,Ecuador,,, 
+person,Mario,Gonzalez,567890123,Av. Los Andes,,
+person,María,Gómez,1122334455,Calle Ficticia,Guayaquil,maria.gomez@example.com,Venezuela
+compania,GlobalTech,,9876543210,Calle Internacional,Guayaquil,contacto@globaltech.com,Ecuador,5555555555,www.globaltech.com
+person,Carlos,Moreno,3344556677,Calle del Sol,Guayaquil,carlos.moreno@example.com,Colombia
+compania,SmartSolutions,,1029384756,Calle de la Innovación,Guayaquil,soporte@smartsolutions.com,Ecuador,4444444444,www.smartsolutions.com
+person,Luis,Martínez,9988776655,Calle Nueva,Guayaquil,luis.martinez@example.com,Argentina

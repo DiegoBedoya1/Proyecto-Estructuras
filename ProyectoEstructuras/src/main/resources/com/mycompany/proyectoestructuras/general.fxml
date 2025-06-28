@@ -15,7 +15,7 @@
     
     <!-- Barra superior con el buscador y botones -->
     <HBox id="buscador" alignment="CENTER" spacing="15" style="-fx-padding: 15; -fx-background-color: #2C3E50;">
-        <TextField fx:id="buscador" focusTraversable="false" prefHeight="35.0" prefWidth="230.0" promptText="Buscar contacto..." style="-fx-border-color: #2980B9; -fx-background-radius: 15; -fx-border-radius: 15; -fx-padding: 5 10; -fx-text-fill: white; -fx-font-size: 14px;">
+        <TextField fx:id="buscador" focusTraversable="false" prefHeight="35.0" prefWidth="230.0" promptText="Buscar contacto..." style="-fx-border-color: #2980B9; -fx-background-radius: 15; -fx-border-radius: 15; -fx-padding: 5 10; -fx-text-fill: black; -fx-font-size: 14px;">
             <cursor>
                 <Cursor fx:constant="TEXT" />
             </cursor>
@@ -44,7 +44,7 @@
 
     <!-- Botón de cancelar búsqueda -->
     <HBox alignment="CENTER" spacing="15" style="-fx-padding: 15; -fx-background-color: #34495E;">
-        <Button fx:id="cancelarBusquedaBtn" onAction="#cancelarBusqueda" style="-fx-background-color: #E74C3C; -fx-text-fill: white; -fx-font-size: 14px; -fx-border-radius: 10; -fx-padding: 8 16;">
+        <Button fx:id="cancelarBusquedaBtn" onAction="#cancelarBusqueda" style="-fx-background-color: #E74C3C; -fx-text-fill: white; -fx-font-size: 14px; -fx-border-radius: 10; -fx-padding: 8 16;" text="Cancelar busqueda">
             <cursor>
                 <Cursor fx:constant="HAND" />
             </cursor>
